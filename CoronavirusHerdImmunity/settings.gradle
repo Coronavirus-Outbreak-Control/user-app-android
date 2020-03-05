@@ -1,0 +1,2 @@
+rootProject.name='Coronavirus Herd Immunity'
+include ':app'
