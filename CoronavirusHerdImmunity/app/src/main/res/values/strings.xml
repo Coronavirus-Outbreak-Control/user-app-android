@@ -22,7 +22,7 @@
     <string name="slide_2_title">Why is it useful</string>
     <string name="slide_2_desc">If we see that you currently are or have been close to a device whose owner has been diagnosed with Coronavirus in the past two weeks,
         we will notify you straightaway, informing you on what steps to follow next, as suggested from the Government</string>
-    <string name="slide_3_title">How you can help us</string>
+    <string name="slide_3_title">How you can help</string>
     <string name="slide_3_desc">In order to detect the interactions between yours and other devices,
         we will need your permission to use Bluetooth</string>
 

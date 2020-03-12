@@ -16,6 +16,10 @@ buildscript {
     }
 }
 
+configurations {
+    compile.exclude group: "junit", module: "junit"
+}
+
 allprojects {
     repositories {
         google()

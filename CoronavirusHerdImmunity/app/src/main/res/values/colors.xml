@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#43496F</color>
+    <color name="colorPrimary">#3C91E6</color>
     <color name="colorPrimaryDark">#1C1E2A</color>
     <color name="colorAccent">#03DAC5</color>
 
     <color name="white">#fff</color>
     <color name="black">#000</color>
+
+
+
+    <color name="palette1">#3C91E6</color>
+    <color name="palette2">#9BBDF9</color>
+    <color name="palette3">#C4E0F9</color>
+    <color name="palette4">#B95F89</color>
+    <color name="palette5">#44BBA4</color>
+    <color name="palette6">#0e1e49</color>
+
 
     <!-- dots inactive colors -->
     <color name="dot_inactive_screen0">#ffa000</color>
