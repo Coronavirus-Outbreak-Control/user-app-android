@@ -30,7 +30,14 @@ android:paddingRight="0pt"
 android:paddingTop="0pt"
 tools:context=".MainActivity">
 
-<TextView
+    <Button
+        android:id="@+id/openMonitoring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Open monitoring activity" />
+
+    <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Hello World"
