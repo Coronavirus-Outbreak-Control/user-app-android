@@ -17,7 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".introduction.WelcomeActivity" />
+        <activity android:name=".introduction.BluetoothActivity" />
+        <activity android:name=".introduction.LocationActivity" />
+        <activity android:name=".introduction.NotificationsActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/white">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <!-- illustration_bluetooth -->
-    <ImageView
-        style="@style/background_image"
-        android:layout_marginTop="400dp"
-        android:src="@drawable/ic_illustration_bluetooth" />
-    </RelativeLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,8 +31,25 @@
             android:layout_width="262dp"
             android:text="@string/together_we"
             android:textAppearance="@style/splashscreen_subtitle" />
-
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" >
+
+        <!-- BUTTON -->
+        <Button style="@style/button_primary"
+            android:shadowColor="@color/white"
+            android:id="@+id/button_next"
+            android:text="@string/let_s_get_s" />
+
+        <!-- UNDERBUTTON -->
+        <Button
+            android:id="@+id/how_it_works"
+            style="@style/underbutton"
+            android:text="@string/how_it_works" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

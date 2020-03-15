@@ -15,10 +15,13 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
-configurations {
-    compile.exclude group: "junit", module: "junit"
+configurations.all {
+    resolutionStrategy {
+        force 'org.hamcrest:hamcrest-junit:2.0.0.0'
+    }
 }
+configurations {
+    compile.exclude group: "junit", module: "junit"}
 
 allprojects {
     repositories {

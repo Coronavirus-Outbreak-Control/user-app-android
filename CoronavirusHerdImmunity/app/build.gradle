@@ -23,6 +23,14 @@ android {
 
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'org.hamcrest:hamcrest-junit:2.0.0.0'
+    }
+}
+configurations {
+    compile.exclude group: "junit", module: "junit"}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

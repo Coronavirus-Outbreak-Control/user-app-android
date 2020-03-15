@@ -1,32 +1,36 @@
 <resources>
-    <string name="app_name">Coronavirus Herd Immunity</string>
 
+    <string name="app_name">Coronavirus Herd Immunity</string>
     <string name="app_title">Anonymous Coronavirus Check</string>
 
+
     <!-- Splash Screen -->
-    <string name="splashscreen_title">Anonymous Coronavirus Check</string>
-    <string name="splashscreen_subtitle">Together we can save lives and stop people losing their job.</string>
+    <string name="welcome_to_"> Welcome to\nanonymous\nCoronavirus\ncheck :wave: \u00F0\u009F\u0091\u008B</string>
+    <string name="together_we"> Together we can save lives and help people keep their jobs. </string>
+    <string name="let_s_get_s"> LET\'S GET STARTED </string>
+    <string name="how_it_works"> How it works? </string>
 
     <!-- Introduction Slider -->
-    <string name="title_activity_welcome">Home Screen</string>
-    <string name="next">NEXT</string>
-    <string name="skip">SKIP</string>
-    <string name="start">GO TO THE APP</string>
+    <string name="step_1_of_3"> Step 1 of 3 </string>
+    <string name="step_2_of_3"> Step 2 of 3 </string>
+    <string name="step_3_of_3"> Step 3 of 3 </string>
+    <string name="skip_step"> SKIP THIS STEP </string>
 
-    <string name="slide_0_title">Who are we?</string>
-    <string name="slide_0_desc">We are a team of developers who, just like you, are concerned about Coronavirus,
-        and want to do something to limit its spreading however we can</string>
-    <string name="slide_1_title">How it works</string>
-    <string name="slide_1_desc">This app is able to anonymously monitor your distance from other devices.
-        It is able to check all the devices which have been at less than 2 meters away from you</string>
-    <string name="slide_2_title">Why is it useful</string>
-    <string name="slide_2_desc">If we see that you currently are or have been close to a device whose owner has been diagnosed with Coronavirus in the past two weeks,
-        we will notify you straightaway, informing you on what steps to follow next, as suggested from the Government</string>
-    <string name="slide_3_title">How you can help</string>
-    <string name="slide_3_desc">In order to detect the interactions between yours and other devices,
-        we will need your permission to use Bluetooth</string>
 
-    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
-    <string name="play_again">Play Again</string>
+    <string name="bluetooth"> Bluetooth</string>
+    <string name="we_need_you_blueto"> We need your permission to use Bluetooth
+        to monitor your distance from other devices.\n<b>It\'s anonymous.</b> </string>
+    <string name="give_blueto"> GIVE BLUETOOTH PERMISSION </string>
+
+    <string name="location"> Location</string>
+    <string name="we_need_you_loc"> To monitor more accurately your interactions
+        we will ask you permission to use Location.\n<b>It\'s anonymous.</b> </string>
+    <string name="give_loc"> GIVE LOCATION PERMISSION </string>
+
+    <string name="notifications"> Notifications </string>
+    <string name="we_need_you_notif"> If you\'ve been close to an infected person
+        in the past two weeks, we will notify you.\nThat\'it, just one notification.</string>
+    <string name="give_notif"> GIVE NOTIFICATION PERMISSION </string>
+
 
 </resources>
