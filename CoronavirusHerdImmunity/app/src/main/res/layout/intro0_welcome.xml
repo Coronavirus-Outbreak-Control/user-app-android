@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Welcome to anonymous Coronavirus check 👋 -->
+        <ImageView
+            android:id="@+id/logo_id"
+            android:layout_width="262dp"
+            android:layout_height="221dp"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical"
+            android:src="@drawable/welcome_to_" />
+
+        <!-- Together we can save lives and help people keep their jobs -->
+        <com.example.coronavirusherdimmunity.utils.MyTextView
+            style="@style/intro_subtitle"
+            android:id="@+id/together_we"
+            android:layout_width="262dp"
+            android:text="@string/together_we"
+            android:textAppearance="@style/splashscreen_subtitle" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" >
+
+        <!-- BUTTON -->
+        <Button style="@style/button_primary"
+            android:shadowColor="@color/white"
+            android:id="@+id/button_next"
+            android:text="@string/let_s_get_s" />
+
+        <!-- UNDERBUTTON -->
+        <Button
+            android:id="@+id/how_it_works"
+            style="@style/underbutton"
+            android:text="@string/how_it_works" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

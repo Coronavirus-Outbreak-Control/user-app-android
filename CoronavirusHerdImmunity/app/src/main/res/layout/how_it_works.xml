@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- BUTTON -->
+    <Button style="@style/button_primary"
+        android:id="@+id/button_back"
+        android:text="@string/let_s_get_s" />
+
+</RelativeLayout>

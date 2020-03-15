@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <!-- illustration_bluetooth -->
+    <ImageView
+        style="@style/background_image"
+        android:id="@+id/logo_id"
+        android:src="@drawable/ic_illustration_bluetooth" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <!-- Step 1 of 3 -->
+        <com.example.coronavirusherdimmunity.utils.MyTextView
+            style="@style/steps_text"
+            android:id="@+id/step_1_of_3"
+            android:text="@string/step_1_of_3" />
+
+        <!-- Bluetooth -->
+        <com.example.coronavirusherdimmunity.utils.MyTextView
+            style="@style/intro_title"
+            android:id="@+id/bluetooth"
+            android:text="@string/bluetooth" />
+
+        <!-- We need your permission to use Bluetooth to monitor
+        your distance from other devices. It's anonymous. -->
+        <com.example.coronavirusherdimmunity.utils.MyTextView
+            style="@style/intro_subtitle"
+            android:id="@+id/we_need_you"
+            android:text="@string/we_need_you_blueto" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true" >
+
+
+        <!-- BUTTON -->
+        <Button style="@style/button_primary"
+            android:shadowColor="@color/white"
+            android:id="@+id/button_next"
+            android:text="@string/give_blueto" />
+
+        <!-- UNDERBUTTON -->
+        <Button style="@style/underbutton"
+            android:id="@+id/button_skip"
+            android:text="@string/skip_step" />
+
+    </RelativeLayout>
+</RelativeLayout>
