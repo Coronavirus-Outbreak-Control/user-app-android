@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.coronavirusherdimmunity"
-        minSdkVersion 14
+        minSdkVersion 20
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -20,7 +20,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    configurations {
+        compile.exclude group: "junit", module: "junit"
+    }
 }
 
 configurations.all {
@@ -36,6 +38,8 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    implementation 'org.altbeacon:android-beacon-library:2+'
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
