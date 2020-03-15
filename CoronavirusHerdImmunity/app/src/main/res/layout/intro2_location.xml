@@ -9,7 +9,7 @@
     <ImageView
         style="@style/background_image"
         android:id="@+id/logo_id"
-        android:src="@drawable/ic_illustration_location" />
+        android:src="@drawable/ic_illustration_location_map" />
 
     <LinearLayout
         android:layout_width="match_parent"
