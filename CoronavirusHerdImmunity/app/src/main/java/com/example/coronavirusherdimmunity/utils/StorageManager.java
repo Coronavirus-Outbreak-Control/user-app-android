@@ -76,7 +76,7 @@ public class StorageManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(BeaconEntry.COLUMN_NAME_IDENTIFIER, beacon.identifier);
-        values.put(BeaconEntry.COLUMN_NAME_IDENTIFIER, beacon.identifier);
+        values.put(BeaconEntry.COLUMN_NAME_RSSI, beacon.rssi);
         values.put(BeaconEntry.COLUMN_NAME_TIMESTAMP, beacon.timestmp);
 
         long newRowId = db.insert(BeaconEntry.TABLE_NAME, null, values);

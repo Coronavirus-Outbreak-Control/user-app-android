@@ -7,17 +7,17 @@ import java.util.Date;
 
 public class BeaconDto {
 
-    public int timestmp;
+    public long timestmp;
     public int identifier;
     public int rssi;
 
     public BeaconDto(int identifier, int rssi){
         this.identifier = identifier;
         this.rssi = rssi;
-        this.timestmp = (int)new Date().getTime() / 1000;
+        this.timestmp = new Date().getTime() / 1000;
     }
 
-    public BeaconDto(int identifier, int rssi, int timestamp){
+    public BeaconDto(int identifier, int rssi, long timestamp){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp;
@@ -26,7 +26,7 @@ public class BeaconDto {
     public BeaconDto(int identifier, int rssi, Date timestamp){
         this.identifier = identifier;
         this.rssi = rssi;
-        this.timestmp = (int)timestamp.getTime() / 1000;
+        this.timestmp = timestamp.getTime() / 1000;
     }
 
     public JSONObject getJSON(){

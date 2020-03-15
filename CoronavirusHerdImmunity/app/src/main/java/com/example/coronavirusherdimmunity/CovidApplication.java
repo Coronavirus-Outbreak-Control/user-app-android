@@ -9,13 +9,20 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.RemoteException;
 import android.util.Log;
 
 import com.example.coronavirusherdimmunity.utils.ApiManager;
+import com.example.coronavirusherdimmunity.utils.BeaconDto;
+import com.example.coronavirusherdimmunity.utils.StorageManager;
+
 import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.BeaconTransmitter;
+import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
@@ -23,13 +30,14 @@ import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
 import bolts.Continuation;
 import bolts.Task;
 
-public class CovidApplication extends Application implements BootstrapNotifier {
+public class CovidApplication extends Application implements BootstrapNotifier, BeaconConsumer {
 
     private static final String BEACON_ID = "451720ea-5e62-11ea-bc55-0242ac130003";
 
@@ -133,6 +141,8 @@ public class CovidApplication extends Application implements BootstrapNotifier {
         // If you wish to test beacon detection in the Android Emulator, you can use code like this:
         // BeaconManager.setBeaconSimulator(new TimedBeaconSimulator() );
         // ((TimedBeaconSimulator) BeaconManager.getBeaconSimulator()).createTimedSimulatedBeacons();
+
+        beaconManager.bind(this);
     }
 
     public void disableMonitoring() {
@@ -217,5 +227,32 @@ public class CovidApplication extends Application implements BootstrapNotifier {
     public String getLog() {
         return cumulativeLog;
     }
+
+    @Override
+    public void onBeaconServiceConnect() {
+        beaconManager.removeAllRangeNotifiers();
+        beaconManager.addRangeNotifier(new RangeNotifier() {
+            @Override
+            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                Log.d(TAG, "didRangeBeaconsInRegion called with beacon count:  "+beacons.size());
+                for (Beacon beacon : beacons) {
+                    if (beacon.getId1().toString().equals(BEACON_ID)) {
+
+                        // TODO: push interactions
+                        int deviceId = 65536 * beacon.getId2().toInt() + beacon.getId3().toInt();
+
+                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi());
+                        new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
+                    }
+                }
+            }
+        });
+
+        try {
+            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+        } catch (RemoteException e) {    }
+    }
+
+
 
 }
