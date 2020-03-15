@@ -101,6 +101,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
         beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
         beaconTransmitter.startAdvertising(beacon);
+        mHandler.postDelayed(resetTransmission, 5*60*1000); // 5 min
 
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
@@ -145,6 +146,23 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         beaconManager.bind(this);
     }
 
+    private Handler mHandler = new Handler();
+    private Runnable resetTransmission = new Runnable() {
+        @Override
+        public void run() {
+            Log.e(TAG, "Transmission stop");
+            disableTrasmission();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    enableTrasmission();
+                    Log.e(TAG, "Transmission restart");
+                    mHandler.postDelayed(resetTransmission, 5*60*1000); // 5 min
+                }
+            }, 15*1000);
+        }
+    };
+
     public void disableMonitoring() {
         if (regionBootstrap != null) {
             regionBootstrap.disable();
@@ -157,10 +175,23 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         regionBootstrap = new RegionBootstrap(this, region);
     }
 
+    public void disableTrasmission() {
+        if (beaconTransmitter != null) {
+            beaconTransmitter.stopAdvertising();
+            beaconTransmitter = null;
+        }
+    }
+
+    public void enableTrasmission() {
+        if (beaconTransmitter == null) {
+            beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+            beaconTransmitter.startAdvertising(beacon);
+        }
+    }
+
     @Override
     public void didEnterRegion(Region region) {
         Log.d(TAG, "FXX did enter region.");
-        // TODO: STORE BEACON INTERACTION
 
 
         if (monitoringActivity != null) {
