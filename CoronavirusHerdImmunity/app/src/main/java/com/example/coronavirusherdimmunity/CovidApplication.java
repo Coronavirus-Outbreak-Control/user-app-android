@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.coronavirusherdimmunity.utils.ApiManager;
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
@@ -19,10 +20,18 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
+import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+
+import bolts.Continuation;
+import bolts.Task;
 
 public class CovidApplication extends Application implements BootstrapNotifier {
+
+    private static final String BEACON_ID = "451720ea-5e62-11ea-bc55-0242ac130003";
 
     private static final String TAG = "CovidApp";
     private RegionBootstrap regionBootstrap;
@@ -30,22 +39,59 @@ public class CovidApplication extends Application implements BootstrapNotifier {
     private MonitoringActivity monitoringActivity = null;
     private String cumulativeLog = "";
 
+    private Beacon beacon;
+    private BeaconParser beaconParser;
+
+    private BeaconManager beaconManager;
+    private BeaconTransmitter beaconTransmitter;
+
     public void onCreate() {
         super.onCreate();
-        BeaconManager beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
+        int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
+        if (deviceId == -1) {
+            Task.callInBackground(new Callable<Integer>() {
+                @Override
+                public Integer call() throws Exception {
 
-        Beacon beacon = new Beacon.Builder()
-                .setId1("451720ea-5e62-11ea-bc55-0242ac130003")
-                .setId2("1000") // minor
-                .setId3("2000") // major
+                        JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ UUID.randomUUID().toString());
+                        if (object != null) {
+                            return object.getInt("id");
+                        } else {
+                            return -1;
+                        }
+                }
+            }).onSuccess(new Continuation<Integer, Object>() {
+                @Override
+                public Object then(Task<Integer> task) throws Exception {
+                    Log.e(TAG, "dev " + task.getResult());
+                    if (task.getResult() != -1)
+                        new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());
+                        initBeacon(task.getResult());
+                    return null;
+                }
+            });
+        } else {
+            initBeacon(deviceId);
+        }
+    }
+
+    private void initBeacon(int deviceId){
+        beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
+
+        beacon = new Beacon.Builder()
+                .setId1(BEACON_ID)
+                .setId2(String.valueOf(deviceId / 65536)) // minor
+                .setId3(String.valueOf(deviceId % 65536)) // major
                 .setManufacturer(0x004c)
                 .setTxPower(-59)
                 .setDataFields(Arrays.asList(new Long[] {0l}))
                 .build();
-        BeaconParser beaconParser = new BeaconParser()
+
+        beaconParser = new BeaconParser()
 //                .setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25");
                 .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24");
-        BeaconTransmitter beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+
+        beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
         beaconTransmitter.startAdvertising(beacon);
 
         beaconManager.getBeaconParsers().clear();
@@ -74,7 +120,7 @@ public class CovidApplication extends Application implements BootstrapNotifier {
         }
         beaconManager.enableForegroundServiceScanning(builder.build(), 456);
         beaconManager.setEnableScheduledScanJobs(false);
-        beaconManager.setBackgroundBetweenScanPeriod(0);
+        beaconManager.setBackgroundBetweenScanPeriod(1000);
         beaconManager.setBackgroundScanPeriod(1100);
         /**/
 

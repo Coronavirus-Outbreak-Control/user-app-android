@@ -17,6 +17,7 @@ public class PreferenceManager {
     private static final String PREF_NAME = "intro_slider-welcome";
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String DEVICE_ID = "device_id";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -31,5 +32,14 @@ public class PreferenceManager {
 
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    }
+
+    public void setDeviceId(int device_id){
+        editor.putInt(DEVICE_ID, device_id);
+        editor.commit();
+    }
+
+    public int getDeviceId(){
+        return pref.getInt(DEVICE_ID, -1);
     }
 }

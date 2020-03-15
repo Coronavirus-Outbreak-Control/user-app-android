@@ -45,14 +45,14 @@ public class ApiManager {
 
         RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(body));
         Request request = new Request.Builder()
-                .url(baseEndoint + "/device/handshake/")
+                .url(baseEndoint + "/device/handshake")
                 .post(rq)
                 .build();
         try {
             Response response = client.newCall(request).execute();
             String strResponse = response.body().string();
-            Object obj = JSONValue.parse(strResponse);
-            return (JSONObject) obj;
+            JSONObject obj = new JSONObject(strResponse);
+            return obj;
         }catch(Exception e){
             Log.d("CHI", "EXCEPTION on registering device");
         }
