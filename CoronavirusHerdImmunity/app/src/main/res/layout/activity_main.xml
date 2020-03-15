@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/activity_main"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingBottom="0pt"
-android:paddingLeft="0pt"
-android:paddingRight="0pt"
-android:paddingTop="0pt"
-tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+
+            <ImageView
+                android:id="@+id/logo_id"
+                android:layout_width="200dp"
+                android:layout_height="52dp"
+                android:layout_marginLeft="@dimen/margin_left"
+                android:layout_marginTop="100dp"
+                android:orientation="vertical"
+                android:src="@drawable/all_set" />
+
+            <!-- We need your permission to use Bluetooth to monitor
+            your distance from other devices. It's anonymous. -->
+            <com.example.coronavirusherdimmunity.utils.MyTextView
+                style="@style/intro_subtitle"
+                android:text="@string/if_you_got_close" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp">
+
+                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                        style="@style/status_value"
+                        android:text="@string/status_value"
+                        android:id="@+id/active"
+                        android:layout_marginLeft="40dp"
+                        android:textColor="#009874"
+                        android:gravity="top" />
+
+                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                        style="@style/status_value"
+                        android:text="@string/n_interactions_value"
+                        android:id="@+id/n_interactions"
+                        android:gravity="top" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                        style="@style/status_title"
+                        android:text="@string/status" />
+                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                        style="@style/status_title"
+                        android:text="@string/n_interactions" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    <View style="@style/background_image"
+        android:layout_width="295dp"
+        android:layout_height="189dp"
+        android:background="@drawable/ic_rectangle_qr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/button_margin_bottom"
+        />
+    <View style="@style/background_image"
+        android:id="@+id/qr_code"
+        android:layout_width="127dp"
+        android:layout_height="127dp"
+        android:background="@drawable/ic_qr_code"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="111dp"
+        />
 
     <Button
         android:id="@+id/openMonitoring"
@@ -18,10 +93,4 @@ tools:context=".MainActivity">
         android:layout_margin="16dp"
         android:text="Open monitoring activity" />
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello World"
-    android:textSize="20sp"
-    android:layout_centerInParent="true"/>
 </RelativeLayout>

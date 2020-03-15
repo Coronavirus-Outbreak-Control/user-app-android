@@ -16,7 +16,6 @@
     <string name="step_3_of_3"> Step 3 of 3 </string>
     <string name="skip_step"> SKIP THIS STEP </string>
 
-
     <string name="bluetooth"> Bluetooth</string>
     <string name="we_need_you_blueto"> We need your permission to use Bluetooth
         to monitor your distance from other devices.\n<b>It\'s anonymous.</b> </string>
@@ -32,5 +31,13 @@
         in the past two weeks, we will notify you.\nThat\'it, just one notification.</string>
     <string name="give_notif"> GIVE NOTIFICATION PERMISSION </string>
 
+    <!-- Main Screen -->
+    <string name="all_set"> All set! </string>
+    <string name="if_you_got_close"> If you got close to an infected person during your day, we\'ll let you know. </string>
+
+    <string name="status"> STATUS </string>
+    <string name="status_value"> Active </string>
+    <string name="n_interactions"> DEVICES DETECTED </string>
+    <string name="n_interactions_value"> 0 </string>
 
 </resources>
