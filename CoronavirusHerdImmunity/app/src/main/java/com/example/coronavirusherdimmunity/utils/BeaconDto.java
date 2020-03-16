@@ -10,6 +10,7 @@ public class BeaconDto {
     public long timestmp;
     public int identifier;
     public int rssi;
+    public int interval;
 
     public BeaconDto(int identifier, int rssi){
         this.identifier = identifier;
@@ -47,7 +48,7 @@ public class BeaconDto {
 
             obj.put("o", this.identifier);
             obj.put("w", this.timestmp);
-            obj.put("t", 10);
+            obj.put("t", this.interval);
             obj.put("r", this.rssi);
 
             return obj;

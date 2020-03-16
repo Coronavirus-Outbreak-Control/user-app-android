@@ -29,8 +29,11 @@ import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
@@ -52,6 +55,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
     private BeaconManager beaconManager;
     private BeaconTransmitter beaconTransmitter;
+
+    private boolean isPushingInteractions = false;
+    private long pushStartTime = -1;
 
     public void onCreate() {
         super.onCreate();
@@ -269,13 +275,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 for (Beacon beacon : beacons) {
                     if (beacon.getId1().toString().equals(BEACON_ID)) {
 
-                        // TODO: push interactions
                         int deviceId = 65536 * beacon.getId2().toInt() + beacon.getId3().toInt();
 
                         BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi());
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
+                pushInteractions();
             }
         });
 
@@ -284,6 +290,55 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         } catch (RemoteException e) {    }
     }
 
+    private void pushInteractions(){
+        final List<BeaconDto> groups = new ArrayList<>();
 
+        final Date now = new Date();
+        long lastPushTime = new PreferenceManager(getApplicationContext()).getLastInteractionPushTime();
+        long nextPushTime = new PreferenceManager(getApplicationContext()).getNextInteractionPushTime();
+        Date lastPushDate = new Date(lastPushTime*1000);
+
+        if (now.getTime()/1000 < nextPushTime ||
+                (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
+            return;
+
+        List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
+        for (BeaconDto beacon: beacons) {
+            if (groups.size()==0){
+                groups.add(beacon);
+            } else {
+                BeaconDto lastGroup = groups.get(groups.size() -1);
+                if (lastGroup.identifier == beacon.identifier && lastGroup.timestmp + 3*60 > beacon.timestmp){
+                    groups.remove(lastGroup);
+                    lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
+                    groups.add(lastGroup);
+                } else {
+                    groups.add(beacon);
+                }
+            }
+        }
+
+        if (groups.size() > 0) {
+            isPushingInteractions = true;
+            pushStartTime = now.getTime();
+            Task.callInBackground(new Callable<JSONObject>() {
+                @Override
+                public JSONObject call() throws Exception {
+                    return ApiManager.pushInteractions(groups);
+                }
+            }).onSuccess(new Continuation<JSONObject, Object>() {
+                @Override
+                public Object then(Task<JSONObject> task) throws Exception {
+                    isPushingInteractions = false;
+                    JSONObject result = task.getResult();
+                    if (result != null && result.getString("data").toLowerCase().equals("ok")) {
+                        new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
+                        new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
+                    }
+                    return null;
+                }
+            });
+        }
+    }
 
 }

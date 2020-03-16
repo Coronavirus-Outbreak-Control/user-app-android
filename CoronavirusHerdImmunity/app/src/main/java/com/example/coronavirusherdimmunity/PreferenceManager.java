@@ -18,6 +18,8 @@ public class PreferenceManager {
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     private static final String DEVICE_ID = "device_id";
+    private static final String LAST_INTERACTIONS_PUSH_TIME = "lastInteractionsPushTime";
+    private static final String NEXT_INTERACTIONS_PUSH_TIME = "nextInteractionsPushTime";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -41,5 +43,23 @@ public class PreferenceManager {
 
     public int getDeviceId(){
         return pref.getInt(DEVICE_ID, -1);
+    }
+
+    public void setLastInteractionsPushTime(long timestamp) {
+        editor.putLong(LAST_INTERACTIONS_PUSH_TIME, timestamp);
+        editor.commit();
+    }
+
+    public long getLastInteractionPushTime() {
+        return pref.getLong(LAST_INTERACTIONS_PUSH_TIME, -1);
+    }
+
+    public void setNextInteractionsPushTime(long timestamp) {
+        editor.putLong(NEXT_INTERACTIONS_PUSH_TIME, timestamp);
+        editor.commit();
+    }
+
+    public long getNextInteractionPushTime() {
+        return pref.getLong(NEXT_INTERACTIONS_PUSH_TIME, -1);
     }
 }
