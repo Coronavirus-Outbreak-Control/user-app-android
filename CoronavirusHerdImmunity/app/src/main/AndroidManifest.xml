@@ -31,6 +31,7 @@
         <activity android:name=".introduction.LocationActivity" />
         <activity android:name=".introduction.NotificationsActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".HowItWorksActivity" />
 
         <activity android:name=".MonitoringActivity" />
         <activity android:name=".RangingActivity" />
