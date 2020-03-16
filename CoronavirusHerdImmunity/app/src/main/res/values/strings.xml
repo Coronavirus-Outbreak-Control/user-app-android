@@ -29,7 +29,7 @@
     <string name="notifications"> Notifications </string>
     <string name="we_need_you_notif"> If you\'ve been close to an infected person
         in the past two weeks, we will notify you.\nThat\'it, just one notification.</string>
-    <string name="give_notif"> GIVE NOTIFICATION PERMISSION </string>
+    <string name="give_notif"> GO TO APPLICATION </string>
 
     <!-- Main Screen -->
     <string name="all_set"> All set! </string>

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
 import com.example.coronavirusherdimmunity.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,17 +81,8 @@ public class LocationActivity  extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_ID_PERMISSION_LOCATION: {
-                // if permission was granted then turn on location
-                if (grantResults.length > 0 &&
-                        grantResults[0] != PackageManager.PERMISSION_GRANTED){
-
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //turn on location
-
-                } else {    // permission denied
                     startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
                     finish();
-                }
-                return;
             }
         }
     }
