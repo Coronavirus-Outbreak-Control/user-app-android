@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
-    <!-- Primary Button style -->
+    <!-- Buttons/Divider -->
     <style name="button_primary" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">@dimen/layout_width</item>
         <item name="android:layout_height">56dp</item>
@@ -30,6 +30,17 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:textSize"> 12sp </item>
         <item name="android:textColor"> @color/colorTextDark </item>
+    </style>
+
+    <!-- Divider -->
+    <style name="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_left</item>
+        <item name="android:layout_marginRight">@dimen/margin_left</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@drawable/ic_divider</item>
     </style>
     <!-- ///////////////////////////////////////////////////////// -->
 
@@ -57,7 +68,7 @@
         <item name="android:layout_marginTop">64dp</item>
         <item name="android:gravity">top</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#999999</item>
+        <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
     <style name="intro_title">
@@ -101,7 +112,7 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">@dimen/margin_left</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#999999</item>
+        <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
     <style name="status_value">
@@ -111,9 +122,37 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginLeft">@dimen/margin_left</item>
         <item name="android:textSize">28sp</item>
-        <item name="android:textColor">#333333</item>
+        <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
+    <style name="question">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_left</item>
+        <item name="android:layout_marginRight">@dimen/margin_left</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:gravity">top</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize"> 16sp </item>
+        <item name="android:textColor"> @color/colorTextDark </item>
+    </style>
+    <style name="paragraph">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/margin_left</item>
+        <item name="android:layout_marginRight">@dimen/margin_left</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:gravity">top</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:textSize"> 16sp </item>
+        <item name="android:textColor"> @color/colorTextDark </item>
+    </style>
+
 
 
 </resources>
