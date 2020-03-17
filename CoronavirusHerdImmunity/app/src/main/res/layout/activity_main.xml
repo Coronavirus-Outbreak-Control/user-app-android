@@ -27,11 +27,12 @@
 
             <!-- We need your permission to use Bluetooth to monitor
             your distance from other devices. It's anonymous. -->
-            <com.example.coronavirusherdimmunity.utils.MyTextView
+            <TextView
                 style="@style/intro_subtitle"
                 android:text="@string/if_you_got_close" />
 
             <LinearLayout
+                android:id="@+id/ll_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -41,7 +42,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="50dp">
 
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_value"
                         android:text="@string/status_value"
                         android:id="@+id/active"
@@ -49,7 +50,7 @@
                         android:textColor="#009874"
                         android:gravity="top" />
 
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_value"
                         android:text="@string/n_interactions_value"
                         android:id="@+id/n_interactions"
@@ -59,10 +60,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_title"
                         android:text="@string/status" />
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_title"
                         android:text="@string/n_interactions" />
                 </LinearLayout>
@@ -70,20 +71,24 @@
 
         </LinearLayout>
 
-    <View style="@style/background_image"
+    <View
+        style="@style/background_image"
         android:layout_width="295dp"
         android:layout_height="189dp"
-        android:background="@drawable/ic_rectangle_qr"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/button_margin_bottom"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/ic_rectangle_qr" />
+
     <View style="@style/background_image"
         android:id="@+id/qr_code"
         android:layout_width="127dp"
         android:layout_height="127dp"
         android:background="@drawable/ic_qr_code"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="111dp"
+        android:layout_marginBottom="61dp"
         />
 
     <Button

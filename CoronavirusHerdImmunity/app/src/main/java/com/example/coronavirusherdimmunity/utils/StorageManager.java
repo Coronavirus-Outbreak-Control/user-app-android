@@ -76,7 +76,7 @@ public class StorageManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(BeaconEntry.COLUMN_NAME_IDENTIFIER, beacon.identifier);
-        values.put(BeaconEntry.COLUMN_NAME_IDENTIFIER, beacon.identifier);
+        values.put(BeaconEntry.COLUMN_NAME_RSSI, beacon.rssi);
         values.put(BeaconEntry.COLUMN_NAME_TIMESTAMP, beacon.timestmp);
 
         long newRowId = db.insert(BeaconEntry.TABLE_NAME, null, values);
@@ -107,7 +107,7 @@ public class StorageManager extends SQLiteOpenHelper {
                 selectionArgs,          // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
-                null               // The sort order
+                BeaconEntry.COLUMN_NAME_IDENTIFIER + ", " + BeaconEntry.COLUMN_NAME_TIMESTAMP       // The sort order
         );
 
         List<BeaconDto> beacons = new ArrayList<>();

@@ -17,7 +17,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     private PreferenceManager prefManager;
 
 
-    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +31,29 @@ public class SplashScreenActivity extends AppCompatActivity {
         // Checking for first time launch - before calling setContentView()
         prefManager = new PreferenceManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
+
             launchHomeScreen();
-            finish();
+
+        }else{ //if it is first time launch
+
+            prefManager.setFirstTimeLaunch(false);
+
+            Handler handler=new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+                    finish();
+                }
+            },3000);
+
         }
 
-        startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
-        finish();
+
     }
 
     private void launchHomeScreen() {
-        prefManager.setFirstTimeLaunch(false);
-        handler=new Handler();
+        Handler handler=new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -50,6 +61,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                 finish();
             }
-        },2000);
+        },3000);
     }
 }

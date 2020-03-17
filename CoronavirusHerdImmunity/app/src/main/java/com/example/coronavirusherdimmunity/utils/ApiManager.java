@@ -1,5 +1,6 @@
 package com.example.coronavirusherdimmunity.utils;
 
+import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -45,21 +46,21 @@ public class ApiManager {
 
         RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(body));
         Request request = new Request.Builder()
-                .url(baseEndoint + "/device/handshake/")
+                .url(baseEndoint + "/device/handshake")
                 .post(rq)
                 .build();
         try {
             Response response = client.newCall(request).execute();
             String strResponse = response.body().string();
-            Object obj = JSONValue.parse(strResponse);
-            return (JSONObject) obj;
+            JSONObject obj = new JSONObject(strResponse);
+            return obj;
         }catch(Exception e){
             Log.d("CHI", "EXCEPTION on registering device");
         }
         return null;
     }
 
-    public static JSONObject pushInteractions(List<BeaconDto> beacons){
+    public static JSONObject pushInteractions(Context context, List<BeaconDto> beacons){
         // TODO: to test request
         OkHttpClient client = new OkHttpClient();
 
@@ -69,8 +70,8 @@ public class ApiManager {
 
         JSONArray arr = new JSONArray();
         for (BeaconDto beacon: beacons) {
-            if(beacon.getJSON() != null){
-                arr.put(beacon.getJSON());
+            if(beacon.getJSON(context) != null){
+                arr.put(beacon.getJSON(context));
             }
         }
 
@@ -82,8 +83,8 @@ public class ApiManager {
         try {
             Response response = client.newCall(request).execute();
             String strResponse = response.body().string();
-            Object obj = JSONValue.parse(strResponse);
-            return (JSONObject) obj;
+            JSONObject obj = new JSONObject(strResponse);
+            return obj;
         }catch(Exception e){
             Log.d("CHI", "EXCEPTION on pushing interaction");
         }

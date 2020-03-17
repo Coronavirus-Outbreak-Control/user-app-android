@@ -1,6 +1,8 @@
 package com.example.coronavirusherdimmunity.introduction;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +14,12 @@ import com.example.coronavirusherdimmunity.MainActivity;
 import com.example.coronavirusherdimmunity.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationsActivity extends AppCompatActivity {
+
+    private final int REQUEST_ID_PERMISSION_NOTIFICATION = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +38,12 @@ public class NotificationsActivity extends AppCompatActivity {
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NotificationsActivity.this, MainActivity.class));
-                finish();
-            }
-        });
 
-        button_skip = findViewById(R.id.button_skip);
-        button_skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 startActivity(new Intent(NotificationsActivity.this, MainActivity.class));
                 finish();
             }
         });
 
     }
+
 }

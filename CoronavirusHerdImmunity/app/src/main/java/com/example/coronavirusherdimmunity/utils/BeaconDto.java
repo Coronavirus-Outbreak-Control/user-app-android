@@ -1,5 +1,9 @@
 package com.example.coronavirusherdimmunity.utils;
 
+import android.content.Context;
+
+import com.example.coronavirusherdimmunity.PreferenceManager;
+
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -7,17 +11,18 @@ import java.util.Date;
 
 public class BeaconDto {
 
-    public int timestmp;
+    public long timestmp;
     public int identifier;
     public int rssi;
+    public int interval;
 
     public BeaconDto(int identifier, int rssi){
         this.identifier = identifier;
         this.rssi = rssi;
-        this.timestmp = (int)new Date().getTime() / 1000;
+        this.timestmp = new Date().getTime() / 1000;
     }
 
-    public BeaconDto(int identifier, int rssi, int timestamp){
+    public BeaconDto(int identifier, int rssi, long timestamp){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp;
@@ -26,10 +31,10 @@ public class BeaconDto {
     public BeaconDto(int identifier, int rssi, Date timestamp){
         this.identifier = identifier;
         this.rssi = rssi;
-        this.timestmp = (int)timestamp.getTime() / 1000;
+        this.timestmp = timestamp.getTime() / 1000;
     }
 
-    public JSONObject getJSON(){
+    public JSONObject getJSON(Context context){
         /*
         let i: Int64  // id of this device
         let o: Int64  // id of the interacted device
@@ -38,17 +43,18 @@ public class BeaconDto {
         let x: Double? //longitude of the position at interaction time: avoid if not available
         let t: Int    // time of interaction, default is 10
         let r: Int64 // rssi value
+        "p": string // a for android or i for ios
          */
         try {
             JSONObject obj = new JSONObject();
 
-            // TODO : read my identifier
-            obj.put("i", 0);
+            obj.put("i", new PreferenceManager(context).getDeviceId());
 
             obj.put("o", this.identifier);
             obj.put("w", this.timestmp);
-            obj.put("t", 10);
+            obj.put("t", this.interval);
             obj.put("r", this.rssi);
+            obj.put("p", "a");
 
             return obj;
         }catch (Exception e){

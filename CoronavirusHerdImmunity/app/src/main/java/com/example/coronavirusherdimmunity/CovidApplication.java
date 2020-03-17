@@ -9,20 +9,40 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.RemoteException;
 import android.util.Log;
 
+import com.example.coronavirusherdimmunity.utils.ApiManager;
+import com.example.coronavirusherdimmunity.utils.BeaconDto;
+import com.example.coronavirusherdimmunity.utils.StorageManager;
+
 import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.BeaconTransmitter;
+import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.Callable;
 
-public class CovidApplication extends Application implements BootstrapNotifier {
+import bolts.Continuation;
+import bolts.Task;
+
+public class CovidApplication extends Application implements BootstrapNotifier, BeaconConsumer {
+
+    private static final String BEACON_ID = "451720ea-5e62-11ea-bc55-0242ac130003";
 
     private static final String TAG = "CovidApp";
     private RegionBootstrap regionBootstrap;
@@ -30,23 +50,64 @@ public class CovidApplication extends Application implements BootstrapNotifier {
     private MonitoringActivity monitoringActivity = null;
     private String cumulativeLog = "";
 
+    private Beacon beacon;
+    private BeaconParser beaconParser;
+
+    private BeaconManager beaconManager;
+    private BeaconTransmitter beaconTransmitter;
+
+    private boolean isPushingInteractions = false;
+    private long pushStartTime = -1;
+
     public void onCreate() {
         super.onCreate();
-        BeaconManager beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
+        int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
+        if (deviceId == -1) {
+            Task.callInBackground(new Callable<Integer>() {
+                @Override
+                public Integer call() throws Exception {
 
-        Beacon beacon = new Beacon.Builder()
-                .setId1("451720ea-5e62-11ea-bc55-0242ac130003")
-                .setId2("1000") // minor
-                .setId3("2000") // major
+                        JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ UUID.randomUUID().toString());
+                        if (object != null) {
+                            return object.getInt("id");
+                        } else {
+                            return -1;
+                        }
+                }
+            }).onSuccess(new Continuation<Integer, Object>() {
+                @Override
+                public Object then(Task<Integer> task) throws Exception {
+                    Log.e(TAG, "dev " + task.getResult());
+                    if (task.getResult() != -1)
+                        new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());
+                        initBeacon(task.getResult());
+                    return null;
+                }
+            });
+        } else {
+            initBeacon(deviceId);
+        }
+    }
+
+    private void initBeacon(int deviceId){
+        beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
+
+        beacon = new Beacon.Builder()
+                .setId1(BEACON_ID)
+                .setId2(String.valueOf(deviceId / 65536)) // minor
+                .setId3(String.valueOf(deviceId % 65536)) // major
                 .setManufacturer(0x004c)
                 .setTxPower(-59)
                 .setDataFields(Arrays.asList(new Long[] {0l}))
                 .build();
-        BeaconParser beaconParser = new BeaconParser()
+
+        beaconParser = new BeaconParser()
 //                .setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25");
                 .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24");
-        BeaconTransmitter beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+
+        beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
         beaconTransmitter.startAdvertising(beacon);
+        mHandler.postDelayed(resetTransmission, 5*60*1000); // 5 min
 
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
@@ -74,7 +135,7 @@ public class CovidApplication extends Application implements BootstrapNotifier {
         }
         beaconManager.enableForegroundServiceScanning(builder.build(), 456);
         beaconManager.setEnableScheduledScanJobs(false);
-        beaconManager.setBackgroundBetweenScanPeriod(0);
+        beaconManager.setBackgroundBetweenScanPeriod(1000);
         beaconManager.setBackgroundScanPeriod(1100);
         /**/
 
@@ -87,7 +148,26 @@ public class CovidApplication extends Application implements BootstrapNotifier {
         // If you wish to test beacon detection in the Android Emulator, you can use code like this:
         // BeaconManager.setBeaconSimulator(new TimedBeaconSimulator() );
         // ((TimedBeaconSimulator) BeaconManager.getBeaconSimulator()).createTimedSimulatedBeacons();
+
+        beaconManager.bind(this);
     }
+
+    private Handler mHandler = new Handler();
+    private Runnable resetTransmission = new Runnable() {
+        @Override
+        public void run() {
+            Log.e(TAG, "Transmission stop");
+            disableTrasmission();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    enableTrasmission();
+                    Log.e(TAG, "Transmission restart");
+                    mHandler.postDelayed(resetTransmission, 15*1000); // 15 sec
+                }
+            }, 5*1000); // 5 sec
+        }
+    };
 
     public void disableMonitoring() {
         if (regionBootstrap != null) {
@@ -101,10 +181,23 @@ public class CovidApplication extends Application implements BootstrapNotifier {
         regionBootstrap = new RegionBootstrap(this, region);
     }
 
+    public void disableTrasmission() {
+        if (beaconTransmitter != null) {
+            beaconTransmitter.stopAdvertising();
+            beaconTransmitter = null;
+        }
+    }
+
+    public void enableTrasmission() {
+        if (beaconTransmitter == null) {
+            beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+            beaconTransmitter.startAdvertising(beacon);
+        }
+    }
+
     @Override
     public void didEnterRegion(Region region) {
         Log.d(TAG, "FXX did enter region.");
-        // TODO: STORE BEACON INTERACTION
 
 
         if (monitoringActivity != null) {
@@ -170,6 +263,82 @@ public class CovidApplication extends Application implements BootstrapNotifier {
 
     public String getLog() {
         return cumulativeLog;
+    }
+
+    @Override
+    public void onBeaconServiceConnect() {
+        beaconManager.removeAllRangeNotifiers();
+        beaconManager.addRangeNotifier(new RangeNotifier() {
+            @Override
+            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                Log.d(TAG, "didRangeBeaconsInRegion called with beacon count:  "+beacons.size());
+                for (Beacon beacon : beacons) {
+                    if (beacon.getId1().toString().equals(BEACON_ID)) {
+
+                        int deviceId = 65536 * beacon.getId2().toInt() + beacon.getId3().toInt();
+
+                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi());
+                        new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
+                    }
+                }
+                pushInteractions();
+            }
+        });
+
+        try {
+            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+        } catch (RemoteException e) {    }
+    }
+
+    private void pushInteractions(){
+        final List<BeaconDto> groups = new ArrayList<>();
+
+        final Date now = new Date();
+        long lastPushTime = new PreferenceManager(getApplicationContext()).getLastInteractionPushTime();
+        long nextPushTime = new PreferenceManager(getApplicationContext()).getNextInteractionPushTime();
+        Date lastPushDate = new Date(lastPushTime*1000);
+
+        if (now.getTime()/1000 < nextPushTime ||
+                (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
+            return;
+
+        List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
+        for (BeaconDto beacon: beacons) {
+            if (groups.size()==0){
+                groups.add(beacon);
+            } else {
+                BeaconDto lastGroup = groups.get(groups.size() -1);
+                if (lastGroup.identifier == beacon.identifier && lastGroup.timestmp + 3*60 > beacon.timestmp){
+                    groups.remove(lastGroup);
+                    lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
+                    groups.add(lastGroup);
+                } else {
+                    groups.add(beacon);
+                }
+            }
+        }
+
+        if (groups.size() > 0) {
+            isPushingInteractions = true;
+            pushStartTime = now.getTime();
+            Task.callInBackground(new Callable<JSONObject>() {
+                @Override
+                public JSONObject call() throws Exception {
+                    return ApiManager.pushInteractions(getApplicationContext(), groups);
+                }
+            }).onSuccess(new Continuation<JSONObject, Object>() {
+                @Override
+                public Object then(Task<JSONObject> task) throws Exception {
+                    isPushingInteractions = false;
+                    JSONObject result = task.getResult();
+                    if (result != null && result.getString("data").toLowerCase().equals("ok")) {
+                        new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
+                        new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
+                    }
+                    return null;
+                }
+            });
+        }
     }
 
 }

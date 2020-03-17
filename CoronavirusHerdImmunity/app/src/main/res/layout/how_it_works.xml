@@ -1,11 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+    <!-- Title -->
+        <TextView
+            style="@style/intro_title"
+            android:layout_width="200dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/how_it_works" />
+        <TextView
+            style="@style/paragraph"
+            android:layout_marginTop="@dimen/margin_left"
+            android:text="@string/how_it_works_p0" />
+
+        <View style="@style/divider" />
+
+        <TextView
+            style="@style/question"
+            android:text="@string/how_it_works_q1" />
+        <TextView
+            style="@style/paragraph"
+            android:layout_marginTop="20dp"
+            android:text="@string/how_it_works_p1" />
+
+        <View style="@style/divider" />
+
+        <TextView
+            style="@style/question"
+            android:text="@string/how_it_works_q2" />
+        <TextView
+            style="@style/paragraph"
+            android:layout_marginTop="20dp"
+            android:text="@string/how_it_works_p2" />
+
+        <View style="@style/divider" />
+
+        <TextView
+            style="@style/question"
+            android:text="@string/how_it_works_q1" />
+        <TextView
+            style="@style/paragraph"
+            android:layout_marginTop="20dp"
+            android:text="@string/how_it_works_p1" />
+
+        <View style="@style/divider" />
+
+        <TextView
+            style="@style/question"
+            android:text="@string/how_it_works_q2" />
+        <TextView
+            style="@style/paragraph"
+            android:layout_marginTop="20dp"
+            android:text="@string/how_it_works_p2" />
+
     <!-- BUTTON -->
     <Button style="@style/button_primary"
-        android:id="@+id/button_back"
-        android:text="@string/let_s_get_s" />
+        android:background="@drawable/ic_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_back" />
 
-</RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
