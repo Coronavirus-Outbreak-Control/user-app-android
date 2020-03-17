@@ -163,9 +163,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 public void run() {
                     enableTrasmission();
                     Log.e(TAG, "Transmission restart");
-                    mHandler.postDelayed(resetTransmission, 5*60*1000); // 5 min
+                    mHandler.postDelayed(resetTransmission, 15*1000); // 15 sec
                 }
-            }, 15*1000);
+            }, 5*1000); // 5 sec
         }
     };
 
