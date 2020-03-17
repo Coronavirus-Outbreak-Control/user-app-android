@@ -18,20 +18,20 @@
         android:orientation="vertical" >
 
         <!-- Step 1 of 3 -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/steps_text"
             android:id="@+id/step_1_of_3"
             android:text="@string/step_1_of_3" />
 
         <!-- Bluetooth -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/intro_title"
             android:id="@+id/bluetooth"
             android:text="@string/bluetooth" />
 
         <!-- We need your permission to use Bluetooth to monitor
         your distance from other devices. It's anonymous. -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/intro_subtitle"
             android:id="@+id/we_need_you"
             android:text="@string/we_need_you_blueto" />

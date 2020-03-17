@@ -25,7 +25,7 @@
             android:src="@drawable/welcome_to_" />
 
         <!-- Together we can save lives and help people keep their jobs -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/intro_subtitle"
             android:id="@+id/together_we"
             android:layout_width="262dp"

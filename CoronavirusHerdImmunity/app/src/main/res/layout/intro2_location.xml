@@ -18,13 +18,13 @@
         android:orientation="vertical">
 
         <!-- Step 2 of 3 -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/steps_text"
             android:id="@+id/step_2_of_3"
             android:text="@string/step_2_of_3" />
 
         <!-- Location -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/intro_title"
             android:id="@+id/location"
             android:text="@string/location" />
@@ -32,7 +32,7 @@
 
         <!-- To monitor more accurately your interactions we will
         ask you permission to use Location. It's anonymous. -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/intro_subtitle"
             android:id="@+id/we_need_you_loc"
             android:text="@string/we_need_you_loc" />

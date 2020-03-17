@@ -27,7 +27,7 @@
 
             <!-- We need your permission to use Bluetooth to monitor
             your distance from other devices. It's anonymous. -->
-            <com.example.coronavirusherdimmunity.utils.MyTextView
+            <TextView
                 style="@style/intro_subtitle"
                 android:text="@string/if_you_got_close" />
 
@@ -41,7 +41,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="50dp">
 
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_value"
                         android:text="@string/status_value"
                         android:id="@+id/active"
@@ -49,7 +49,7 @@
                         android:textColor="#009874"
                         android:gravity="top" />
 
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_value"
                         android:text="@string/n_interactions_value"
                         android:id="@+id/n_interactions"
@@ -59,10 +59,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_title"
                         android:text="@string/status" />
-                    <com.example.coronavirusherdimmunity.utils.MyTextView
+                    <TextView
                         style="@style/status_title"
                         android:text="@string/n_interactions" />
                 </LinearLayout>

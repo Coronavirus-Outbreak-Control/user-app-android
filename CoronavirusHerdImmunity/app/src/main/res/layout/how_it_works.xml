@@ -10,52 +10,52 @@
         android:orientation="vertical" >
 
     <!-- Title -->
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/intro_title"
             android:layout_width="200dp"
             android:layout_marginTop="60dp"
             android:text="@string/how_it_works" />
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/paragraph"
             android:layout_marginTop="@dimen/margin_left"
             android:text="@string/how_it_works_p0" />
 
         <View style="@style/divider" />
 
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/question"
             android:text="@string/how_it_works_q1" />
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/paragraph"
             android:layout_marginTop="20dp"
             android:text="@string/how_it_works_p1" />
 
         <View style="@style/divider" />
 
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/question"
             android:text="@string/how_it_works_q2" />
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/paragraph"
             android:layout_marginTop="20dp"
             android:text="@string/how_it_works_p2" />
 
         <View style="@style/divider" />
 
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/question"
             android:text="@string/how_it_works_q1" />
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/paragraph"
             android:layout_marginTop="20dp"
             android:text="@string/how_it_works_p1" />
 
         <View style="@style/divider" />
 
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/question"
             android:text="@string/how_it_works_q2" />
-        <com.example.coronavirusherdimmunity.utils.MyTextView
+        <TextView
             style="@style/paragraph"
             android:layout_marginTop="20dp"
             android:text="@string/how_it_works_p2" />
