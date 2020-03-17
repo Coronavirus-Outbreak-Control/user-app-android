@@ -1,5 +1,6 @@
 package com.example.coronavirusherdimmunity.utils;
 
+import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -59,7 +60,7 @@ public class ApiManager {
         return null;
     }
 
-    public static JSONObject pushInteractions(List<BeaconDto> beacons){
+    public static JSONObject pushInteractions(Context context, List<BeaconDto> beacons){
         // TODO: to test request
         OkHttpClient client = new OkHttpClient();
 
@@ -69,8 +70,8 @@ public class ApiManager {
 
         JSONArray arr = new JSONArray();
         for (BeaconDto beacon: beacons) {
-            if(beacon.getJSON() != null){
-                arr.put(beacon.getJSON());
+            if(beacon.getJSON(context) != null){
+                arr.put(beacon.getJSON(context));
             }
         }
 
