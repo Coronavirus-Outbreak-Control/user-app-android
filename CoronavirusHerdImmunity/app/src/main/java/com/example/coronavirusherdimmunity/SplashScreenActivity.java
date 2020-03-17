@@ -15,6 +15,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private PreferenceManager prefManager;
     Handler handler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +35,29 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         if (!prefManager.isFirstTimeLaunch()) {
-            this.launchHomeScreen();
+
+            launchHomeScreen();
+
+        }else{ //if it is first time launch
+
+            prefManager.setFirstTimeLaunch(false);
+
+            Handler handler=new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+                    finish();
+                }
+            },3000);
+
         }
 
-        this.launchIntroduction();
+
     }
 
     private void launchHomeScreen() {
+        Handler handler=new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -49,8 +66,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },2000);
-
+        },3000);
     }
     private void launchIntroduction() {
 
