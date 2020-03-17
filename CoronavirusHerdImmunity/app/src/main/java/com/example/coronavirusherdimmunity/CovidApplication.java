@@ -324,7 +324,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() throws Exception {
-                    return ApiManager.pushInteractions(groups);
+                    return ApiManager.pushInteractions(getApplicationContext(), groups);
                 }
             }).onSuccess(new Continuation<JSONObject, Object>() {
                 @Override
