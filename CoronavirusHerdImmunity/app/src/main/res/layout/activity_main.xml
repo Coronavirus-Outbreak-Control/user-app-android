@@ -51,9 +51,9 @@
 
                     <TextView
                         style="@style/status_value"
-                        android:text="@string/n_interactions_value"
                         android:id="@+id/n_interactions"
                         android:gravity="top" />
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
