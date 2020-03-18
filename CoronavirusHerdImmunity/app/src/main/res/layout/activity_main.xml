@@ -71,25 +71,12 @@
 
         </LinearLayout>
 
-    <View
-        style="@style/background_image"
-        android:layout_width="295dp"
-        android:layout_height="189dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/ic_rectangle_qr" />
-
-    <View style="@style/background_image"
+    <ImageView style="@style/background_image"
         android:id="@+id/qr_code"
-        android:layout_width="127dp"
-        android:layout_height="127dp"
-        android:background="@drawable/ic_qr_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="61dp"
-        />
+        android:layout_marginBottom="@dimen/margin_left" />
 
     <Button
         android:id="@+id/openMonitoring"
