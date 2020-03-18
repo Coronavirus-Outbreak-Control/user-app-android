@@ -36,7 +36,7 @@ public class QRCodeGenerator {
 
         int width = point.x;
         int height = point.y;
-        int dimension = (Math.min(width, height)) * 3 / 2;
+        int dimension = (Math.min(width, height)) * 2 / 3;
 
 
         qrgEncoder = new QRGEncoder(inputValue, null, QRGContents.Type.TEXT, dimension);
