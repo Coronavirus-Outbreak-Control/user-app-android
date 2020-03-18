@@ -1,22 +1,31 @@
 package com.example.coronavirusherdimmunity.introduction;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import com.example.coronavirusherdimmunity.R;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import java.util.ArrayList;
 
 public class LocationActivity  extends AppCompatActivity {
 
     private final int REQUEST_ID_PERMISSION_LOCATION = 2;
+
+    private int lenght_listPermissionsNeeded = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +45,7 @@ public class LocationActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                requestLocationPermission();
+                requestLocationPermission();  //require Local Permissions
 
             }
         });
@@ -58,19 +67,48 @@ public class LocationActivity  extends AppCompatActivity {
      */
     private void requestLocationPermission(){
 
+        ArrayList<String> listPermissionsNeeded = new ArrayList<>();
+
         //if location permission is not granted then request permission
         if (ActivityCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(LocationActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_ID_PERMISSION_LOCATION);
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
 
-        }else{ //already granted, thus go to next activity
+        }
+
+        if (ActivityCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+
+        }
+
+        lenght_listPermissionsNeeded = listPermissionsNeeded.size();
+        //if the permission list is not empty then requires the permissions
+        if (!listPermissionsNeeded.isEmpty()) {
+
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_PERMISSION_LOCATION);
+
+        } else{ //already granted, thus go to next activity
             startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
             finish();
         }
+
     }
 
+
+
+    /*+
+     * If every permission is granted  by user then return true,
+     * else return false
+     */
+    private boolean check_permission_granted(int[] grantResults){
+        for (int i = 0; i < lenght_listPermissionsNeeded; i++ ) {
+            if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * When the user responds to your app's permission request, the system invokes this function.
@@ -81,8 +119,12 @@ public class LocationActivity  extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_ID_PERMISSION_LOCATION: {
+                // if permissions were granted then go next Activity
+                if (grantResults.length > 0 &&
+                        check_permission_granted(grantResults)) {
                     startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
                     finish();
+                }
             }
         }
     }
