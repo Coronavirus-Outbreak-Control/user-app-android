@@ -3,6 +3,8 @@ package com.example.coronavirusherdimmunity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.coronavirusherdimmunity.enums.PatientStatus;
+
 
 public class PreferenceManager {
 
@@ -20,6 +22,7 @@ public class PreferenceManager {
     private static final String DEVICE_ID = "device_id";
     private static final String LAST_INTERACTIONS_PUSH_TIME = "lastInteractionsPushTime";
     private static final String NEXT_INTERACTIONS_PUSH_TIME = "nextInteractionsPushTime";
+    private static final String PATIENT_STATUS = "patientStatus";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -61,5 +64,19 @@ public class PreferenceManager {
 
     public long getNextInteractionPushTime() {
         return pref.getLong(NEXT_INTERACTIONS_PUSH_TIME, -1);
+    }
+
+    // {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
+    public void setPatientStatus(PatientStatus status) {
+        setPatientStatus(status.toInt());
+    }
+
+    public void setPatientStatus(int status) {
+        editor.putInt(PATIENT_STATUS, status);
+        editor.commit();
+    }
+
+    public PatientStatus getPatientStatus() {
+        return PatientStatus.valueOf(pref.getInt(PATIENT_STATUS, 0));
     }
 }
