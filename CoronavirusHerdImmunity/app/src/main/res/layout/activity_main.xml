@@ -44,8 +44,7 @@
 
                     <TextView
                         style="@style/status_value"
-                        android:text="@string/status_value"
-                        android:id="@+id/active"
+                        android:id="@+id/status_value"
                         android:layout_marginLeft="40dp"
                         android:textColor="#009874"
                         android:gravity="top" />
