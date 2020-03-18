@@ -1,7 +1,9 @@
 package com.example.coronavirusherdimmunity.introduction;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -63,8 +65,19 @@ public class BluetoothActivity extends AppCompatActivity {
     private void requestBTPermission(){
 
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null) {
-            // Device doesn't support Bluetooth
+        if (bluetoothAdapter == null) { // Device doesn't support Bluetooth
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.blue_notsupported);
+            builder.setMessage(R.string.blue_msg_notsupported);
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+
+                }
+            });
+            builder.show();
         }
 
         if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled then turn on
@@ -80,14 +93,18 @@ public class BluetoothActivity extends AppCompatActivity {
 
     /**
      * When the user responds to your app's permission request, the system invokes this function.
-     * This function check if the permissions are granted or not, then go to next activity
+     * This function check if the permissions are granted, then go to next activity
      */
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_ID_PERMISSIONS_BLUETOOTH: {
-                startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
-                finish();
+                // if permission was granted then go to next Activity
+                if (resultCode == RESULT_OK) {
+
+                    startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
+                    finish();
+                }
             }
         }
     }

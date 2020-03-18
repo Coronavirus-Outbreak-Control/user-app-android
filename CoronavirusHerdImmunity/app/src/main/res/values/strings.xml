@@ -4,19 +4,35 @@
     <string name="app_title">Anonymous Coronavirus Check</string>
 
 
-    <!-- Splash Screen -->
+    <!-- ******* Splash Screen  ******** -->
     <string name="welcome_to_"> Welcome to\nanonymous\nCoronavirus\ncheck :wave: \u00F0\u009F\u0091\u008B</string>
     <string name="together_we"> Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s"> LET\'S GET STARTED </string>
     <string name="how_it_works"> How it works? </string>
+    <!-- ******************************* -->
 
-    <!-- Introduction Slider -->
+    <!-- ******* Utils **************** -->
+
+    <!-- Permission Request -->
+    <string name="blue_disabled"> Bluetooth Disabled</string>
+    <string name="blue_please_en"> Please, enable Bluetooth </string>
+    <string name="loc_disabled"> Location Disabled </string>
+    <string name="loc_please_en"> Please, enable Location </string>
+
+    <!-- ******************************* -->
+
+
+
+    <!-- ***** Introduction Slider ****** -->
+
     <string name="step_1_of_3"> Step 1 of 3 </string>
     <string name="step_2_of_3"> Step 2 of 3 </string>
     <string name="step_3_of_3"> Step 3 of 3 </string>
     <string name="skip_step"> SKIP THIS STEP </string>
 
     <string name="bluetooth"> Bluetooth</string>
+    <string name="blue_notsupported">Bluetooth LE not available</string>
+    <string name="blue_msg_notsupported">Sorry, this device does not support Bluetooth LE</string>
     <string name="we_need_you_blueto"> We need your permission to use Bluetooth
         to monitor your distance from other devices.\n<b>It\'s anonymous.</b> </string>
     <string name="give_blueto"> GIVE BLUETOOTH PERMISSION </string>
@@ -31,7 +47,10 @@
         in the past two weeks, we will notify you.\nThat\'it, just one notification.</string>
     <string name="give_notif"> GO TO APPLICATION </string>
 
-    <!-- Main Screen -->
+    <!-- ******************************* -->
+
+
+    <!-- ******** Main Screen ********** -->
     <string name="all_set"> All set! </string>
     <string name="if_you_got_close"> If you got close to an infected person during your day, we\'ll let you know. </string>
 
@@ -39,8 +58,10 @@
     <string name="status_value"> Active </string>
     <string name="n_interactions"> DEVICES DETECTED </string>
     <string name="n_interactions_value"> 0 </string>
+    <!-- ******************************* -->
 
-    <!-- How it works Screen -->
+
+    <!-- ****** How it works Screen *****-->
     <string name="how_it_works_p0"> We will use your mobile phone bluetooth and gps to
         anonymously log the devices closer than 2 meters to you. </string>
 
@@ -51,6 +72,15 @@
     <string name="how_it_works_q2"> How do you know who’s sick? </string>
     <string name="how_it_works_p2"> Your status, and others in the network will be
         validated by professional medical staff by scanning your accound ID. </string>
+    <!-- ******************************* -->
+
+    <!-- ***** Monitoring Screen ******* -->
+    <string name="bt_enable_mon"> Re-Enable Monitoring </string>
+    <string name="bt_disable_mon"> Disable Monitoring </string>
+    <!-- ******************************* -->
+
+
+
 
 
 </resources>
