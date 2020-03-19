@@ -31,10 +31,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         // Checking for first time launch - before calling setContentView()
         prefManager = new PreferenceManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
-
             launchHomeScreen();
 
-        }else{ //if it is first time launch
+        } else { //if it is first time launch
 
             prefManager.setFirstTimeLaunch(false);
 
