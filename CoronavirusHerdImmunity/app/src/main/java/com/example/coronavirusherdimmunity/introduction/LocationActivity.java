@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.example.coronavirusherdimmunity.MainActivity;
+import com.example.coronavirusherdimmunity.MonitoringActivity;
 import com.example.coronavirusherdimmunity.R;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +29,7 @@ public class LocationActivity  extends AppCompatActivity {
     private final int REQUEST_ID_PERMISSION_LOCATION = 2;
 
     private int lenght_listPermissionsNeeded = 0;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class LocationActivity  extends AppCompatActivity {
 
         Button button_next, button_skip;
 
+        bundle = getIntent().getExtras(); //Retrieves data from the intent
 
         button_next = findViewById(R.id.button_next);
         button_next.setOnClickListener(new View.OnClickListener() {
@@ -54,13 +59,32 @@ public class LocationActivity  extends AppCompatActivity {
         button_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
-                finish();
+
+                go_nextActivity();
             }
         });
 
     }
 
+    /**
+     * if this activity has been re-called in order to enable permission then go to MainActivity
+     * else if this activity has been called for the first time then go NotificationsActivity
+     */
+    private void go_nextActivity(){
+
+        if ( bundle != null &&
+                bundle.getBoolean("permission_request")){ // if this activity has been recalled then go to MainActivity
+
+            startActivity(new Intent(LocationActivity.this, MainActivity.class));
+            finish();
+
+        }else{ //if this activity has been called for the first time then go to NotificationsActivity
+
+            startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
+            finish();
+        }
+
+    }
 
     /**
      * Require Location permission, turn on it, go to next activity
@@ -89,12 +113,10 @@ public class LocationActivity  extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_PERMISSION_LOCATION);
 
         } else{ //already granted, thus go to next activity
-            startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
-            finish();
+            go_nextActivity();
         }
 
     }
-
 
 
     /*+
@@ -122,8 +144,9 @@ public class LocationActivity  extends AppCompatActivity {
                 // if permissions were granted then go next Activity
                 if (grantResults.length > 0 &&
                         check_permission_granted(grantResults)) {
-                    startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
-                    finish();
+
+                    go_nextActivity();
+
                 }
             }
         }

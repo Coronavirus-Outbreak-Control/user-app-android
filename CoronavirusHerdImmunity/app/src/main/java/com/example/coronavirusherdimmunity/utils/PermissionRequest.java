@@ -26,17 +26,23 @@ public class PermissionRequest {
 
     /**
      * Check permissions if they are granted else go to introduction activities in order to enable them (Bluetooth, Location)
+     * @return: 'true' if all permissions are granted, 'false' if at least one permission is not granted
      */
-    public void checkPermissions(){
+    public boolean checkPermissions(){
+
+        boolean ret_check_perm = true;
 
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
             // Device doesn't support Bluetooth
         }
-        if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled go to bluetooth activity in order to enable it
+        else if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled go to bluetooth activity in order to enable it
+
+            final Intent intent_bt = new Intent(context, BluetoothActivity.class);
+            intent_bt.putExtra("permission_request", true); // notify next activity that permission is required
 
             // show alert dialog "Please, enable bluetooth"
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(R.string.blue_disabled);
             builder.setMessage(R.string.blue_please_en);
             builder.setPositiveButton(android.R.string.ok, null);
@@ -44,17 +50,22 @@ public class PermissionRequest {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     //when you click "ok" then go to next activity in order to enable bluetooth
-                    context.startActivity(new Intent(context, BluetoothActivity.class));
+                    context.startActivity(intent_bt);
                 }
             });
             builder.show();
 
-        } //else if location is not enabled go to location activity in order to enable it
-        else if (ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ret_check_perm = false;
+
+        }//if location is not enabled go to location activity in order to enable it
+        else if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            final Intent intent_loc = new Intent(context, LocationActivity.class);
+            intent_loc.putExtra("permission_request", true); // notify next activity that permission is required
 
             // show alert dialog "Please, enable location"
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(R.string.loc_disabled);
             builder.setMessage(R.string.loc_please_en);
             builder.setPositiveButton(android.R.string.ok, null);
@@ -62,14 +73,18 @@ public class PermissionRequest {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     //when you click "ok" then go to Location Activity in order to enable location permission
-                    context.startActivity(new Intent(context, LocationActivity.class));
+                    context.startActivity(intent_loc);
                 }
             });
             builder.show();
 
+            ret_check_perm = false;
+
         }else{
 
         }
+
+        return ret_check_perm;
     }
 
 
