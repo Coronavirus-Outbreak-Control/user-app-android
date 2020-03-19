@@ -35,11 +35,6 @@ public class MonitoringActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitoring);
-
-
-        PermissionRequest permissions = new PermissionRequest(MonitoringActivity.this);
-        permissions.checkPermissions();  //check if bluetooth and location are enabled else go to activity in order to enable them
-
     }
 
 

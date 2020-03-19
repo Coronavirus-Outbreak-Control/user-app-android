@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
+import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.QRCodeGenerator;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
 
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        PermissionRequest permissions = new PermissionRequest(MainActivity.this);
+        permissions.checkPermissions(); //check if bluetooth and location are enabled else go to activity in order to enable them
     }
 
     private void writePatientStatus() {
