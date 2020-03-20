@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "172223711069",
+    "firebase_url": "https://coronavirus-outbreak-control.firebaseio.com",
+    "project_id": "coronavirus-outbreak-control",
+    "storage_bucket": "coronavirus-outbreak-control.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172223711069:android:5137a0e5b52559bc9b8ab4",
+        "android_client_info": {
+          "package_name": "com.example.coronavirusherdimmunity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172223711069-r3rn7juoacangnum0q9i27utmn7652nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB50ZDK-_4285SU4NFF86ljAG_PWr8PWQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172223711069-r3rn7juoacangnum0q9i27utmn7652nj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172223711069:android:6ba18935aaea38ee9b8ab4",
+        "android_client_info": {
+          "package_name": "org.coronavirus_outbreak_control.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172223711069-r3rn7juoacangnum0q9i27utmn7652nj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB50ZDK-_4285SU4NFF86ljAG_PWr8PWQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172223711069-r3rn7juoacangnum0q9i27utmn7652nj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
