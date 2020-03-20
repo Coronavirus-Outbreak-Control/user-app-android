@@ -47,8 +47,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             },3000);
 
         }
-
-
     }
 
     private void launchHomeScreen() {
@@ -60,6 +58,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                 finish();
             }
-        },3000);
+        },2000);
     }
+
+    @Override
+    public void onBackPressed() { } // disable back button
 }

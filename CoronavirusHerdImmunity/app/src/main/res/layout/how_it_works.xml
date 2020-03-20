@@ -44,21 +44,31 @@
 
         <TextView
             style="@style/question"
-            android:text="@string/how_it_works_q1" />
+            android:text="@string/how_it_works_q3" />
         <TextView
             style="@style/paragraph"
             android:layout_marginTop="20dp"
-            android:text="@string/how_it_works_p1" />
+            android:text="@string/how_it_works_p3" />
 
         <View style="@style/divider" />
 
         <TextView
             style="@style/question"
-            android:text="@string/how_it_works_q2" />
+            android:text="@string/how_it_works_q4" />
         <TextView
             style="@style/paragraph"
             android:layout_marginTop="20dp"
-            android:text="@string/how_it_works_p2" />
+            android:text="@string/how_it_works_p4" />
+
+        <View style="@style/divider" />
+
+        <TextView
+            style="@style/question"
+            android:text="@string/how_it_works_q5" />
+        <TextView
+            style="@style/paragraph"
+            android:layout_marginTop="20dp"
+            android:text="@string/how_it_works_p5" />
 
     <!-- BUTTON -->
     <Button style="@style/button_primary"

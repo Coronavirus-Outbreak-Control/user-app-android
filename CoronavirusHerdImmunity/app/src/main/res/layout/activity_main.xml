@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -68,20 +69,22 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <ImageView style="@style/background_image"
+                android:id="@+id/qr_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"/>
+
+            <Button
+                android:id="@+id/openMonitoring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Open monitoring activity" />
         </LinearLayout>
 
-    <ImageView style="@style/background_image"
-        android:id="@+id/qr_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/margin_left" />
 
-    <Button
-        android:id="@+id/openMonitoring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Open monitoring activity" />
 
-</RelativeLayout>
+</ScrollView>
