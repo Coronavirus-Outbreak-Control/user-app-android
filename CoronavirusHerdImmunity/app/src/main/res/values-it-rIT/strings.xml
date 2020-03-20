@@ -35,12 +35,12 @@
     <string name="blue_msg_notsupported">Ci dispiace, questo dispositivo non supporta Bluetooth LE</string>
 
     <string name="we_need_you_blueto"> Abbiamo bisogno del tuo permesso per usare il Bluetooth
-        per misurare la tua distanza da altri dispositivi.\n<b>E\' anonimo.</b> </string>
+        per misurare la tua distanza da altri dispositivi.\n<b>É anonimo.</b> </string>
     <string name="give_blueto"> ACCENDI IL BLUETOOTH </string>
 
     <string name="location"> Posizione </string>
     <string name="we_need_you_loc"> Per individuare con più precisione le interazioni,
-        ti chiediamo il permesso di usare la tua Posizione. \n<b>E\' anonimo.</b> </string>
+        ti chiediamo il permesso di usare la tua Posizione. \n<b>É anonimo.</b> </string>
     <string name="give_loc"> ATTIVA LA POSIZIONE </string>
 
     <string name="notifications"> Notifiche </string>
@@ -78,6 +78,8 @@
     <string name="how_it_works_q3"> Come fate a sapere chi è malato? </string>
     <string name="how_it_works_p3"> Il tuo stato, e quello delle persone intorno a te, sarà convalidato
         da medici professionisti selezionati dal governo, usando il codice QR presente nell\'App. </string>
+
+
 
     <string name="how_it_works_q4"> Che devo fare se ricevo la notifica? </string>
     <string name="how_it_works_p4"> Sei stato esposto a qualcuno che è risultato positivo.
