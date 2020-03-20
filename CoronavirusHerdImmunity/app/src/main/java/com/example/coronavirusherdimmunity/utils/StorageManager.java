@@ -132,7 +132,7 @@ public class StorageManager extends SQLiteOpenHelper {
         return beacons;
     }
 
-    public int countTotalInteractions() {
+    public int countInteractions() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(
