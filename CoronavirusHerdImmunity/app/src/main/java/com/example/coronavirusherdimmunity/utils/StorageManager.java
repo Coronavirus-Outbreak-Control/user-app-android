@@ -136,8 +136,9 @@ public class StorageManager extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(
-                "select (count(*)) as " + BeaconEntry.COUNT_BEACONS + " " +
-                        "from " + BeaconEntry.TABLE_NAME, null);
+                "select (count(*)) as " + BeaconEntry.COUNT_BEACONS +
+                        " from " + BeaconEntry.TABLE_NAME +
+                        " group by " + BeaconEntry._ID, null);
         cursor.moveToFirst();
 
         //TODO: to test
@@ -156,7 +157,10 @@ public class StorageManager extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(
                 "select (count(*)) as " + BeaconEntry.COUNT_BEACONS + " " +
-                        "from " + BeaconEntry.TABLE_NAME + " where timestamp >= " + tmp, null);
+                        "from " + BeaconEntry.TABLE_NAME +
+                        " where timestamp >= " + tmp +
+                        " group by " + BeaconEntry._ID,
+                null);
         cursor.moveToFirst();
 
         //TODO: to test
