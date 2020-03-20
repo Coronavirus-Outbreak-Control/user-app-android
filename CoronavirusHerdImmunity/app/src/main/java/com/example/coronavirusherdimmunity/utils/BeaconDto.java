@@ -3,6 +3,7 @@ package com.example.coronavirusherdimmunity.utils;
 import android.content.Context;
 
 import com.example.coronavirusherdimmunity.PreferenceManager;
+import com.example.coronavirusherdimmunity.enums.Distance;
 
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
@@ -14,24 +15,28 @@ public class BeaconDto {
     public long timestmp;
     public int identifier;
     public int rssi;
+    public Distance distance;
     public int interval;
 
-    public BeaconDto(int identifier, int rssi){
+    public BeaconDto(int identifier, int rssi, Distance distance){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = new Date().getTime() / 1000;
+        this.distance = distance;
     }
 
-    public BeaconDto(int identifier, int rssi, long timestamp){
+    public BeaconDto(int identifier, int rssi, long timestamp, Distance distance){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp;
+        this.distance = distance;
     }
 
-    public BeaconDto(int identifier, int rssi, Date timestamp){
+    public BeaconDto(int identifier, int rssi, Date timestamp, Distance distance){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp.getTime() / 1000;
+        this.distance = distance;
     }
 
     public JSONObject getJSON(Context context){
@@ -55,6 +60,7 @@ public class BeaconDto {
             obj.put("t", this.interval);
             obj.put("r", this.rssi);
             obj.put("p", "a");
+            obj.put("d", distance.toString());
 
             return obj;
         }catch (Exception e){
