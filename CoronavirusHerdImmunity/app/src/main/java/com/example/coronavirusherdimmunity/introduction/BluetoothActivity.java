@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.coronavirusherdimmunity.HowItWorksActivity;
+import com.example.coronavirusherdimmunity.MainActivity;
+import com.example.coronavirusherdimmunity.MonitoringActivity;
 import com.example.coronavirusherdimmunity.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 public class BluetoothActivity extends AppCompatActivity {
 
     private final int REQUEST_ID_PERMISSIONS_BLUETOOTH = 1;
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class BluetoothActivity extends AppCompatActivity {
         setContentView(R.layout.intro1_bluetooth);
 
         Button button_next, button_skip;
+
+        bundle = getIntent().getExtras(); //Retrieves data from the intent
 
         button_next = findViewById(R.id.button_next);
         button_next.setOnClickListener(new View.OnClickListener() {
@@ -52,12 +58,34 @@ public class BluetoothActivity extends AppCompatActivity {
         button_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
-                finish();
+
+                go_nextActivity();
+
             }
         });
 
     }
+
+    /**
+     * if this activity has been re-called in order to enable permission then go to MainActivity
+     * else if this activity has been called for the first time then go LocationActivity
+     */
+    private void go_nextActivity(){
+
+        if ( bundle != null &&
+                bundle.getBoolean("permission_request")){ // if this activity has been recalled then go to MainActivity
+
+            startActivity(new Intent(BluetoothActivity.this, MainActivity.class));
+            finish();
+
+        }else{ //if this activity has been called for the first time then go to LocationActivity
+
+            startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
+            finish();
+        }
+
+    }
+
 
     /**
      * Require Bluetooth permission, turn on it, go to next activity
@@ -81,11 +109,14 @@ public class BluetoothActivity extends AppCompatActivity {
         }
 
         if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled then turn on
+
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ID_PERMISSIONS_BLUETOOTH);
+
         } else { //else bluetooth is enabled then go to next activity
-            startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
-            finish();
+
+            go_nextActivity();
+
         }
 
     }
@@ -102,8 +133,8 @@ public class BluetoothActivity extends AppCompatActivity {
                 // if permission was granted then go to next Activity
                 if (resultCode == RESULT_OK) {
 
-                    startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
-                    finish();
+                    go_nextActivity();
+
                 }
             }
         }
