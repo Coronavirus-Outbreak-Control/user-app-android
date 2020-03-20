@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         TextView interactionsTextView = (TextView) findViewById(R.id.n_interactions);
 
         // TODO: use countTotalInteractions instead
-        int interactions = new StorageManager(getApplicationContext()).countDailyInteractions();
+        int interactions = new StorageManager(getApplicationContext()).countTotalInteractions();
         interactionsTextView.setText(String.valueOf(interactions));
     }
 

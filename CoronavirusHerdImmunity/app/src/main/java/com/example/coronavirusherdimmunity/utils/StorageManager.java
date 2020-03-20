@@ -132,6 +132,20 @@ public class StorageManager extends SQLiteOpenHelper {
         return beacons;
     }
 
+    public int countTotalInteractions() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "select (count(*)) as " + BeaconEntry.COUNT_BEACONS + " " +
+                        "from " + BeaconEntry.TABLE_NAME, null);
+        cursor.moveToFirst();
+
+        //TODO: to test
+        int count = cursor.getInt(cursor.getColumnIndex(BeaconEntry.COUNT_BEACONS));
+        cursor.close();
+        return count;
+    }
+
     public int countDailyInteractions(){
         return countInteractions(Helper.getToday());
     }
