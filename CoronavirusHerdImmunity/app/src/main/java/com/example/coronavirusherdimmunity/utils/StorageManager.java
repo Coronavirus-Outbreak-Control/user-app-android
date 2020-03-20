@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import com.example.coronavirusherdimmunity.enums.Distance;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,7 @@ public class StorageManager extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_IDENTIFIER = "identifier";
         public static final String COLUMN_NAME_RSSI = "rssi";
         public static final String COLUMN_NAME_TIMESTAMP = "timestamp";
+        public static final String COLUMN_NAME_DISTANCE = "distance";
 
         public static final String COUNT_BEACONS = "countBeacons";
 
@@ -34,6 +37,7 @@ public class StorageManager extends SQLiteOpenHelper {
                     BeaconEntry._ID + " INTEGER PRIMARY KEY," +
                     BeaconEntry.COLUMN_NAME_IDENTIFIER + " INTEGER," +
                     BeaconEntry.COLUMN_NAME_RSSI + " INTEGER," +
+                    BeaconEntry.COLUMN_NAME_DISTANCE + " INTEGER DEFAULT 0,"+
                     BeaconEntry.COLUMN_NAME_TIMESTAMP + " INTEGER)";
 
     private static final  String SQL_CREATE_IDENTIFIER_INDEX =
@@ -48,7 +52,7 @@ public class StorageManager extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + BeaconEntry.TABLE_NAME;
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "StorageManager.db";
 
     public StorageManager(Context context) {
@@ -78,6 +82,7 @@ public class StorageManager extends SQLiteOpenHelper {
         values.put(BeaconEntry.COLUMN_NAME_IDENTIFIER, beacon.identifier);
         values.put(BeaconEntry.COLUMN_NAME_RSSI, beacon.rssi);
         values.put(BeaconEntry.COLUMN_NAME_TIMESTAMP, beacon.timestmp);
+        values.put(BeaconEntry.COLUMN_NAME_DISTANCE, beacon.distance.toInt());
 
         long newRowId = db.insert(BeaconEntry.TABLE_NAME, null, values);
 
@@ -95,6 +100,7 @@ public class StorageManager extends SQLiteOpenHelper {
             BeaconEntry.COLUMN_NAME_IDENTIFIER,
             BeaconEntry.COLUMN_NAME_RSSI,
             BeaconEntry.COLUMN_NAME_TIMESTAMP,
+            BeaconEntry.COLUMN_NAME_DISTANCE
         };
 
         String selection = BeaconEntry.COLUMN_NAME_TIMESTAMP + " >= ?";
@@ -115,7 +121,8 @@ public class StorageManager extends SQLiteOpenHelper {
             BeaconDto beacon = new BeaconDto(
                     cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_IDENTIFIER)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_RSSI)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_TIMESTAMP))
+                    cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_TIMESTAMP)),
+                    Distance.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_DISTANCE)))
             );
 
             beacons.add(beacon);

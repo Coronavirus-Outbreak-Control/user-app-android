@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.example.coronavirusherdimmunity.enums.Distance;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -127,7 +129,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("FOREGROUNDBEACON",
                     "Foreground beacon service", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("My Notification Channel Description");
+            channel.setDescription("Foreground beacon service");
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.enableLights(false);
+            channel.enableVibration(false);
+            channel.setShowBadge(false);
+            channel.setSound(null, null);
+
             NotificationManager notificationManager = (NotificationManager) getSystemService(
                     Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
@@ -277,7 +285,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
                         int deviceId = 65536 * beacon.getId2().toInt() + beacon.getId3().toInt();
 
-                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi());
+                        Distance distance = Distance.FAR;
+                        if (beacon.getDistance() <= 0.4){
+                            distance = Distance.IMMEDIATE;
+                        }else if (beacon.getDistance() <= 2){
+                            distance = Distance.NEAR;
+                        }
+
+                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance);
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
@@ -302,18 +317,29 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
+        ArrayList<Integer> dist = new ArrayList<>();
+
         List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
         for (BeaconDto beacon: beacons) {
             if (groups.size()==0){
                 groups.add(beacon);
+                dist.clear();
+                dist.add(beacon.distance.toInt());
             } else {
                 BeaconDto lastGroup = groups.get(groups.size() -1);
                 if (lastGroup.identifier == beacon.identifier && lastGroup.timestmp + 3*60 > beacon.timestmp){
                     groups.remove(lastGroup);
+
+                    dist.add(beacon.distance.toInt());
+
+                    Collections.sort(dist);
+                    lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
                     groups.add(lastGroup);
                 } else {
                     groups.add(beacon);
+                    dist.clear();
+                    dist.add(beacon.distance.toInt());
                 }
             }
         }
