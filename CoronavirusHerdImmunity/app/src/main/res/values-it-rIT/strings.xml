@@ -45,7 +45,7 @@
 
     <string name="notifications"> Notifiche </string>
     <string name="we_need_you_notif"> Se sei stato vicino a una persona infetta nelle ultime due settimane,
-        ti faremo sapere. Tutto qui, solo una notica. </string>
+        ti faremo sapere. \nTutto qui, solo una notica. </string>
     <string name="give_notif"> VAI ALL\'APPLICAZIONE </string>
 
     <!-- ******************************* -->
