@@ -15,14 +15,10 @@
         android:orientation="vertical">
 
         <!-- Welcome to anonymous Coronavirus check 👋 -->
-        <ImageView
-            android:id="@+id/logo_id"
-            android:layout_width="262dp"
-            android:layout_height="221dp"
-            android:layout_marginLeft="@dimen/margin_left"
+        <TextView style="@style/intro_title"
             android:layout_marginTop="100dp"
-            android:orientation="vertical"
-            android:src="@drawable/welcome_to_" />
+            android:fontFamily="sans-serif-medium"
+            android:id="@+id/welcome_to"/>
 
         <!-- Together we can save lives and help people keep their jobs -->
         <TextView

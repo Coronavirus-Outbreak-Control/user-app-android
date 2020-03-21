@@ -4,7 +4,7 @@
     <string name="app_title">Verificação Anônima do Corona Vírus</string>
 
     <!-- *** Splash Screen  **** -->
-    <string name="welcome_to_"> Bem-vindo ao \nanonymous\nCorona Vírus\n check :wave: \u00F0\u009F\u0091\u008B</string>
+    <string name="welcome_to_"> Bem-vindo ao \nanonymous\nCorona Vírus\n check &#128075;</string>
     <string name="together_we"> Juntos podemos salvar vidas e ajudar as pessoas a manterem seus empregos. </string>
     <string name="let_s_get_s"> VAMOS COMEÇAR! </string>
     <string name="how_it_works"> Como funciona? </string>
@@ -49,7 +49,7 @@
 
 
     <!-- *** Main Screen ***** -->
-    <string name="main_title"> A aplicação está ativo! </string>
+    <string name="main_title"> Tudo Pronto! &#129303; </string>
     <string name="if_you_got_close">Lembre-se de deixar o Bluetooth e a localização ativados,
         e nós faremos o resto. </string>
 

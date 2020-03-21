@@ -5,7 +5,7 @@
 
 
     <!-- ******* Splash Screen  ******** -->
-    <string name="welcome_to_"> Welcome to\nanonymous\nCoronavirus\ncheck :wave: \u00F0\u009F\u0091\u008B</string>
+    <string name="welcome_to_"> Welcome to\nanonymous\nCoronavirus\ncheck &#128075;</string>
     <string name="together_we"> Insieme possiamo salvare vite e aiutare persone a non perdere il lavoro. </string>
     <string name="let_s_get_s"> INIZIA! </string>
     <string name="how_it_works"> Come funziona? </string>
@@ -52,7 +52,7 @@
 
 
     <!-- ******** Main Screen ********** -->
-    <string name="main_title"> L\'app è attiva! </string>
+    <string name="main_title"> Tutto pronto! &#129303; </string>
     <string name="if_you_got_close"> Ricorda di lasciare il Bluetooth e la posizione accesi,
         e noi faremo il resto.</string>
 

@@ -5,7 +5,7 @@
 
 
     <!-- ******* Splash Screen  ******** -->
-    <string name="welcome_to_"> Welcome to\nanonymous\nCoronavirus\ncheck :wave: \u00F0\u009F\u0091\u008B</string>
+    <string name="welcome_to_"> Welcome to\nanonymous\nCoronavirus\ncheck &#128075;</string>
     <string name="together_we"> Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s"> LET\'S GET STARTED </string>
     <string name="how_it_works"> How it works? </string>
@@ -52,7 +52,7 @@
 
 
     <!-- ******** Main Screen ********** -->
-    <string name="main_title"> All Set! </string>
+    <string name="main_title"> All Set! &#129303; </string>
     <string name="if_you_got_close"> Remember to leave your Bluetooth and Location on, and we\'ll do the rest. </string>
 
     <string name="status"> STATUS </string>
