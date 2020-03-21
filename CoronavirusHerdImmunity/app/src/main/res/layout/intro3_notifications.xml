@@ -8,20 +8,6 @@
     <ImageView
         style="@style/background_image"
         android:src="@drawable/ic_illustration_notifications" />
-<!--
-    <ImageView
-        android:layout_width="14dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="115dp"
-        android:layout_marginTop="439dp"
-        android:src="@drawable/emoji_check" />
-
-    <ImageView
-        android:layout_width="14dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="115dp"
-        android:layout_marginTop="498dp"
-        android:src="@drawable/emoji_hospital" />-->
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +24,7 @@
             <TextView
                 android:id="@+id/notifications"
                 style="@style/intro_title"
-                android:text="@string/notifications" />
+                android:text="@string/all_set" />
 
 
             <!-- To monitor more accurately your interactions we will

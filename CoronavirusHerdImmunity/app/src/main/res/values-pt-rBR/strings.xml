@@ -41,7 +41,7 @@
         vamos pedir sua permissão para usar sua Localização.\n<b>É anônimo.</b> </string>
     <string name="give_loc"> CONCEDER PERMISSÃO DE LOCALIZAÇÃO  </string>
 
-    <string name="notifications"> Notificações  </string>
+    <string name="all_set"> Tudo Pronto!  </string>
     <string name="we_need_you_notif"> Se você esteve próximo de uma pessoa infectada nas últimas duas semanas,
         te notificaremos. \nÉ só isso, apenas uma notificação.</string>
     <string name="give_notif"> IR PARA A APLICAÇÃO</string>
@@ -49,8 +49,9 @@
 
 
     <!-- *** Main Screen ***** -->
-    <string name="all_set"> Tudo Pronto! </string>
-    <string name="if_you_got_close"> Se você esteve perto de uma pessoa infectada durante o seu dia, nós vamos te avisar. </string>
+    <string name="main_title"> A aplicação está ativo! </string>
+    <string name="if_you_got_close">Lembre-se de deixar o Bluetooth e a localização ativados,
+        e nós faremos o resto. </string>
 
     <string name="status"> STATUS </string>
     <string name="status_value"> Ativo </string>
