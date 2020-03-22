@@ -41,6 +41,12 @@
         vamos pedir sua permissão para usar sua Localização.\n<b>É anônimo.</b></string>
     <string name="give_loc">CONCEDER PERMISSÃO DE LOCALIZAÇÃO  </string>
 
+    <string name="help_community">Aiuta la tua Comunità</string>
+    <string name="we_need_you_dist">Per aiutare i medici con la ricerca e l’analisi di questa crisi,
+        puoi decidere di condividere in <b>anonimo</b> la tua Posizione.\nQuesto non è obbligatorio,
+        e aiuterà solo se tu decidi di farlo.</string>
+    <string name="give_dist">CONDIVIDI POSIZIONE</string>
+
     <string name="all_set">Tudo Pronto!  </string>
     <string name="we_need_you_notif">Se você esteve próximo de uma pessoa infectada nas últimas duas semanas,
         te notificaremos. \nÉ só isso, apenas uma notificação.</string>
