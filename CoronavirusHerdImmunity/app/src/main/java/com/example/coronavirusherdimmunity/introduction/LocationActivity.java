@@ -1,26 +1,20 @@
 package com.example.coronavirusherdimmunity.introduction;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.coronavirusherdimmunity.MainActivity;
-import com.example.coronavirusherdimmunity.MonitoringActivity;
-import com.example.coronavirusherdimmunity.R;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.example.coronavirusherdimmunity.MainActivity;
+import com.example.coronavirusherdimmunity.R;
 
 import java.util.ArrayList;
 
@@ -70,20 +64,16 @@ public class LocationActivity  extends AppCompatActivity {
      * if this activity has been re-called in order to enable permission then go to MainActivity
      * else if this activity has been called for the first time then go NotificationsActivity
      */
-    private void go_nextActivity(){
+    private void go_nextActivity() {
 
-        if ( bundle != null &&
-                bundle.getBoolean("permission_request")){ // if this activity has been recalled then go to MainActivity
-
-            startActivity(new Intent(LocationActivity.this, MainActivity.class));
-            finish();
-
-        }else{ //if this activity has been called for the first time then go to NotificationsActivity
-
+        if (bundle != null &&
+                bundle.getBoolean("permission_request")) { // if this activity has been recalled then go to MainActivity
+            Intent intent = new Intent(LocationActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else { //if this activity has been called for the first time then go to NotificationsActivity
             startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
-            finish();
         }
-
     }
 
     /**
@@ -100,10 +90,9 @@ public class LocationActivity  extends AppCompatActivity {
 
         }
 
-        if (ActivityCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-
         }
 
         lenght_listPermissionsNeeded = listPermissionsNeeded.size();
