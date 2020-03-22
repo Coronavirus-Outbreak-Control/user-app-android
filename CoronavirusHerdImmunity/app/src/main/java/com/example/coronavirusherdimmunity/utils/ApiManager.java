@@ -24,7 +24,7 @@ import org.json.simple.JSONValue;
 
 public class ApiManager {
 
-    private static final String baseEndoint = "http://api.coronaviruscheck.org";
+    private static final String baseEndoint = "https://api.coronaviruscheck.org";
     private static final MediaType JSONContentType = MediaType.parse("application/json; charset=utf-8");
 
     public static JSONObject registerDevice(String deviceId){
@@ -60,7 +60,7 @@ public class ApiManager {
         return null;
     }
 
-    public static JSONObject pushInteractions(Context context, List<BeaconDto> beacons){
+    public static JSONObject pushInteractions(Context context, List<BeaconDto> beacons, String authToken){
         // TODO: to test request
         OkHttpClient client = new OkHttpClient();
 
@@ -78,6 +78,7 @@ public class ApiManager {
         RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(arr));
         Request request = new Request.Builder()
                 .url(baseEndoint + "/interaction/report")
+                .addHeader("Authorization", "Bearer " + authToken)
                 .post(rq)
                 .build();
         try {
@@ -91,4 +92,28 @@ public class ApiManager {
         return null;
     }
 
+    public static JSONObject registerPushToken(int deviceId, String token, String authToken) {
+        Map body = new HashMap();
+        body.put("id", deviceId);
+        body.put("push_id", token);
+        body.put("platform", "android");
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(body));
+        Request request = new Request.Builder()
+                .url(baseEndoint + "/device")
+                .addHeader("Authorization", "Bearer " + authToken)
+                .put(rq)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String strResponse = response.body().string();
+            JSONObject obj = new JSONObject(strResponse);
+            return obj;
+        }catch(Exception e){
+            Log.d("CHI", "EXCEPTION on registering device");
+        }
+        return null;
+    }
 }

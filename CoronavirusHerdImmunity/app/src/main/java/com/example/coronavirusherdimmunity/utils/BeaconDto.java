@@ -1,12 +1,17 @@
 package com.example.coronavirusherdimmunity.utils;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+
+import androidx.core.app.ActivityCompat;
 
 import com.example.coronavirusherdimmunity.PreferenceManager;
 import com.example.coronavirusherdimmunity.enums.Distance;
 
 import org.json.JSONObject;
-import org.json.simple.JSONValue;
 
 import java.util.Date;
 
@@ -17,6 +22,8 @@ public class BeaconDto {
     public int rssi;
     public Distance distance;
     public int interval;
+    public double x = 0;
+    public double y = 0;
 
     public BeaconDto(int identifier, int rssi, Distance distance){
         this.identifier = identifier;
@@ -62,6 +69,14 @@ public class BeaconDto {
             obj.put("p", "a");
             obj.put("d", distance.toString());
 
+            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager != null &&
+                    (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                obj.put("x", location == null ? 0 : location.getLatitude());
+                obj.put("y", location == null ? 0 : location.getLongitude());
+            }
             return obj;
         }catch (Exception e){
             return null;

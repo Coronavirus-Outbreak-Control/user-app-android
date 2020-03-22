@@ -69,11 +69,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 public Integer call() throws Exception {
 
                         JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ UUID.randomUUID().toString());
-                        if (object != null) {
-                            return object.getInt("id");
-                        } else {
-                            return -1;
+                    if (object != null) {
+                        if (object.has("token")){
+                            new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));
                         }
+                        return object.getInt("id");
+                    } else {
+                        return -1;
+                    }
                 }
             }).onSuccess(new Continuation<Integer, Object>() {
                 @Override
@@ -216,7 +219,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             // If the monitoring activity is not in the foreground, we send a notification to the user.
             // TODO REMOVE NOTIFICATION
             Log.d(TAG, "FXXSending notification.");
-            sendNotification();
+            if (BuildConfig.DEBUG) {
+                sendNotification();
+            }
         }
     }
 
@@ -316,6 +321,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
+        boolean sendLocation = new PreferenceManager(getApplicationContext()).getSendLocation();
+
         ArrayList<Integer> dist = new ArrayList<>();
 
         List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
@@ -334,6 +341,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
+                    if (sendLocation) {
+                        lastGroup.x = beacon.x;
+                        lastGroup.y = beacon.y;
+                    } else {
+                        lastGroup.x = 0;
+                        lastGroup.y = 0;
+                    }
                     groups.add(lastGroup);
                 } else {
                     groups.add(beacon);
@@ -348,8 +362,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             pushStartTime = now.getTime();
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
-                public JSONObject call() {
-                    return ApiManager.pushInteractions(getApplicationContext(), groups);
+                public JSONObject call() throws Exception {
+                    return ApiManager.pushInteractions(getApplicationContext(), groups, new PreferenceManager(getApplicationContext()).getAuthToken());
                 }
             }).onSuccess(new Continuation<JSONObject, Object>() {
                 @Override
@@ -359,6 +373,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (result != null && result.getString("data").toLowerCase().equals("ok")) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
                         new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
+                        new PreferenceManager(getApplicationContext()).setSendLocation(result.getBoolean("location"));
                     }
                     return null;
                 }
