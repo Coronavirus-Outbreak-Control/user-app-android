@@ -1,41 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/white">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
     <!-- illustration_bluetooth -->
     <ImageView
         style="@style/background_image"
         android:layout_marginTop="350dp"
         android:src="@drawable/ic_illustration_bluetooth" />
-    </RelativeLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/intro_title"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="150dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/app_name"
-            android:textSize="60sp"
-            android:textColor="@color/colorPrimary"/>
-
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        style="@style/intro_title"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/app_name"
+        android:gravity="center_horizontal"
+        android:textSize="60sp"
+        android:textColor="@color/colorPrimary"/>
+</RelativeLayout>

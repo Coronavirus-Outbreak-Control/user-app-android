@@ -7,7 +7,12 @@
 
     <!-- Buttons/Divider -->
     <style name="button_primary" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_width">@dimen/layout_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
+        <item name="android:paddingStart">@dimen/side_padding</item>
+        <item name="android:paddingEnd">@dimen/side_padding</item>
+        <item name="android:layout_marginEnd">@dimen/side_margin</item>
+        <item name="android:layout_marginStart">@dimen/side_margin</item>
         <item name="android:layout_height">56dp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
@@ -19,7 +24,12 @@
     </style>
 
     <style name="underbutton" parent="@style/Widget.AppCompat.Button.Borderless">
-        <item name="android:layout_width">@dimen/layout_width</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
+        <item name="android:paddingStart">@dimen/side_padding</item>
+        <item name="android:paddingEnd">@dimen/side_padding</item>
+        <item name="android:layout_marginEnd">@dimen/side_margin</item>
+        <item name="android:layout_marginStart">@dimen/side_margin</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/button_under_margin_bottom</item>
         <item name="android:padding">0dp</item>
@@ -36,8 +46,8 @@
     <style name="divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
-        <item name="android:layout_marginRight">@dimen/margin_left</item>
+        <item name="android:layout_marginLeft">@dimen/side_margin</item>
+        <item name="android:layout_marginRight">@dimen/side_margin</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:background">@drawable/ic_divider</item>
@@ -60,11 +70,12 @@
 
     <!-- Intro Screens -->
     <style name="steps_text">
-        <item name="android:layout_width">@dimen/layout_width</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
+        <item name="android:layout_marginStart">@dimen/side_margin</item>
+        <item name="android:layout_marginEnd">@dimen/side_margin</item>
         <item name="android:layout_marginTop">64dp</item>
         <item name="android:gravity">top</item>
         <item name="android:textSize">12sp</item>
@@ -72,9 +83,10 @@
     </style>
 
     <style name="intro_title">
-        <item name="android:layout_width">@dimen/layout_width</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
+        <item name="android:layout_marginStart">@dimen/side_margin</item>
+        <item name="android:layout_marginEnd">@dimen/side_margin</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:gravity">top</item>
         <item name="android:lineSpacingExtra">2sp</item>
@@ -84,10 +96,11 @@
     </style>
 
     <style name="intro_subtitle">
-        <item name="android:layout_width">@dimen/layout_width</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginEnd">@dimen/side_margin</item>
+        <item name="android:layout_marginStart">@dimen/side_margin</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
-        <item name="android:layout_marginTop">@dimen/margin_left</item>
+        <item name="android:layout_marginTop">@dimen/side_margin</item>
         <item name="android:gravity">top</item>
         <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textSize"> 20sp </item>
@@ -105,22 +118,22 @@
     </style>
 
     <style name="status_title">
-        <item name="android:layout_width">147dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">36dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
     <style name="status_value">
-        <item name="android:layout_width">147dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">36dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:textStyle">bold</item>
@@ -130,8 +143,8 @@
     <style name="question">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
-        <item name="android:layout_marginRight">@dimen/margin_left</item>
+        <item name="android:layout_marginLeft">@dimen/side_margin</item>
+        <item name="android:layout_marginRight">@dimen/side_margin</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">0dp</item>
         <item name="android:gravity">top</item>
@@ -143,8 +156,8 @@
     <style name="paragraph">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/margin_left</item>
-        <item name="android:layout_marginRight">@dimen/margin_left</item>
+        <item name="android:layout_marginLeft">@dimen/side_margin</item>
+        <item name="android:layout_marginRight">@dimen/side_margin</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:gravity">top</item>
