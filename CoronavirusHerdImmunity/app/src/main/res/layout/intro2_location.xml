@@ -11,50 +11,37 @@
         android:id="@+id/logo_id"
         android:src="@drawable/ic_illustration_location_map" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+    <!-- Step 2 of 3 -->
+    <TextView
+        style="@style/steps_text"
+        android:id="@+id/step_2_of_3"
+        android:text="@string/step_2_of_3" />
 
-        <!-- Step 2 of 3 -->
-        <TextView
-            style="@style/steps_text"
-            android:id="@+id/step_2_of_3"
-            android:text="@string/step_2_of_3" />
-
-        <!-- Location -->
-        <TextView
-            style="@style/intro_title"
-            android:id="@+id/location"
-            android:text="@string/location" />
+    <!-- Location -->
+    <TextView
+        style="@style/intro_title"
+        android:id="@+id/location"
+        android:text="@string/location"
+        android:layout_below="@id/step_2_of_3"/>
 
 
-        <!-- To monitor more accurately your interactions we will
-        ask you permission to use Location. It's anonymous. -->
-        <TextView
-            style="@style/intro_subtitle"
-            android:id="@+id/we_need_you_loc"
-            android:text="@string/we_need_you_loc" />
+    <!-- To monitor more accurately your interactions we will
+    ask you permission to use Location. It's anonymous. -->
+    <TextView
+        style="@style/intro_subtitle"
+        android:id="@+id/we_need_you_loc"
+        android:text="@string/we_need_you_loc"
+        android:layout_below="@id/location"/>
 
-    </LinearLayout>
+    <!-- BUTTON -->
+    <Button style="@style/button_primary"
+        android:shadowColor="@color/white"
+        android:id="@+id/button_next"
+        android:text="@string/give_loc" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true" >
+    <!-- UNDERBUTTON -->
+    <Button style="@style/underbutton"
+        android:id="@+id/button_skip"
+        android:text="@string/skip_step" />
 
-
-        <!-- BUTTON -->
-        <Button style="@style/button_primary"
-            android:shadowColor="@color/white"
-            android:id="@+id/button_next"
-            android:text="@string/give_loc" />
-
-        <!-- UNDERBUTTON -->
-        <Button style="@style/underbutton"
-            android:id="@+id/button_skip"
-            android:text="@string/skip_step" />
-
-    </RelativeLayout>
 </RelativeLayout>

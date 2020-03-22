@@ -31,7 +31,6 @@ import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -78,7 +77,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 }
             }).onSuccess(new Continuation<Integer, Object>() {
                 @Override
-                public Object then(Task<Integer> task) throws Exception {
+                public Object then(Task<Integer> task) {
                     Log.e(TAG, "dev " + task.getResult());
                     if (task.getResult() != -1)
                         new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());
@@ -100,7 +99,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 .setId3(String.valueOf(deviceId % 65536)) // major
                 .setManufacturer(0x004c)
                 .setTxPower(-59)
-                .setDataFields(Arrays.asList(new Long[] {0l}))
+                .setDataFields(new ArrayList<Long>())
                 .build();
 
         beaconParser = new BeaconParser()
@@ -115,7 +114,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
 
-        beaconManager.setDebug(true);
+        BeaconManager.setDebug(true);
 
         /**/
         Notification.Builder builder = new Notification.Builder(this);
@@ -349,7 +348,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             pushStartTime = now.getTime();
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
-                public JSONObject call() throws Exception {
+                public JSONObject call() {
                     return ApiManager.pushInteractions(getApplicationContext(), groups);
                 }
             }).onSuccess(new Continuation<JSONObject, Object>() {
