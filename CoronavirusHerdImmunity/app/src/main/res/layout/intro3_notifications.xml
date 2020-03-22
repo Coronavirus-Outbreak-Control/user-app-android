@@ -8,20 +8,13 @@
     <ImageView
         style="@style/background_image"
         android:src="@drawable/ic_illustration_notifications" />
-   
-
-    <!-- Step 2 of 3 -->
-    <TextView
-        android:id="@+id/step_3_of_3"
-        style="@style/steps_text"
-        android:text="@string/step_3_of_3" />
 
     <!-- Location -->
     <TextView
         android:id="@+id/notifications"
         style="@style/intro_title"
-        android:text="@string/all_set"
-        android:layout_below="@id/step_3_of_3"/>
+        android:paddingTop="70dp"
+        android:text="@string/all_set"/>
 
     <!-- To monitor more accurately your interactions we will
     ask you permission to use Location. It's anonymous. -->

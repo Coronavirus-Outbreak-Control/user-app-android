@@ -41,9 +41,13 @@
         <activity android:name=".introduction.LocationActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
+        <activity android:name=".introduction.DistanceLogActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity android:name=".introduction.NotificationsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
+
         <activity android:name=".HowItWorksActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
