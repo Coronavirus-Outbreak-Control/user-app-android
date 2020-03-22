@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.example.coronavirusherdimmunity.enums.Distance;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
@@ -60,7 +62,18 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private boolean isPushingInteractions = false;
     private long pushStartTime = -1;
 
+    private static CovidApplication instance;
+
+    public static CovidApplication getInstance() {
+        return instance;
+    }
+
+    public static Context getContext(){
+        return instance;
+    }
+
     public void onCreate() {
+        instance = this;
         super.onCreate();
         int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId == -1) {
@@ -122,7 +135,12 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         /**/
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("Scanning for Beacons");
+        builder.setContentTitle(
+                String.format(getString(R.string.permanent_notification),
+                        new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
+                        new StorageManager(getApplicationContext()).countInteractions()
+                )
+        );
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
@@ -300,6 +318,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
+                updateNotification();
+                notifyUI();
                 pushInteractions();
             }
         });
@@ -307,6 +327,44 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         try {
             beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
         } catch (RemoteException e) {    }
+    }
+
+    private void notifyUI(){
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("STATUS_UPDATE"));
+    }
+
+    private void updateNotification(){
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle(
+                String.format(getString(R.string.permanent_notification),
+                        new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
+                        new StorageManager(getApplicationContext()).countInteractions()
+                )
+                );
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("FOREGROUNDBEACON",
+                    "Foreground beacon service", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Foreground beacon service");
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.enableLights(false);
+            channel.enableVibration(false);
+            channel.setShowBadge(false);
+            channel.setSound(null, null);
+
+
+            notificationManager.createNotificationChannel(channel);
+            builder.setChannelId(channel.getId());
+        }
+        notificationManager.notify(456, builder.build());
     }
 
     private void pushInteractions(){

@@ -91,4 +91,13 @@
         If you want to help us, share this app with your loved ones to keep them safe. </string>
     <!-- ******************************* -->
 
+    <!-- ***** Monitoring Screen ******* -->
+    <string name="bt_enable_mon">Re-Enable Monitoring </string>
+    <string name="bt_disable_mon">Disable Monitoring </string>
+    <!-- ******************************* -->
+
+    <string name="permanent_notification">Status: %s - Interactions: %d</string>
+
+
+
 </resources>
