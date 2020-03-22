@@ -3,57 +3,10 @@
     <string name="app_name">CovidApp</string>
     <string name="app_title">Anonymous Coronavirus Check</string>
 
-
-    <!-- ******* Splash Screen  ******** -->
-    <string name="welcome_to_">Welcome to\nanonymous\nCoronavirus\ncheck &#128075;</string>
-    <string name="together_we">Together we can save lives and help people keep their jobs. </string>
-    <string name="let_s_get_s">LET\'S GET STARTED </string>
-    <string name="how_it_works">How it works? &#129300; </string>
-    <!-- ******************************* -->
-
-    <!-- ******* Utils **************** -->
-
-    <!-- Permission Request -->
-    <string name="blue_disabled">Bluetooth Disabled</string>
-    <string name="blue_please_en">Please, enable Bluetooth </string>
-    <string name="loc_disabled">Location Disabled </string>
-    <string name="loc_please_en">Please, enable Location </string>
-
-    <!-- ******************************* -->
-
-
-
-    <!-- ***** Introduction Slider ****** -->
-
-    <string name="step_1_of_3">Step 1 of 3 </string>
-    <string name="step_2_of_3">Step 2 of 3 </string>
-    <string name="step_3_of_3">Step 3 of 3 </string>
-    <string name="skip_step">SKIP THIS STEP </string>
-
-    <string name="bluetooth">Bluetooth</string>
-    <string name="blue_notsupported">Bluetooth LE not available</string>
-    <string name="blue_msg_notsupported">Sorry, this device does not support Bluetooth LE</string>
-
-    <string name="we_need_you_blueto">We need your permission to use Bluetooth
-        to monitor your distance from other devices.\n<b>It\'s anonymous.</b></string>
-    <string name="give_blueto">TURN ON BLUETOOTH</string>
-
-    <string name="location">Location</string>
-    <string name="we_need_you_loc">To monitor more accurately your interactions
-        we will ask you permission to use Location.\n<b>It\'s anonymous.</b></string>
-    <string name="give_loc">GIVE LOCATION PERMISSION </string>
-
-    <string name="all_set">All Set! </string>
-    <string name="we_need_you_notif">If you\'ve been close to an infected person
-        in the past two weeks, we will notify you.\n\nThat\'it, just one notification.</string>
-    <string name="give_notif">GO TO APPLICATION </string>
-
-    <!-- ******************************* -->
-
-
     <!-- ******** Main Screen ********** -->
     <string name="main_title">All Set! &#129303; </string>
     <string name="if_you_got_close">Remember to leave your Bluetooth and Location on, and we\'ll do the rest. </string>
+    <string name="how_it_works">How it works? &#129300; </string>
 
     <string name="status">STATUS </string>
     <string name="status_value">Active </string>
@@ -62,7 +15,58 @@
     <!-- ******************************* -->
 
 
-    <!-- ****** How it works Screen *****-->
+    <!-- ******* Utils **************** -->
+    <!-- Permission Request -->
+    <string name="blue_disabled">Bluetooth Disabled</string>
+    <string name="blue_please_en">Please, enable Bluetooth </string>
+    <string name="loc_disabled">Location Disabled </string>
+    <string name="loc_please_en">Please, enable Location </string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="blue_notsupported">Bluetooth LE not available</string>
+    <string name="blue_msg_notsupported">Sorry, this device does not support Bluetooth LE</string>
+    <!-- Monitoring Screen -->
+    <string name="bt_enable_mon">Re-Enable Monitoring </string>
+    <string name="bt_disable_mon">Disable Monitoring </string>
+    <!--Introduction Slider-->
+    <string name="step_1_of_3">Step 1 of 3 </string>
+    <string name="step_2_of_3">Step 2 of 3 </string>
+    <string name="step_3_of_3">Step 3 of 3 </string>
+    <string name="skip_step">SKIP THIS STEP </string>
+
+    <!-- ******************************* -->
+
+
+
+    <!-- ***** Introduction Slider ****** -->
+    <string name="welcome_to_">Welcome to\nanonymous\nCoronavirus\ncheck &#128075;</string>
+    <string name="together_we">Together we can save lives and help people keep their jobs. </string>
+    <string name="let_s_get_s">LET\'S GET STARTED </string>
+
+    <string name="we_need_you_blueto">We need your permission to use Bluetooth
+        to monitor your distance from other devices.\n<b>It\'s anonymous.</b></string>
+    <string name="give_blueto">TURN ON BLUETOOTH</string>
+
+    <string name="location">Location</string>
+    <string name="we_need_you_loc">To monitor more accurately your interactions
+        we will ask you permission to use Location.\n<b>It\'s anonymous.</b></string>
+    <string name="give_loc">GIVE LOCATION PERMISSION</string>
+
+    <string name="help_community">Help your Community</string>
+    <string name="we_need_you_dist">To help doctors with the research and analysis of this crisis,
+        \nyou can choose to <b>anonymously</b> send your Position.\nThis is not mandatory,
+        and will only help if you decide to do so.</string>
+    <string name="give_dist">SHARE LOCATION</string>
+    <string name="no_dist">NOT RIGHT NOW</string>
+
+    <string name="all_set">All Set! </string>
+    <string name="we_need_you_notif">If you\'ve been close to an infected person
+        in the past two weeks, we will notify you.\n\nThat\'it, just one notification.</string>
+    <string name="give_notif">GO TO APPLICATION</string>
+
+    <!-- ******************************* -->
+
+
+    <!-- ****** Q&A *****-->
     <string name="how_it_works_p0">We will use your mobile phone Bluetooth to
         anonymously log all the devices that get closer than 2 meters to you. </string>
 

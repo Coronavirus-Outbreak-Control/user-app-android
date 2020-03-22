@@ -63,7 +63,7 @@ public class LocationActivity  extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else { //if this activity has been called for the first time then go to NotificationsActivity
-            startActivity(new Intent(LocationActivity.this, NotificationsActivity.class));
+            startActivity(new Intent(LocationActivity.this, DistanceLogActivity.class));
         }
     }
 

@@ -24,7 +24,8 @@ public class PreferenceManager {
     private static final String NEXT_INTERACTIONS_PUSH_TIME = "nextInteractionsPushTime";
     private static final String PATIENT_STATUS = "patientStatus";
     private static final String AUTH_TOKEN = "authToken";
-    private static final String SEND_LOCATION = "sendLocation";
+    private static final String BACKEND_LOCATION = "backendLocation";
+    private static final String USER_LOCATION_PERMISSION = "userLocationPermission";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -91,12 +92,22 @@ public class PreferenceManager {
         return pref.getString(AUTH_TOKEN, null);
     }
 
-    public void setSendLocation(boolean sendLocation) {
-        editor.putBoolean(SEND_LOCATION, sendLocation);
+    public void setBackendLocation(boolean backendLocation) {
+        editor.putBoolean(BACKEND_LOCATION, backendLocation);
         editor.commit();
     }
 
-    public boolean getSendLocation() {
-        return pref.getBoolean(SEND_LOCATION, false);
+    public boolean getBackendLocation() {
+        return pref.getBoolean(BACKEND_LOCATION, false);
+    }
+
+
+    public void setUserLocationPermission(boolean userLocationPermission) {
+        editor.putBoolean(USER_LOCATION_PERMISSION, userLocationPermission);
+        editor.commit();
+    }
+
+    public boolean getUserLocationPermission() {
+        return pref.getBoolean(USER_LOCATION_PERMISSION, false);
     }
 }

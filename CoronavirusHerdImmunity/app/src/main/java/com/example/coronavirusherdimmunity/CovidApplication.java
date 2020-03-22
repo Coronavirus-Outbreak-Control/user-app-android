@@ -379,7 +379,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
-        boolean sendLocation = new PreferenceManager(getApplicationContext()).getSendLocation();
+        boolean sendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
 
         ArrayList<Integer> dist = new ArrayList<>();
 
@@ -431,7 +431,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (result != null && result.getString("data").toLowerCase().equals("ok")) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
                         new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
-                        new PreferenceManager(getApplicationContext()).setSendLocation(result.getBoolean("location"));
+                        new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
                     }
                     return null;
                 }

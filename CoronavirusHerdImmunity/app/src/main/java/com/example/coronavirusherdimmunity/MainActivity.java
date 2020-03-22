@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
     private void writeInteractions() {
         TextView interactionsTextView = (TextView) findViewById(R.id.n_interactions);
 
-        // TODO: use countTotalInteractions instead
         int interactions = new StorageManager(getApplicationContext()).countInteractions();
         interactionsTextView.setText(String.valueOf(interactions));
     }
