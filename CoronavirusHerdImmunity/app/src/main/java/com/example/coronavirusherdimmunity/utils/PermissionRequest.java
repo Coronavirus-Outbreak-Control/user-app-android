@@ -22,23 +22,23 @@ public class PermissionRequest {
 
     private Context context;
 
-    public PermissionRequest(Context packageContext){
+    public PermissionRequest(Context packageContext) {
         this.context = packageContext;
     }
 
     /**
      * Check permissions if they are granted else go to introduction activities in order to enable them (Bluetooth, Location)
+     *
      * @return: 'true' if all permissions are granted, 'false' if at least one permission is not granted
      */
-    public boolean checkPermissions(){
+    public boolean checkPermissions() {
 
         boolean ret_check_perm = true;
 
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
             // Device doesn't support Bluetooth
-        }
-        else if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled go to bluetooth activity in order to enable it
+        } else if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled go to bluetooth activity in order to enable it
 
             final Intent intent_bt = new Intent(context, BluetoothActivity.class);
             intent_bt.putExtra("permission_request", true); // notify next activity that permission is required

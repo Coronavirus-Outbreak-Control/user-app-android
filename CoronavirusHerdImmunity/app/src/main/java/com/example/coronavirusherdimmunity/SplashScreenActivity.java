@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.coronavirusherdimmunity.introduction.WelcomeActivity;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         //set content view AFTER ABOVE sequence (to avoid crash)
         this.setContentView(R.layout.splashscreen);
+        this.writeTitle();
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PreferenceManager(this);
@@ -34,8 +37,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             launchHomeScreen();
 
         } else { //if it is first time launch
-
-            prefManager.setFirstTimeLaunch(false);
 
             Handler handler=new Handler();
             handler.postDelayed(new Runnable() {
@@ -45,7 +46,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     finish();
                 }
             },3000);
-
         }
     }
 
@@ -63,4 +63,14 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { } // disable back button
+
+
+
+    private void writeTitle() {
+
+        String first = "<font color='#FF6F61'>Covid</font>";
+        String next = "<font color='#444444'>App</font>";
+        TextView t = (TextView) findViewById(R.id.intro_title);
+        t.setText(Html.fromHtml(first + next));
+    }
 }

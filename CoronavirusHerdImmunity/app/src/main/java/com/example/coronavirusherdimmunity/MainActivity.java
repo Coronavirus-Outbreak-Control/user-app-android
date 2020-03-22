@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
         this.writeQRCode();
-        this.writePatientStatus();
-        this.writeInteractions();
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -85,9 +84,31 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.openMonitoring).setVisibility(View.GONE);
         }
 
+        Button how_it_works_button = (Button) findViewById(R.id.how_it_works);
+        how_it_works_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HowItWorksActivity.class));
+            }
+        });
+
+
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
         permissions.checkPermissions(); //check if bluetooth and location are enabled else go to activity in order to enable them
+
+        final Handler handler=new Handler();
+        handler.post(new Runnable(){
+            @Override
+            public void run() {
+                writePatientStatus();
+                writeInteractions();
+                handler.postDelayed(this,500); // set time here to refresh textView
+            }
+        });
     }
+
+
+
 
     private void writePatientStatus() {
         TextView statusTextView = (TextView) findViewById(R.id.status_value);
@@ -101,12 +122,13 @@ public class MainActivity extends AppCompatActivity {
         TextView interactionsTextView = (TextView) findViewById(R.id.n_interactions);
 
         // TODO: use countTotalInteractions instead
-        int interactions = new StorageManager(getApplicationContext()).countTotalInteractions();
+        int interactions = new StorageManager(getApplicationContext()).countInteractions();
         interactionsTextView.setText(String.valueOf(interactions));
     }
 
     private void writeQRCode() {
         ImageView qrImage = (ImageView) findViewById(R.id.qr_code);
+
         int deviceId = new PreferenceManager(mContext.getApplicationContext()).getDeviceId();
 
         QRCodeGenerator generator = new QRCodeGenerator(mContext);
