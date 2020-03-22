@@ -1,26 +1,20 @@
 package com.example.coronavirusherdimmunity.introduction;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.coronavirusherdimmunity.MainActivity;
-import com.example.coronavirusherdimmunity.MonitoringActivity;
-import com.example.coronavirusherdimmunity.R;
-
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.example.coronavirusherdimmunity.MainActivity;
+import com.example.coronavirusherdimmunity.R;
 
 import java.util.ArrayList;
 
@@ -100,10 +94,9 @@ public class LocationActivity  extends AppCompatActivity {
 
         }
 
-        if (ActivityCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-
         }
 
         lenght_listPermissionsNeeded = listPermissionsNeeded.size();
