@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -44,6 +45,8 @@ public class FCMService extends FirebaseMessagingService {
                 String message = data.get("message");
 
                 sendNotification(title, message);
+
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("STATUS_UPDATE"));
             }
         }
     }

@@ -2,20 +2,19 @@ package com.example.coronavirusherdimmunity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.QRCodeGenerator;
@@ -96,20 +95,29 @@ public class MainActivity extends AppCompatActivity {
 
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
         permissions.checkPermissions(); //check if bluetooth and location are enabled else go to activity in order to enable them
-
-        final Handler handler=new Handler();
-        handler.post(new Runnable(){
-            @Override
-            public void run() {
-                writePatientStatus();
-                writeInteractions();
-                handler.postDelayed(this,500); // set time here to refresh textView
-            }
-        });
     }
 
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            writeInteractions();
+            writePatientStatus();
+        }
+    };
 
+    @Override
+    protected void onResume() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("STATUS_UPDATE"));
+        super.onResume();
+        writeInteractions();
+        writePatientStatus();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+    }
 
     private void writePatientStatus() {
         TextView statusTextView = (TextView) findViewById(R.id.status_value);

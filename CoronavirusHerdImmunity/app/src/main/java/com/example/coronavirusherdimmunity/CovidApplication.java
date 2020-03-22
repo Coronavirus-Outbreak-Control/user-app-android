@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.example.coronavirusherdimmunity.enums.Distance;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
@@ -300,6 +302,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
+                notifyUI();
                 pushInteractions();
             }
         });
@@ -309,6 +312,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         } catch (RemoteException e) {    }
     }
 
+    private void notifyUI(){
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("STATUS_UPDATE"));
+    }
     private void pushInteractions(){
         final List<BeaconDto> groups = new ArrayList<>();
 
