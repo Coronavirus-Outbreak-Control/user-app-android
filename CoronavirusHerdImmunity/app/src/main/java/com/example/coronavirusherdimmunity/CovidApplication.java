@@ -317,6 +317,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
+        boolean sendLocation = new PreferenceManager(getApplicationContext()).getSendLocation();
+
         ArrayList<Integer> dist = new ArrayList<>();
 
         List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
@@ -335,6 +337,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
+                    if (sendLocation) {
+                        lastGroup.x = beacon.x;
+                        lastGroup.y = beacon.y;
+                    } else {
+                        lastGroup.x = 0;
+                        lastGroup.y = 0;
+                    }
                     groups.add(lastGroup);
                 } else {
                     groups.add(beacon);
@@ -360,6 +369,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (result != null && result.getString("data").toLowerCase().equals("ok")) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
                         new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
+                        new PreferenceManager(getApplicationContext()).setSendLocation(result.getBoolean("location"));
                     }
                     return null;
                 }
