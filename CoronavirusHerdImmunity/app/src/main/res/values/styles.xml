@@ -112,7 +112,7 @@
     <style name="background_image">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginTop">350dp</item>
+        <item name="android:layout_marginTop">370dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_alignParentBottom">true</item>
     </style>
