@@ -92,4 +92,28 @@ public class ApiManager {
         return null;
     }
 
+    public static JSONObject registerPushToken(int deviceId, String token, String authToken) {
+        Map body = new HashMap();
+        body.put("id", deviceId);
+        body.put("push_id", token);
+        body.put("platform", "android");
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(body));
+        Request request = new Request.Builder()
+                .url(baseEndoint + "/device")
+                .addHeader("Authorization", "Bearer " + authToken)
+                .put(rq)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String strResponse = response.body().string();
+            JSONObject obj = new JSONObject(strResponse);
+            return obj;
+        }catch(Exception e){
+            Log.d("CHI", "EXCEPTION on registering device");
+        }
+        return null;
+    }
 }

@@ -1,19 +1,30 @@
 package com.example.coronavirusherdimmunity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
+import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.QRCodeGenerator;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.concurrent.Callable;
+
+import bolts.Continuation;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +41,35 @@ public class MainActivity extends AppCompatActivity {
         this.writeQRCode();
         this.writePatientStatus();
         this.writeInteractions();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("COVAPP", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        final String token = task.getResult().getToken();
+
+                        bolts.Task.callInBackground(new Callable<Object>() {
+                            @Override
+                            public Object call() throws Exception {
+                                int deviceId = new PreferenceManager(mContext).getDeviceId();
+                                ApiManager.registerPushToken(deviceId, token, new PreferenceManager(mContext).getAuthToken());
+                                return null;
+                            }
+                        }).onSuccess(new Continuation<Object, Object>() {
+                            @Override
+                            public Object then(bolts.Task<Object> task) throws Exception {
+                                return null;
+                            }
+                        });
+                    }
+                });
+
 
         findViewById(R.id.openMonitoring).setOnClickListener(new View.OnClickListener() {
             @Override
