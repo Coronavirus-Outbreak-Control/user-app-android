@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -12,14 +13,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/logo_id"
-            android:layout_width="200dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="@dimen/side_margin"
-            android:layout_marginTop="100dp"
-            android:orientation="vertical"
-            android:src="@drawable/all_set" />
+        <TextView
+                style="@style/intro_title"
+                android:layout_marginTop="70dp"
+                android:text="@string/main_title" />
 
         <!-- We need your permission to use Bluetooth to monitor
         your distance from other devices. It's anonymous. -->
@@ -39,12 +36,10 @@
                 style="@style/status_value"
                 android:gravity="top"
                 android:textColor="#009874" />
-
             <TextView
                 android:id="@+id/n_interactions"
                 style="@style/status_value"
                 android:gravity="top" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -52,15 +47,14 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/side_margin"
             android:layout_marginEnd="@dimen/side_margin">
-
             <TextView
                 style="@style/status_title"
                 android:text="@string/status" />
-
             <TextView
                 style="@style/status_title"
                 android:text="@string/n_interactions" />
         </LinearLayout>
+
 
         <ImageView
             android:id="@+id/qr_code"
@@ -69,6 +63,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp" />
+
+        <View style="@style/divider"
+            android:layout_width="200dp"
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- UNDERBUTTON -->
+        <Button
+            android:id="@+id/how_it_works"
+            style="@style/underbutton"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/how_it_works" />
+
 
         <Button
             android:id="@+id/openMonitoring"

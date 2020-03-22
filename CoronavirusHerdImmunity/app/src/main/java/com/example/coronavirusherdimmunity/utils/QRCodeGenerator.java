@@ -27,7 +27,7 @@ public class QRCodeGenerator {
 
     public void generateQRCode(int deviceId, ImageView qrImage) {
 
-        inputValue = Integer.toString(deviceId);
+        inputValue = "covid-outbreak-control:" + Integer.toString(deviceId);
 
         WindowManager manager = (WindowManager) mContext.getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();

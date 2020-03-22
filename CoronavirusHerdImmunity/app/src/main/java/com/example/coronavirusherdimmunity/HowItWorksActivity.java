@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
 import com.example.coronavirusherdimmunity.introduction.WelcomeActivity;
 
 public class HowItWorksActivity extends Activity {
@@ -29,7 +28,7 @@ public class HowItWorksActivity extends Activity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HowItWorksActivity.this, WelcomeActivity.class));
+                /*startActivity(new Intent(HowItWorksActivity.this, WelcomeActivity.class));*/
                 finish();
             }
         });

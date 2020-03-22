@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
+import com.example.coronavirusherdimmunity.introduction.WelcomeActivity;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.QRCodeGenerator;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
@@ -37,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+        Button how_it_works_button = (Button) findViewById(R.id.how_it_works);
+        how_it_works_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HowItWorksActivity.class));
+            }
+        });
+
 
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
         permissions.checkPermissions(); //check if bluetooth and location are enabled else go to activity in order to enable them
