@@ -36,13 +36,10 @@
                 style="@style/status_value"
                 android:gravity="top"
                 android:textColor="#009874" />
-
-            
             <TextView
                 android:id="@+id/n_interactions"
                 style="@style/status_value"
                 android:gravity="top" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -50,13 +47,14 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/side_margin"
             android:layout_marginEnd="@dimen/side_margin">
-
             <TextView
                 style="@style/status_title"
                 android:text="@string/status" />
-
-        
+            <TextView
+                style="@style/status_title"
+                android:text="@string/n_interactions" />
         </LinearLayout>
+
 
         <ImageView
             android:id="@+id/qr_code"
@@ -77,7 +75,6 @@
             style="@style/underbutton"
             android:textSize="15sp"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/colorPrimary"
             android:text="@string/how_it_works" />
 
 
