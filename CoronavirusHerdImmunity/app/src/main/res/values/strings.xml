@@ -92,7 +92,7 @@
     <string name="bt_disable_mon">Disable Monitoring </string>
     <!-- ******************************* -->
 
-
+    <string name="permanent_notification">Status: %s - Interactions: %d</string>
 
 
 
