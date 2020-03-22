@@ -24,12 +24,11 @@ public class HowItWorksActivity extends Activity {
         setContentView(R.layout.how_it_works);
 
 
-        Button back_button = (Button) findViewById(R.id.button_back);
+        Button back_button = findViewById(R.id.button_back);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*startActivity(new Intent(HowItWorksActivity.this, WelcomeActivity.class));*/
-                finish();
+                onBackPressed();
             }
         });
     }
