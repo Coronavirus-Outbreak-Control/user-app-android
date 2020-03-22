@@ -36,7 +36,7 @@
 
     <string name="we_need_you_blueto">Abbiamo bisogno del tuo permesso per usare il Bluetooth
         per misurare la tua distanza da altri dispositivi.\n<b>É anonimo.</b></string>
-    <string name="give_blueto">ACCENDI IL BLUETOOTH </string>
+    <string name="give_blueto">ACCENDI IL BLUETOOTH</string>
 
     <string name="location">Posizione </string>
     <string name="we_need_you_loc">Per individuare con più precisione le interazioni,

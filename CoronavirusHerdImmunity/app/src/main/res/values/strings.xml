@@ -36,7 +36,7 @@
 
     <string name="we_need_you_blueto">We need your permission to use Bluetooth
         to monitor your distance from other devices.\n<b>It\'s anonymous.</b></string>
-    <string name="give_blueto">GIVE BLUETOOTH PERMISSION </string>
+    <string name="give_blueto">TURN ON BLUETOOTH</string>
 
     <string name="location">Location</string>
     <string name="we_need_you_loc">To monitor more accurately your interactions
