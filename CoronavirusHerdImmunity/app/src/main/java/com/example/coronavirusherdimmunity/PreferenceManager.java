@@ -23,6 +23,8 @@ public class PreferenceManager {
     private static final String LAST_INTERACTIONS_PUSH_TIME = "lastInteractionsPushTime";
     private static final String NEXT_INTERACTIONS_PUSH_TIME = "nextInteractionsPushTime";
     private static final String PATIENT_STATUS = "patientStatus";
+    private static final String AUTH_TOKEN = "authToken";
+    private static final String SEND_LOCATION = "sendLocation";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -78,5 +80,23 @@ public class PreferenceManager {
 
     public PatientStatus getPatientStatus() {
         return PatientStatus.valueOf(pref.getInt(PATIENT_STATUS, 0));
+    }
+
+    public void setAuthToken(String token) {
+        editor.putString(AUTH_TOKEN, token);
+        editor.commit();
+    }
+
+    public String getAuthToken() {
+        return pref.getString(AUTH_TOKEN, null);
+    }
+
+    public void setSendLocation(boolean sendLocation) {
+        editor.putBoolean(SEND_LOCATION, sendLocation);
+        editor.commit();
+    }
+
+    public boolean getSendLocation() {
+        return pref.getBoolean(SEND_LOCATION, false);
     }
 }

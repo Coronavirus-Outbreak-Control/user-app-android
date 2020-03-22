@@ -1,11 +1,13 @@
 package com.example.coronavirusherdimmunity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,10 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
-import com.example.coronavirusherdimmunity.introduction.WelcomeActivity;
+import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.QRCodeGenerator;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.concurrent.Callable;
+
+import bolts.Continuation;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,13 +42,47 @@ public class MainActivity extends AppCompatActivity {
 
         this.writeQRCode();
 
-        findViewById(R.id.openMonitoring).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(mContext, MonitoringActivity.class);
-                startActivity(myIntent);
-            }
-        });
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("COVAPP", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        final String token = task.getResult().getToken();
+
+                        bolts.Task.callInBackground(new Callable<Object>() {
+                            @Override
+                            public Object call() throws Exception {
+                                int deviceId = new PreferenceManager(mContext).getDeviceId();
+                                ApiManager.registerPushToken(deviceId, token, new PreferenceManager(mContext).getAuthToken());
+                                return null;
+                            }
+                        }).onSuccess(new Continuation<Object, Object>() {
+                            @Override
+                            public Object then(bolts.Task<Object> task) throws Exception {
+                                return null;
+                            }
+                        });
+                    }
+                });
+
+
+        if (BuildConfig.DEBUG){
+            findViewById(R.id.openMonitoring).setVisibility(View.VISIBLE);
+            findViewById(R.id.openMonitoring).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(mContext, MonitoringActivity.class);
+                    startActivity(myIntent);
+                }
+            });
+        } else {
+            findViewById(R.id.openMonitoring).setVisibility(View.GONE);
+        }
 
         Button how_it_works_button = (Button) findViewById(R.id.how_it_works);
         how_it_works_button.setOnClickListener(new View.OnClickListener() {

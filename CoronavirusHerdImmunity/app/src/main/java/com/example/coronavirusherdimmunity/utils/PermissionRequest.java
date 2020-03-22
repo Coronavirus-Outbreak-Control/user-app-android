@@ -1,6 +1,7 @@
 package com.example.coronavirusherdimmunity.utils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
 
 import androidx.core.app.ActivityCompat;
 
@@ -51,6 +53,7 @@ public class PermissionRequest {
                 public void onDismiss(DialogInterface dialog) {
                     //when you click "ok" then go to next activity in order to enable bluetooth
                     context.startActivity(intent_bt);
+                    ((Activity)context).finish();
                 }
             });
             builder.show();
@@ -58,31 +61,53 @@ public class PermissionRequest {
             ret_check_perm = false;
 
         }//if location is not enabled go to location activity in order to enable it
-        else if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)) {
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            final Intent intent_loc = new Intent(context, LocationActivity.class);
-            intent_loc.putExtra("permission_request", true); // notify next activity that permission is required
+                final Intent intent_loc = new Intent(context, LocationActivity.class);
+                intent_loc.putExtra("permission_request", true); // notify next activity that permission is required
 
-            // show alert dialog "Please, enable location"
-            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(R.string.loc_disabled);
-            builder.setMessage(R.string.loc_please_en);
-            builder.setPositiveButton(android.R.string.ok, null);
-            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    //when you click "ok" then go to Location Activity in order to enable location permission
-                    context.startActivity(intent_loc);
-                }
-            });
-            builder.show();
+                // show alert dialog "Please, enable location"
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.loc_disabled);
+                builder.setMessage(R.string.loc_please_en);
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //when you click "ok" then go to Location Activity in order to enable location permission
+                        context.startActivity(intent_loc);
+                        ((Activity) context).finish();
+                    }
+                });
+                builder.show();
 
-            ret_check_perm = false;
-
+                ret_check_perm = false;
+            }
         } else {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+                final Intent intent_loc = new Intent(context, LocationActivity.class);
+                intent_loc.putExtra("permission_request", true); // notify next activity that permission is required
+
+                // show alert dialog "Please, enable location"
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.loc_disabled);
+                builder.setMessage(R.string.loc_please_en);
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        //when you click "ok" then go to Location Activity in order to enable location permission
+                        context.startActivity(intent_loc);
+                        ((Activity) context).finish();
+                    }
+                });
+                builder.show();
+
+                ret_check_perm = false;
+            }
         }
 
         return ret_check_perm;
