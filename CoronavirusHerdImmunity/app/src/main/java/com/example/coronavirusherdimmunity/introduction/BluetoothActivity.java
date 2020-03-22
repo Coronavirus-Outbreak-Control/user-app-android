@@ -48,9 +48,7 @@ public class BluetoothActivity extends AppCompatActivity {
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 requestBTPermission(); //requires bluetooth permissions and turn on
-
             }
         });
 
@@ -58,12 +56,9 @@ public class BluetoothActivity extends AppCompatActivity {
         button_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 go_nextActivity();
-
             }
         });
-
     }
 
     /**
@@ -71,19 +66,14 @@ public class BluetoothActivity extends AppCompatActivity {
      * else if this activity has been called for the first time then go LocationActivity
      */
     private void go_nextActivity(){
-
-        if ( bundle != null &&
-                bundle.getBoolean("permission_request")){ // if this activity has been recalled then go to MainActivity
-
-            startActivity(new Intent(BluetoothActivity.this, MainActivity.class));
-            finish();
-
-        }else{ //if this activity has been called for the first time then go to LocationActivity
-
+        if (bundle != null &&
+                bundle.getBoolean("permission_request")) { // if this activity has been recalled then go to MainActivity
+            Intent intent = new Intent(BluetoothActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else { //if this activity has been called for the first time then go to LocationActivity
             startActivity(new Intent(BluetoothActivity.this, LocationActivity.class));
-            finish();
         }
-
     }
 
 

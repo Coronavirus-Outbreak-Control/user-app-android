@@ -33,17 +33,14 @@ public class NotificationsActivity extends AppCompatActivity {
 
         Button button_next, button_skip;
 
-
         button_next = findViewById(R.id.button_next);
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(NotificationsActivity.this, MainActivity.class));
-                finish();
+                Intent intent = new Intent(NotificationsActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
-
     }
-
 }

@@ -26,13 +26,11 @@ public class WelcomeActivity extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.intro0_welcome);
 
-
         Button start_button = (Button) findViewById(R.id.button_next);
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity.this, BluetoothActivity.class));
-                finish();
             }
         });
 
@@ -41,7 +39,6 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity.this, HowItWorksActivity.class));
-                finish();
             }
         });
 
