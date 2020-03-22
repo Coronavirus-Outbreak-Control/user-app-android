@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.coronavirusherdimmunity.MainActivity;
+import com.example.coronavirusherdimmunity.PreferenceManager;
 import com.example.coronavirusherdimmunity.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,8 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.intro3_notifications);
 
         Button button_next, button_skip;
-
+        PreferenceManager preferenceManager = new PreferenceManager(this);
+        preferenceManager.setFirstTimeLaunch(false);
         button_next = findViewById(R.id.button_next);
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override

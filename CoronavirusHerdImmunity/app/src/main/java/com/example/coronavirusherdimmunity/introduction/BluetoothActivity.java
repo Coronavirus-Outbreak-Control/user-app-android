@@ -96,19 +96,18 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
             });
             builder.show();
+        } else {
+            if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled then turn on
+
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ID_PERMISSIONS_BLUETOOTH);
+
+            } else { //else bluetooth is enabled then go to next activity
+
+                go_nextActivity();
+
+            }
         }
-
-        if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled then turn on
-
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ID_PERMISSIONS_BLUETOOTH);
-
-        } else { //else bluetooth is enabled then go to next activity
-
-            go_nextActivity();
-
-        }
-
     }
 
 

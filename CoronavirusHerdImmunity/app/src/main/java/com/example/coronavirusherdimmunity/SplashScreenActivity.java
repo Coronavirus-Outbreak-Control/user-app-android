@@ -35,8 +35,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         } else { //if it is first time launch
 
-            prefManager.setFirstTimeLaunch(false);
-
             Handler handler=new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
