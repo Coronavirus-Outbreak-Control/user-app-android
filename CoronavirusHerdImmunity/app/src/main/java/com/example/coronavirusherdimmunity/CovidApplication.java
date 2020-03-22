@@ -62,7 +62,18 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private boolean isPushingInteractions = false;
     private long pushStartTime = -1;
 
+    private static CovidApplication instance;
+
+    public static CovidApplication getInstance() {
+        return instance;
+    }
+
+    public static Context getContext(){
+        return instance;
+    }
+
     public void onCreate() {
+        instance = this;
         super.onCreate();
         int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId == -1) {
