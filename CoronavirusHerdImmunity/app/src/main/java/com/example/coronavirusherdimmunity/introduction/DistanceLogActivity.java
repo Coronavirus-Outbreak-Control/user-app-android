@@ -7,13 +7,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.coronavirusherdimmunity.PreferenceManager;
 import com.example.coronavirusherdimmunity.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DistanceLogActivity extends AppCompatActivity {
 
-        private Bundle bundle;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +24,8 @@ public class DistanceLogActivity extends AppCompatActivity {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             //set content view AFTER ABOVE sequence (to avoid crash)
             setContentView(R.layout.intro2b_distance);
-
-
             Button button_next, button_skip;
+
 
             button_next = findViewById(R.id.button_next);
             button_next.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +47,10 @@ public class DistanceLogActivity extends AppCompatActivity {
             });
 
         }
-        private void give_StoreLocationPermission() {
 
-            // TODO
+
+        private void give_StoreLocationPermission() {
+            new PreferenceManager(getApplicationContext()).setUserLocationPermission(true);
         }
 
         private void go_nextActivity() {
