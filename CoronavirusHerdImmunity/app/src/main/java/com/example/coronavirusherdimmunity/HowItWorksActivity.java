@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.coronavirusherdimmunity.introduction.BluetoothActivity;
 import com.example.coronavirusherdimmunity.introduction.WelcomeActivity;
 
 public class HowItWorksActivity extends Activity {

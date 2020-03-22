@@ -6,16 +6,12 @@
     android:gravity="center"
     android:background="@color/white">
 
-    <!-- Welcome to anonymous Coronavirus check 👋 -->
-    <ImageView
-        android:id="@+id/logo_id"
-        android:layout_width="262dp"
-        android:layout_height="221dp"
-        android:layout_marginStart="@dimen/side_margin"
-        android:layout_marginTop="100dp"
-        android:orientation="vertical"
-        android:src="@drawable/welcome_to_" />
-
+        <!-- Welcome to anonymous Coronavirus check 👋 -->
+        <TextView style="@style/intro_title"
+            android:layout_marginTop="100dp"
+            android:fontFamily="sans-serif-medium"
+            android:id="@+id/welcome_to"/>
+            
     <!-- Together we can save lives and help people keep their jobs -->
     <TextView
         style="@style/intro_subtitle"
@@ -23,7 +19,7 @@
         android:layout_width="262dp"
         android:text="@string/together_we"
         android:textAppearance="@style/splashscreen_subtitle"
-        android:layout_below="@id/logo_id"/>
+        android:layout_below="@id/welcome_to"/>
 
     <!-- BUTTON -->
     <Button style="@style/button_primary"

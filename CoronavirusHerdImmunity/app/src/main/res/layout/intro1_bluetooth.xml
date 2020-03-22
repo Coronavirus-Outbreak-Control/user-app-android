@@ -38,9 +38,4 @@
         android:id="@+id/button_next"
         android:text="@string/give_blueto" />
 
-    <!-- UNDERBUTTON -->
-    <Button style="@style/underbutton"
-        android:id="@+id/button_skip"
-        android:text="@string/skip_step" />
-
 </RelativeLayout>

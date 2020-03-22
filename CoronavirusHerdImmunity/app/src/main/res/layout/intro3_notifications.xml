@@ -8,20 +8,7 @@
     <ImageView
         style="@style/background_image"
         android:src="@drawable/ic_illustration_notifications" />
-<!--
-    <ImageView
-        android:layout_width="14dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="115dp"
-        android:layout_marginTop="439dp"
-        android:src="@drawable/emoji_check" />
-
-    <ImageView
-        android:layout_width="14dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="115dp"
-        android:layout_marginTop="498dp"
-        android:src="@drawable/emoji_hospital" />-->
+   
 
     <!-- Step 2 of 3 -->
     <TextView
@@ -33,9 +20,8 @@
     <TextView
         android:id="@+id/notifications"
         style="@style/intro_title"
-        android:text="@string/notifications"
+        android:text="@string/all_set"
         android:layout_below="@id/step_3_of_3"/>
-
 
     <!-- To monitor more accurately your interactions we will
     ask you permission to use Location. It's anonymous. -->
