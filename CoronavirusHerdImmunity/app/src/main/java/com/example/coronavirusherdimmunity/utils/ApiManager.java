@@ -24,7 +24,7 @@ import org.json.simple.JSONValue;
 
 public class ApiManager {
 
-    private static final String baseEndoint = "http://api.coronaviruscheck.org";
+    private static final String baseEndoint = "https://api.coronaviruscheck.org";
     private static final MediaType JSONContentType = MediaType.parse("application/json; charset=utf-8");
 
     public static JSONObject registerDevice(String deviceId){
@@ -60,7 +60,7 @@ public class ApiManager {
         return null;
     }
 
-    public static JSONObject pushInteractions(Context context, List<BeaconDto> beacons){
+    public static JSONObject pushInteractions(Context context, List<BeaconDto> beacons, String authToken){
         // TODO: to test request
         OkHttpClient client = new OkHttpClient();
 
@@ -78,6 +78,7 @@ public class ApiManager {
         RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(arr));
         Request request = new Request.Builder()
                 .url(baseEndoint + "/interaction/report")
+                .addHeader("Authorization", "Bearer " + authToken)
                 .post(rq)
                 .build();
         try {

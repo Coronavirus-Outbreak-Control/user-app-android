@@ -70,11 +70,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 public Integer call() throws Exception {
 
                         JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ UUID.randomUUID().toString());
-                        if (object != null) {
-                            return object.getInt("id");
-                        } else {
-                            return -1;
+                    if (object != null) {
+                        if (object.has("token")){
+                            new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));
                         }
+                        return object.getInt("id");
+                    } else {
+                        return -1;
+                    }
                 }
             }).onSuccess(new Continuation<Integer, Object>() {
                 @Override
@@ -359,7 +362,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() throws Exception {
-                    return ApiManager.pushInteractions(getApplicationContext(), groups);
+                    return ApiManager.pushInteractions(getApplicationContext(), groups, new PreferenceManager(getApplicationContext()).getAuthToken());
                 }
             }).onSuccess(new Continuation<JSONObject, Object>() {
                 @Override
