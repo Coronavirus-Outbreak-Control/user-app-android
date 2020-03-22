@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -71,13 +72,18 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-        findViewById(R.id.openMonitoring).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(mContext, MonitoringActivity.class);
-                startActivity(myIntent);
-            }
-        });
+        if (BuildConfig.DEBUG){
+            findViewById(R.id.openMonitoring).setVisibility(View.VISIBLE);
+            findViewById(R.id.openMonitoring).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(mContext, MonitoringActivity.class);
+                    startActivity(myIntent);
+                }
+            });
+        } else {
+            findViewById(R.id.openMonitoring).setVisibility(View.GONE);
+        }
 
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
         permissions.checkPermissions(); //check if bluetooth and location are enabled else go to activity in order to enable them

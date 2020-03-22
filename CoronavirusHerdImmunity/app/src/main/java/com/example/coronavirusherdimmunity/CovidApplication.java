@@ -220,7 +220,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             // If the monitoring activity is not in the foreground, we send a notification to the user.
             // TODO REMOVE NOTIFICATION
             Log.d(TAG, "FXXSending notification.");
-            sendNotification();
+            if (BuildConfig.DEBUG) {
+                sendNotification();
+            }
         }
     }
 
