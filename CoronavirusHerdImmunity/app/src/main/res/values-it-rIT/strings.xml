@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">CovidApp</string>
-    <string name="app_title">CovidApp</string>
+    <string name="app_title">Covid Community Alert</string>
 
     <string name="splash_title_first"><font color='#FF6F61'>Covid</font></string>
     <string name="splash_title_next"><font color='#444444'>App</font></string>
@@ -19,42 +19,21 @@
     <string name="n_interactions_value">0 </string>
     <!-- ******************************* -->
 
-    <!-- ******* Utils **************** -->
-    <!-- Permission Request -->
-    <string name="blue_disabled">Il Bluetooth è disabilitato </string>
-    <string name="blue_please_en">Accendi il Bluetooth </string>
-    <string name="loc_disabled">La Posizione è disabilitata </string>
-    <string name="loc_please_en">Accendi la Posizione </string>
-    <!-- Introduction Slider -->
-    <string name="step_1_of_3">Pagina 1 di 3 </string>
-    <string name="step_2_of_3">Pagina 2 di 3 </string>
-    <string name="step_3_of_3">Pagina 3 di 3 </string>
-    <string name="skip_step">SALTA </string>
-    <!-- Monitoring -->
-    <string name="bt_enable_mon">Re-Enable Monitoring </string>
-    <string name="bt_disable_mon">Disable Monitoring </string>
-    <!-- ******************************* -->
-
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Welcome to\nanonymous</string>
+    <string name="welcome_first">Welcome to \nanonymous</string>
     <string name="welcome_next"><font color='#FF6F61'>\nCovid</font></string>
     <string name="welcome_last">Community\nAlert &#128075;</string>
-    <!--<string name="welcome_to_">Welcome to\nanonymous\nCoronavirus\ncheck &#128075;</string>-->
     <string name="together_we">Insieme possiamo salvare vite e aiutare persone a non perdere il lavoro. </string>
     <string name="let_s_get_s">INIZIA! </string>
 
-    <string name="bluetooth">Bluetooth </string>
-    <string name="blue_notsupported">Bluetooth LE non è disponibile </string>
-    <string name="blue_msg_notsupported">Ci dispiace, questo dispositivo non supporta Bluetooth LE</string>
-
-    <string name="we_need_you_blueto">Abbiamo bisogno del tuo permesso per usare il Bluetooth
-        per misurare la tua distanza da altri dispositivi.\n<b>É anonimo.</b></string>
+    <string name="we_need_you_blueto">Useremo il tuo Bluetooth per monitorare la distanza
+        tra il tuo telefono ed altri dispositivi.\n<b>È anonimo!</b></string>
     <string name="give_blueto">ACCENDI IL BLUETOOTH</string>
 
-    <string name="location">Posizione </string>
-    <string name="we_need_you_loc">Per individuare con più precisione le interazioni,
-        ti chiediamo il permesso di usare la tua Posizione. \n<b>É anonimo.</b></string>
-    <string name="give_loc">ATTIVA LA POSIZIONE </string>
+    <string name="location">Rilevamento Distanza</string>
+    <string name="we_need_you_loc">Useremo il tuo Rilevamento Distanza per approssimare più
+        precisamente le interazioni.\n<b>È anonimo!</b></string>
+    <string name="give_loc">ATTIVA RILEVAMENTO DISTANZA</string>
 
     <string name="help_community">Aiuta la tua Comunità</string>
     <string name="we_need_you_dist">Per aiutare i medici con la ricerca e l’analisi di questa crisi,
@@ -62,37 +41,60 @@
         e aiuterà solo se tu decidi di farlo.</string>
     <string name="give_dist">CONDIVIDI POSIZIONE</string>
 
-    <string name="all_set">Fatto! </string>
-    <string name="we_need_you_notif">Se sei stato vicino a una persona infetta nelle ultime due settimane,
-        ti faremo sapere. \nTutto qui, solo una notica. </string>
+    <string name="all_set">Fatto!</string>
+    <string name="we_need_you_notif">Se sei stato vicino a una persona infetta nelle ultime due settimane, ti faremo sapere.
+        Tutto qui, solo una notifica.</string>
     <string name="give_notif">VAI ALL\'APPLICAZIONE </string>
 
     <!-- ******************************* -->
 
-
     <!-- ****** How it works Screen *****-->
-    <string name="how_it_works_p0">Useremo il Bluetooth del tuo telefono per registrare tutti i dispositivi
-        che sono stati a meno di 2 metri di distanza da te. </string>
+    <string name="how_it_works_p0">Usiamo il segnale Bluetooth per individuare anonimamente i dispositivi che si avvicinano a
+    meno di 2 metri da te, e la lunghezza in tempo delle interazioni. </string>
 
-    <string name="how_it_works_q2">Come manteniamo l\'anonimato? </string>
-    <string name="how_it_works_p2">Registriamo solo le interazioni tra il tuo e altri dispositivi,
-        e quanto sono lunghe queste interazioni. Non salviamo nessuna tua informazione personale nè cronologia delle posizioni.</string>
+    <string name="how_it_works_q2">Come manteniamo il tuo anonimato?</string>
+    <string name="how_it_works_p2">Salviamo solo le interazioni tra il tuo telefono e altri dispositivi,
+        e per quanto tempo sono durate.\nNon salviamo nussun\'altra informazione personale o cronologia delle posizioni.</string>
 
-    <string name="how_it_works_q1">Come mi proteggerete? </string>
-    <string name="how_it_works_p1">Ti avvertiremo se sei stato vicino negli ultimi 14 giorni a una persona che è stata
-        diagnosticata con Covid-19. </string>
+    <string name="how_it_works_q1">Come ti proteggiamo?</string>
+    <string name="how_it_works_p1">Se una delle persone con cui hai interagito negli ultimi 14 giorni è diagnosticata con Coronavirus,
+        sarai avvertito tramite una notifica.</string>
 
-    <string name="how_it_works_q3">Come fate a sapere chi è malato? </string>
-    <string name="how_it_works_p3">Il tuo stato, e quello delle persone intorno a te, sarà convalidato
-        da medici professionisti selezionati dal governo, usando il codice QR presente nell\'App. </string>
+    <string name="how_it_works_q3">Come facciamo a sapere chi è malato?</string>
+    <string name="how_it_works_p3">Solo medici professionisti possono diagnosticare se un paziente è positivo al virus. In quel caso,
+        il dottore userà il codice QR e notificherà le persone che sono a rischio perché hanno interagito con il paziente infetto.</string>
 
-    <string name="how_it_works_q4">Che devo fare se ricevo la notifica? </string>
-    <string name="how_it_works_p4">Sei stato esposto a qualcuno che è risultato positivo.
-        Proteggi le persone che ami stando a casa in auto-isolamento.</string>
+    <string name="how_it_works_q4">Che succede se ricevi la notifica che potresti essere a rischio?</string>
+    <string name="how_it_works_p4">Significa che hai interagito con una persona che è risultata positiva al test.
+        \nProteggi le persone che ami stando a casa in auto-isolamento.\nChiama il tuo medico se non ti senti bene.</string>
 
-    <string name="how_it_works_q5">Come posso essere d\'aiuto? </string>
+    <string name="how_it_works_q5">Come puoi essere d\'aiuto?</string>
     <string name="how_it_works_p5">Lascia semplicemente quest\'app attiva, e noi faremo il resto.
-        Se vuoi aiutarci, condividi quest\'app con i tuoi cari per tenerli al sicuro. </string>
+        Se vuoi aiutarci, condividi questa app con i tuoi cari per tenerli al sicuro.</string>
+
+
+
+    <!-- ******* Utils **************** -->
+    <!-- Permission Request -->
+    <string name="blue_disabled">Il Bluetooth è disabilitato </string>
+    <string name="blue_please_en">Attiva il Bluetooth </string>
+    <string name="loc_disabled">La Posizione è disabilitata </string>
+    <string name="loc_please_en">Attiva la Posizione </string>
+
+    <string name="bluetooth">Bluetooth</string>
+    <string name="blue_notsupported">Bluetooth LE non è disponibile</string>
+    <string name="blue_msg_notsupported">Ci dispiace, questo dispositivo non supporta Bluetooth LE</string>
+
+    <!-- Introduction Slider -->
+    <string name="step_1_of_3">Pagina 1 di 3 </string>
+    <string name="step_2_of_3">Pagina 2 di 3 </string>
+    <string name="step_3_of_3">Pagina 3 di 3 </string>
+    <string name="skip_step">SALTA</string>
+    <!-- Monitoring -->
+    <string name="bt_enable_mon">Re-Enable Monitoring </string>
+    <string name="bt_disable_mon">Disable Monitoring </string>
+
+    <string name="permanent_notification">Stato: %s <!-- - Interactions: %d--></string>
     <!-- ******************************* -->
 
 </resources>
