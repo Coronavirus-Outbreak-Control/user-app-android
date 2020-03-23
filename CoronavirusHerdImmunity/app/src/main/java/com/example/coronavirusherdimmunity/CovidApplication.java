@@ -254,11 +254,12 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     }
 
     private void sendNotification() {
-        Notification.Builder builder =
+/*        Notification.Builder builder =
                 new Notification.Builder(this)
                         .setContentTitle("Beacon Reference Application")
                         .setContentText("An beacon is nearby.")
-                        .setSmallIcon(R.mipmap.ic_launcher);
+                        .setSmallIcon(R.mipmap.ic_launcher);*/
+/*
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
@@ -277,6 +278,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             builder.setChannelId(channel.getId());
         }
         notificationManager.notify(1, builder.build());
+*/
 
     }
 

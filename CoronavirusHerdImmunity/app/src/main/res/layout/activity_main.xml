@@ -35,11 +35,12 @@
                 android:id="@+id/status_value"
                 style="@style/status_value"
                 android:gravity="top"
+                android:textSize="30sp"
                 android:textColor="#009874" />
-            <TextView
+<!--            <TextView
                 android:id="@+id/n_interactions"
                 style="@style/status_value"
-                android:gravity="top" />
+                android:gravity="top" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -49,10 +50,11 @@
             android:layout_marginEnd="@dimen/side_margin">
             <TextView
                 style="@style/status_title"
+                android:textSize="20sp"
                 android:text="@string/status" />
-            <TextView
+<!--            <TextView
                 style="@style/status_title"
-                android:text="@string/n_interactions" />
+                android:text="@string/n_interactions" />-->
         </LinearLayout>
 
 
@@ -73,16 +75,20 @@
         <Button
             android:id="@+id/how_it_works"
             style="@style/underbutton"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:layout_gravity="center_horizontal"
             android:text="@string/how_it_works" />
 
-
+                    <TextView
+                android:id="@+id/n_interactions"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                android:gravity="top" />
         <Button
             android:id="@+id/openMonitoring"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Open monitoring activity" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+            <!--android:layout_margin="16dp"-->
+            <!--android:text="Open monitoring activity" -->
     </LinearLayout>
 </ScrollView>

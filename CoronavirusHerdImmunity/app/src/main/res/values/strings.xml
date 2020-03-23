@@ -95,7 +95,7 @@
     <string name="skip_step">SKIP THIS STEP </string>
 
     <!-- ******************************* -->
-    <string name="permanent_notification">Status: %s - Interactions: %d</string>
+    <string name="permanent_notification">Status: %s <!-- - Interactions: %d--></string>
 
 
 
