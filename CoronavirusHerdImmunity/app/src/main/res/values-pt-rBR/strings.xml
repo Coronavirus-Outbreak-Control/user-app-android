@@ -3,8 +3,16 @@
     <string name="app_name">CovidApp</string>
     <string name="app_title">Verificação Anônima do Corona Vírus</string>
 
+
+    <string name="splash_title_first"><font color='#FF6F61'>Covid</font></string>
+    <string name="splash_title_next"><font color='#444444'>App</font></string>
+    <string name="splash_subtitle"><font color='#444444'>Covid Community Alert</font></string>
+
     <!-- *** Splash Screen  **** -->
-    <string name="welcome_to_">Bem-vindo ao \nanonymous\nCorona Vírus\n check &#128075;</string>
+    <string name="welcome_first">Welcome to\nanonymous</string>
+    <string name="welcome_next"><font color='#FF6F61'>\nCovid</font></string>
+    <string name="welcome_last">Community\nAlert &#128075;</string>
+    <!--<string name="welcome_to_">Bem-vindo ao \nanonymous\nCorona Vírus\n check &#128075;</string>-->
     <string name="together_we">Juntos podemos salvar vidas e ajudar as pessoas a manterem seus empregos. </string>
     <string name="let_s_get_s">VAMOS COMEÇAR! </string>
     <string name="how_it_works">Como funciona? &#129300;  </string>
