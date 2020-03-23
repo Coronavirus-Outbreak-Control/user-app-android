@@ -40,6 +40,7 @@
         \npuoi decidere di condividere in <b>anonimo</b> la tua Posizione.\nQuesto non è obbligatorio,
         e aiuterà solo se tu decidi di farlo.</string>
     <string name="give_dist">CONDIVIDI POSIZIONE</string>
+    <string name="no_dist">NON ADESSO</string>
 
     <string name="all_set">Fatto!</string>
     <string name="we_need_you_notif">Se sei stato vicino a una persona infetta nelle ultime due settimane, ti faremo sapere.
