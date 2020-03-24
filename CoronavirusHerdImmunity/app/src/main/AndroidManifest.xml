@@ -31,7 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".introduction.PhoneRegistrationActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".introduction.WelcomeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
