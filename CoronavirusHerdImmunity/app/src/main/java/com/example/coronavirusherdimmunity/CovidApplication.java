@@ -449,7 +449,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 public Object then(Task<JSONObject> task) throws Exception {
                     isPushingInteractions = false;
                     JSONObject result = task.getResult();
-                    if (result != null && result.getString("data").toLowerCase().equals("ok")) {
+                    if (result != null) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
                         new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
                         new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
