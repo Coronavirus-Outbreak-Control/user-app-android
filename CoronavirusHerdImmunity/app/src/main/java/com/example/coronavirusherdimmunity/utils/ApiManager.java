@@ -88,9 +88,12 @@ public class ApiManager {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String strResponse = response.body().string();
-            JSONObject obj = new JSONObject(strResponse);
-            return obj;
+            if (response.code() == 200) {
+                String strResponse = response.body().string();
+                JSONObject obj = new JSONObject(strResponse);
+                return obj;
+            } else
+                return null;
         }catch(Exception e){
             Log.d("CHI", "EXCEPTION on pushing interaction");
         }
