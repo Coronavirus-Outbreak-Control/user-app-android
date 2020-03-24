@@ -1,5 +1,6 @@
 package com.example.coronavirusherdimmunity;
 
+import android.Manifest;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,11 +9,15 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.coronavirusherdimmunity.enums.Distance;
@@ -314,7 +319,22 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             distance = Distance.NEAR;
                         }
 
-                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance);
+                        boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+                        boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
+                        double x = 0;
+                        double y = 0;
+
+                        if (sendBackendLocation && sendUserLocation) {
+                            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                            if (locationManager != null &&
+                                    (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                                            ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                                x = (location == null ? 0 : location.getLatitude());
+                                y = (location == null ? 0 : location.getLongitude());
+                            }
+                        }
+                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, x, y);
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
@@ -379,7 +399,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
-        boolean sendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+        boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+        boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
 
         ArrayList<Integer> dist = new ArrayList<>();
 
@@ -399,7 +420,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
-                    if (sendLocation) {
+                    if (sendBackendLocation && sendUserLocation) {
                         lastGroup.x = beacon.x;
                         lastGroup.y = beacon.y;
                     } else {
