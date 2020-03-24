@@ -32,7 +32,7 @@ public class NotificationsActivity extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.intro3_notifications);
 
-        Button button_next, button_skip;
+        Button button_next;
         PreferenceManager preferenceManager = new PreferenceManager(this);
         preferenceManager.setFirstTimeLaunch(false);
         button_next = findViewById(R.id.button_next);

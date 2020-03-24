@@ -20,7 +20,7 @@
 
     <!-- ***** Introduction Slider ****** -->
     <string name="welcome_first">Welcome to\nanonymous</string>
-    <string name="welcome_next">\nCovidCommunity</string>
+    <string name="welcome_next">\nCovidCommunity\n</string>
     <string name="welcome_last">\nAlert &#128075;</string>
     <string name="together_we">Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s">LET\'S GET STARTED </string>
@@ -43,7 +43,7 @@
 
     <string name="all_set">All Set! </string>
     <string name="we_need_you_notif">If you have been close to an infected person in the past two weeks,
-        we will notify you.\n\nThat\'it, just one notification.</string>
+        we will notify you.\n\nThat\'s it, just one notification.</string>
     <string name="give_notif">GO TO APPLICATION</string>
 
 
