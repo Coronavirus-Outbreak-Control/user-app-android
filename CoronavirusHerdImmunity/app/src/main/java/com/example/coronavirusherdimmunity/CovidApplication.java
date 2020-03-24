@@ -134,7 +134,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
         /**/
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
                 String.format(getString(R.string.permanent_notification),
                         new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
@@ -258,7 +258,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 new Notification.Builder(this)
                         .setContentTitle("Beacon Reference Application")
                         .setContentText("An beacon is nearby.")
-                        .setSmallIcon(R.mipmap.ic_launcher);
+                        .setSmallIcon(R.drawable.ic_notification);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
@@ -335,7 +335,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
     private void updateNotification(){
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
                 String.format(getString(R.string.permanent_notification),
                         new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
