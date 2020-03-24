@@ -116,8 +116,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
         beacon = new Beacon.Builder()
                 .setId1(BEACON_ID)
-                .setId2(String.valueOf(deviceId / 65536)) // minor
-                .setId3(String.valueOf(deviceId % 65536)) // major
+                .setId2(String.valueOf(deviceId % 65536)) // major
+                .setId3(String.valueOf(deviceId / 65536)) // minor
                 .setManufacturer(0x004c)
                 .setTxPower(-59)
                 .setDataFields(new ArrayList<Long>())
@@ -310,7 +310,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 for (Beacon beacon : beacons) {
                     if (beacon.getId1().toString().equals(BEACON_ID)) {
 
-                        int deviceId = 65536 * beacon.getId2().toInt() + beacon.getId3().toInt();
+                        // id2 major - id3 minor
+                        int deviceId = 65536 * beacon.getId3().toInt() + beacon.getId2().toInt();
 
                         Distance distance = Distance.FAR;
                         if (beacon.getDistance() <= 0.4){
