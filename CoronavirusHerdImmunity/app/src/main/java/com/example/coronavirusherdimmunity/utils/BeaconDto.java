@@ -25,25 +25,32 @@ public class BeaconDto {
     public double x = 0;
     public double y = 0;
 
-    public BeaconDto(int identifier, int rssi, Distance distance){
+    public BeaconDto(int identifier, int rssi, Distance distance, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = new Date().getTime() / 1000;
         this.distance = distance;
+        this.x = x;
+        this.y = y;
     }
 
-    public BeaconDto(int identifier, int rssi, long timestamp, Distance distance){
+    public BeaconDto(int identifier, int rssi, long timestamp, Distance distance, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp;
         this.distance = distance;
+        this.x = x;
+        this.y = y;
+
     }
 
-    public BeaconDto(int identifier, int rssi, Date timestamp, Distance distance){
+    public BeaconDto(int identifier, int rssi, Date timestamp, Distance distance, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp.getTime() / 1000;
         this.distance = distance;
+        this.x = x;
+        this.y = y;
     }
 
     public JSONObject getJSON(Context context){
@@ -68,15 +75,8 @@ public class BeaconDto {
             obj.put("r", this.rssi);
             obj.put("p", "a");
             obj.put("d", distance.toString());
-
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            if (locationManager != null &&
-                    (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                    ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-                obj.put("x", location == null ? 0 : location.getLatitude());
-                obj.put("y", location == null ? 0 : location.getLongitude());
-            }
+            obj.put("x", this.x);
+            obj.put("y", this.y);
             return obj;
         }catch (Exception e){
             return null;

@@ -67,10 +67,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
     private void writeTitle() {
-
-        String first = "<font color='#FF6F61'>Covid</font>";
-        String next = "<font color='#444444'>App</font>";
+        String pink = getResources().getString(R.string.splash_title_first);
+        String next = getResources().getString(R.string.splash_title_next);
         TextView t = (TextView) findViewById(R.id.intro_title);
-        t.setText(Html.fromHtml(first + next));
+        t.setText(Html.fromHtml("<font color='#FF6F61'>"+pink+"</font>" + next));
     }
 }

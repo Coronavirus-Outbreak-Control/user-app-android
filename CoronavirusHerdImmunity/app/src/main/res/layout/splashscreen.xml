@@ -14,14 +14,13 @@
         android:src="@drawable/ic_illustration_bluetooth" />
 
     <TextView
-            style="@style/intro_title"
-            android:id="@+id/intro_title"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="60sp" />
+            style="@style/splashscreen_title"
+            android:id="@+id/intro_title" />
+    <TextView
+        style="@style/splashscreen_subtitle"
+        android:id="@+id/we_need_you"
+        android:text="@string/splash_subtitle"/>
+
 
 </RelativeLayout>
         

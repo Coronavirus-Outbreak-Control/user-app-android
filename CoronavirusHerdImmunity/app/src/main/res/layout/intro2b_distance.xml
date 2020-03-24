@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/white" >
 
-    <!-- illustration_bluetooth -->
+<!--    &lt;!&ndash; illustration_bluetooth &ndash;&gt;
     <ImageView
         style="@style/background_image"
         android:id="@+id/logo_id"
         android:layout_marginBottom="-350dp"
         android:layout_marginTop="400dp"
-        android:src="@drawable/ic_radar" />
+        android:src="@drawable/ic_radar" />-->
 
     <!-- Step 3 of 3 -->
     <TextView
