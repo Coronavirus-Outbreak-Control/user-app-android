@@ -53,16 +53,30 @@
         <item name="android:background">@drawable/ic_divider</item>
     </style>
     <!-- ///////////////////////////////////////////////////////// -->
-
     <!-- Splash Screen -->
     <style name="splashscreen_title">
-        <item name="android:textSize"> 42sp </item>
-        <item name="android:textColor"> @color/colorTextDark </item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">100dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:textColor">@color/colorTextDark</item>
     </style>
 
     <style name="splashscreen_subtitle">
-        <item name="android:textSize"> 20sp </item>
-        <item name="android:textColor"> @color/colorText </item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">200dp</item>
+        <item name="android:layout_marginRight">@dimen/side_margin</item>
+        <item name="android:layout_marginLeft">@dimen/side_margin</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:textColor">#555</item>
     </style>
     <!-- ///////////////////////////////////////////////////////// -->
 

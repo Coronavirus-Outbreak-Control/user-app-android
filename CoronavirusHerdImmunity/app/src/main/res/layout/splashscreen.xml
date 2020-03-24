@@ -14,24 +14,11 @@
         android:src="@drawable/ic_illustration_bluetooth" />
 
     <TextView
-            style="@style/intro_title"
-            android:id="@+id/intro_title"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="60sp" />
+            style="@style/splashscreen_title"
+            android:id="@+id/intro_title" />
     <TextView
-        style="@style/intro_subtitle"
+        style="@style/splashscreen_subtitle"
         android:id="@+id/we_need_you"
-        android:layout_marginTop="200dp"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="sans-serif-light"
-        android:textSize="27sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textColor="#555"
         android:text="@string/splash_subtitle"/>
 
 
