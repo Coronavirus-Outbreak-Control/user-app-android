@@ -322,12 +322,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             distance = Distance.NEAR;
                         }
 
-                        boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+                        //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
                         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
                         double x = 0;
                         double y = 0;
 
-                        if (sendBackendLocation && sendUserLocation) {
+                        //if (sendBackendLocation && sendUserLocation) {
+                        if (sendUserLocation) {
                             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                             if (locationManager != null &&
                                     (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
@@ -402,7 +403,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
-        boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+        //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
 
         ArrayList<Integer> dist = new ArrayList<>();
@@ -423,7 +424,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
-                    if (sendBackendLocation && sendUserLocation) {
+
+                    //if (sendBackendLocation && sendUserLocation) {
+                    if (sendUserLocation) {
                         lastGroup.x = beacon.x;
                         lastGroup.y = beacon.y;
                     } else {
