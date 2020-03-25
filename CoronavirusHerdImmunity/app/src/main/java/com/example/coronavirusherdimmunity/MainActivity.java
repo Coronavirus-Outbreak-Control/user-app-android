@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -100,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            writeInteractions();
+            //writeInteractions();
+            writeAppStatus();
             writePatientStatus();
         }
     };
@@ -109,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("STATUS_UPDATE"));
         super.onResume();
-        writeInteractions();
+        //writeInteractions();
+        writeAppStatus();
         writePatientStatus();
     }
 
@@ -120,19 +123,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void writePatientStatus() {
-        TextView statusTextView = (TextView) findViewById(R.id.status_value);
+        TextView statusTextView = (TextView) findViewById(R.id.status_user);
 
         String status = new PreferenceManager(getApplicationContext()).getPatientStatus().toString();
         statusTextView.setText(String.valueOf(status));
         //PatientStatus.setTextColor();
     }
 
-    private void writeInteractions() {
+
+    private void writeAppStatus() {
+        TextView statusTextView = (TextView) findViewById(R.id.status_app);
+        PermissionRequest permissions = new PermissionRequest(MainActivity.this);
+
+        if (permissions.checkPermissions()) {
+            statusTextView.setText(String.valueOf("Active"));
+
+            int green = getResources().getColor(R.color.green);
+            statusTextView.setTextColor(green);
+        }
+        else {
+            statusTextView.setText(String.valueOf("Inactive"));
+            int red = getResources().getColor(R.color.red);
+            statusTextView.setTextColor(red);
+        }
+    }
+
+    /*private void writeInteractions() {
         TextView interactionsTextView = (TextView) findViewById(R.id.n_interactions);
 
         int interactions = new StorageManager(getApplicationContext()).countInteractions();
         interactionsTextView.setText(String.valueOf(interactions));
-    }
+    }*/
 
     private void writeQRCode() {
         ImageView qrImage = (ImageView) findViewById(R.id.qr_code);

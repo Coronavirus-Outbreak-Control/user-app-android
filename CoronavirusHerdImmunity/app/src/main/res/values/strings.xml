@@ -13,6 +13,8 @@
     <string name="how_it_works">How it works? &#129300; </string>
 
     <string name="status">STATUS </string>
+    <string name="app_status">APP STATUS</string>
+    <string name="user_status">USER STATUS</string>
     <string name="status_value">Active </string>
     <string name="n_interactions">DEVICES DETECTED </string>
     <string name="n_interactions_value">0 </string>

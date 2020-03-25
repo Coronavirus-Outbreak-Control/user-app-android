@@ -32,15 +32,14 @@
             android:layout_marginEnd="@dimen/side_margin">
 
             <TextView
-                android:id="@+id/status_value"
+                android:id="@+id/status_app"
                 style="@style/status_value"
-                android:gravity="top"
-                android:textSize="30sp"
-                android:textColor="#009874" />
-<!--            <TextView
-                android:id="@+id/n_interactions"
+                android:gravity="top"/>
+                <!--android:textSize="30sp"-->
+            <TextView
+                android:id="@+id/status_user"
                 style="@style/status_value"
-                android:gravity="top" />-->
+                android:gravity="top" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,12 +49,21 @@
             android:layout_marginEnd="@dimen/side_margin">
             <TextView
                 style="@style/status_title"
-                android:textSize="20sp"
-                android:text="@string/status" />
-<!--            <TextView
+                android:text="@string/app_status" />
+            <!--android:textSize="20sp"-->
+            <TextView
                 style="@style/status_title"
-                android:text="@string/n_interactions" />-->
+                android:text="@string/user_status" />
+
         </LinearLayout>
+
+        <!-- UNDERBUTTON -->
+        <Button
+            android:id="@+id/how_it_works"
+            style="@style/underbutton"
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/how_it_works" />
 
 
         <ImageView
@@ -71,19 +79,6 @@
             android:layout_marginBottom="0dp"
             android:layout_gravity="center_horizontal"/>
 
-        <!-- UNDERBUTTON -->
-        <Button
-            android:id="@+id/how_it_works"
-            style="@style/underbutton"
-            android:textSize="17sp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/how_it_works" />
-
-                    <TextView
-                android:id="@+id/n_interactions"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                android:gravity="top" />
         <Button
             android:id="@+id/openMonitoring"
             android:layout_width="0dp"

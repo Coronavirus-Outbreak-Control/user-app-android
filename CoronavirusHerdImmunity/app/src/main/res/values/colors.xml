@@ -6,6 +6,10 @@
     <color name="colorText">#444444</color>
     <color name="colorTextLight">#999999</color>
 
+
+
+    <color name="green">#009874</color>
+    <color name="red">#E20A19</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 

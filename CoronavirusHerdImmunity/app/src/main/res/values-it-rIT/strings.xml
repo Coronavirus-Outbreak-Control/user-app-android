@@ -14,6 +14,8 @@
     <string name="how_it_works">Come funziona? &#129300; </string>
 
     <string name="status">STATO</string>
+    <string name="app_status">STATO APP</string>
+    <string name="user_status">STATO UTENTE</string>
     <string name="status_value">Attivo</string>
     <string name="n_interactions">DISPOSITIVI INCONTRATI</string>
     <string name="n_interactions_value">0 </string>
