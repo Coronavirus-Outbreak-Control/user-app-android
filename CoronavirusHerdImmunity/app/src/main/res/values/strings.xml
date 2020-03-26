@@ -27,8 +27,8 @@
     <string name="together_we">Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s">LET\'S GET STARTED </string>
 
-    <string name="we_need_you_blueto">We will use your Bluetooth to monitor your distance
-        from other devices.\n<b>It\'s anonymous!</b></string>
+    <string name="we_need_you_blueto">We use the Bluetooth signal to anonymously detect nearby devices,
+        and the time the two devices have been interacting for.\n<b>It\'s anonymous!</b></string>
     <string name="give_blueto">TURN ON BLUETOOTH</string>
 
     <string name="location">Distance Monitoring</string>
@@ -67,9 +67,9 @@
         they have been interacting with the infected patient.</string>
 
     <string name="how_it_works_q4">What happens if you receive the notification that you could be at risk?</string>
-    <string name="how_it_works_p4">It means that you have been interacting with someone that has tested positive.
-        \nProtect your loved ones by self-isolating for two weeks.
-        \nCall your doctor in case you don\'t feel well.</string>
+    <string name="how_it_works_p4">First of all, don\'t panic:
+        \nIt means that you have been interacting with someone that has tested positive or is suspected.
+        \nYou will receive precise instructions from the virologist.</string>
 
     <string name="how_it_works_q5">What can you do to help?</string>
     <string name="how_it_works_p5">Just leave this app running in the background, and we\'ll do the rest.

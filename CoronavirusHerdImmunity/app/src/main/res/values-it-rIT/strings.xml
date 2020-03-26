@@ -52,8 +52,8 @@
     <!-- ******************************* -->
 
     <!-- ****** How it works Screen *****-->
-    <string name="how_it_works_p0">Usiamo il segnale Bluetooth per individuare anonimamente i dispositivi che si avvicinano a
-    meno di 2 metri da te, e la lunghezza in tempo delle interazioni. </string>
+    <string name="how_it_works_p0">Usiamo il segnale Bluetooth per individuare anonimamente i dispositivi
+        nelle vicinanze, e la durata delle interazioni con questi dispositivi. </string>
 
     <string name="how_it_works_q2">Come manteniamo il tuo anonimato?</string>
     <string name="how_it_works_p2">Salviamo solo le interazioni tra il tuo telefono e altri dispositivi,
@@ -68,8 +68,9 @@
         il dottore userà il codice QR e notificherà le persone che sono a rischio perché hanno interagito con il paziente infetto.</string>
 
     <string name="how_it_works_q4">Che succede se ricevi la notifica che potresti essere a rischio?</string>
-    <string name="how_it_works_p4">Significa che hai interagito con una persona che è risultata positiva al test.
-        \nProteggi le persone che ami stando a casa in auto-isolamento.\nChiama il tuo medico se non ti senti bene.</string>
+    <string name="how_it_works_p4">Innanzi tutto, non spaventarti:
+        \nSignifica che hai interagito con una persona che è risultata positiva al Covid-19 oppure è sospetta.
+        \nRiceverai istruzioni precise dal virologo.</string>
 
     <string name="how_it_works_q5">Come puoi essere d\'aiuto?</string>
     <string name="how_it_works_p5">Lascia semplicemente quest\'app attiva, e noi faremo il resto.
