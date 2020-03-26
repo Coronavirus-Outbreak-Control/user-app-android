@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.example.coronavirusherdimmunity.enums.PatientStatus;
 
+import java.util.UUID;
+
 
 public class PreferenceManager {
 
@@ -20,6 +22,7 @@ public class PreferenceManager {
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     private static final String DEVICE_ID = "device_id";
+    private static final String DEVICE_UUID = "device_uuid";
     private static final String LAST_INTERACTIONS_PUSH_TIME = "lastInteractionsPushTime";
     private static final String NEXT_INTERACTIONS_PUSH_TIME = "nextInteractionsPushTime";
     private static final String PATIENT_STATUS = "patientStatus";
@@ -50,6 +53,17 @@ public class PreferenceManager {
     public int getDeviceId(){
         return pref.getInt(DEVICE_ID, -1);
     }
+
+
+    public void setDeviceUUID(String device_uuid) {
+        editor.putString(DEVICE_UUID, device_uuid);
+        editor.commit();
+    }
+
+    public String getDeviceUUID() {
+        return pref.getString(DEVICE_UUID, null);
+    }
+
 
     public void setLastInteractionsPushTime(long timestamp) {
         editor.putLong(LAST_INTERACTIONS_PUSH_TIME, timestamp);
