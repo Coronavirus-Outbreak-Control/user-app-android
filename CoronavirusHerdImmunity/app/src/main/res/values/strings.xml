@@ -13,20 +13,22 @@
     <string name="how_it_works">How it works? &#129300; </string>
 
     <string name="status">STATUS </string>
+    <string name="app_status">APP STATUS</string>
+    <string name="user_status">USER STATUS</string>
     <string name="status_value">Active </string>
     <string name="n_interactions">DEVICES DETECTED </string>
     <string name="n_interactions_value">0 </string>
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Welcome to\nanonymous</string>
-    <string name="welcome_next">\nCovidCommunity\n</string>
-    <string name="welcome_last">\nAlert &#128075;</string>
+    <string name="welcome_first">Welcome to\nanonymous\n</string>
+    <string name="welcome_next">CovidCommunity\n</string>
+    <string name="welcome_last">Alert &#128075;</string>
     <string name="together_we">Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s">LET\'S GET STARTED </string>
 
-    <string name="we_need_you_blueto">We will use your Bluetooth to monitor your distance
-        from other devices.\n<b>It\'s anonymous!</b></string>
+    <string name="we_need_you_blueto">We use the Bluetooth signal to anonymously detect nearby devices,
+        and the time the two devices have been interacting for.\n<b>It\'s anonymous!</b></string>
     <string name="give_blueto">TURN ON BLUETOOTH</string>
 
     <string name="location">Distance Monitoring</string>
@@ -43,7 +45,7 @@
 
     <string name="all_set">All Set! </string>
     <string name="we_need_you_notif">If you have been close to an infected person in the past two weeks,
-        we will notify you.\n\nThat\'it, just one notification.</string>
+        we will notify you.\n\nThat\'s it, just one notification.</string>
     <string name="give_notif">GO TO APPLICATION</string>
 
 
@@ -65,9 +67,9 @@
         they have been interacting with the infected patient.</string>
 
     <string name="how_it_works_q4">What happens if you receive the notification that you could be at risk?</string>
-    <string name="how_it_works_p4">It means that you have been interacting with someone that has tested positive.
-        \nProtect your loved ones by self-isolating for two weeks.
-        \nCall your doctor in case you don\'t feel well.</string>
+    <string name="how_it_works_p4">First of all, don\'t panic:
+        \nIt means that you have been interacting with someone that has tested positive or is suspected.
+        \nYou will receive precise instructions from the virologist.</string>
 
     <string name="how_it_works_q5">What can you do to help?</string>
     <string name="how_it_works_p5">Just leave this app running in the background, and we\'ll do the rest.
@@ -94,7 +96,7 @@
     <string name="skip_step">SKIP THIS STEP </string>
 
     <!-- ******************************* -->
-    <string name="permanent_notification">Status: %s - Interactions: %d</string>
+    <string name="permanent_notification">Status: %s <!-- - Interactions: %d--></string>
 
 
 
