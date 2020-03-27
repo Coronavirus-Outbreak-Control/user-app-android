@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.coronavirusherdimmunity.enums.Distance;
+import com.example.coronavirusherdimmunity.enums.PatientStatus;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
@@ -67,6 +68,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private boolean isPushingInteractions = false;
     private long pushStartTime = -1;
 
+    private int lastCount = 0;
+    private PatientStatus lastStatus = PatientStatus.NORMAL;
+
     private static CovidApplication instance;
 
     public static CovidApplication getInstance() {
@@ -80,6 +84,10 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     public void onCreate() {
         instance = this;
         super.onCreate();
+
+        lastCount = new StorageManager(getApplicationContext()).countInteractions();
+        lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
+
         int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId == -1) {
             Task.callInBackground(new Callable<Integer>() {
@@ -142,10 +150,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification),
-                        new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
-                        new StorageManager(getApplicationContext()).countInteractions()
-                )
+                String.format(getString(R.string.permanent_notification), lastStatus.toString(), lastCount)
         );
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -343,8 +348,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
-                updateNotification();
-                notifyUI();
+
+
+                if (lastCount != new StorageManager(getApplicationContext()).countInteractions() || lastStatus != new PreferenceManager(getApplicationContext()).getPatientStatus()) {
+                    lastCount = new StorageManager(getApplicationContext()).countInteractions();
+                    lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
+                    updateNotification();
+                    notifyUI();
+                }
                 pushInteractions();
             }
         });
@@ -361,12 +372,11 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private void updateNotification(){
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
+        builder.setPriority(Notification.PRIORITY_MIN);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification),
-                        new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
-                        new StorageManager(getApplicationContext()).countInteractions()
-                )
+                String.format(getString(R.string.permanent_notification), lastStatus.toString(), lastCount)
                 );
+
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
@@ -376,18 +386,18 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("FOREGROUNDBEACON",
-                    "Foreground beacon service", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("Foreground beacon service");
-            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            channel.enableLights(false);
-            channel.enableVibration(false);
-            channel.setShowBadge(false);
-            channel.setSound(null, null);
-
-
-            notificationManager.createNotificationChannel(channel);
-            builder.setChannelId(channel.getId());
+//            NotificationChannel channel = new NotificationChannel("FOREGROUNDBEACON",
+//                    "Foreground beacon service", NotificationManager.IMPORTANCE_MIN);
+//            channel.setDescription("Foreground beacon service");
+//            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+//            channel.enableLights(false);
+//            channel.enableVibration(false);
+//            channel.setShowBadge(false);
+//            channel.setSound(null, null);
+//
+//
+//            notificationManager.createNotificationChannel(channel);
+            builder.setChannelId("FOREGROUNDBEACON");
         }
         notificationManager.notify(456, builder.build());
     }
