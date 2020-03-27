@@ -34,15 +34,6 @@ public class ApiManager {
     private static final String baseEndoint = "https://api.coronaviruscheck.org";
     private static final MediaType JSONContentType = MediaType.parse("application/json; charset=utf-8");
 
-    private static CovidApplication instance;
-
-    public static CovidApplication getInstance() {
-        return instance;
-    }
-    public static Context getContext(){
-        return instance;
-    }
-
     public static JSONObject registerDevice(String deviceId){
 
         Map device = new HashMap();
@@ -176,8 +167,8 @@ public class ApiManager {
         private String refreshToken() throws JSONException {
             //Refresh token, synchronously, save it, and return result code
             //you might use retrofit here
-            String deviceUUID = new PreferenceManager(instance.getApplicationContext()).getDeviceUUID();
-            JSONObject object = registerDevice(BuildConfig.DEBUG ? "06c9cf6c-ecfb-4807-afb4-4220d0614593" : deviceUUID);
+            String deviceUUID = new PreferenceManager(CovidApplication.getContext()).getDeviceUUID();
+            JSONObject object = registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
             if (object != null) {
                 if (object.has("token")){
                     String token = object.getString("token");
@@ -187,7 +178,6 @@ public class ApiManager {
             }
             return null;
         }
-
 //        private int logout() {
 //            //logout your user
 //        }
