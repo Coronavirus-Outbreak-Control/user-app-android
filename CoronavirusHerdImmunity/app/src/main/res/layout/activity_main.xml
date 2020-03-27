@@ -32,12 +32,12 @@
             android:layout_marginEnd="@dimen/side_margin">
 
             <TextView
-                android:id="@+id/status_value"
+                android:id="@+id/status_app"
                 style="@style/status_value"
-                android:gravity="top"
-                android:textColor="#009874" />
+                android:gravity="top"/>
+                <!--android:textSize="30sp"-->
             <TextView
-                android:id="@+id/n_interactions"
+                android:id="@+id/status_user"
                 style="@style/status_value"
                 android:gravity="top" />
         </LinearLayout>
@@ -49,11 +49,21 @@
             android:layout_marginEnd="@dimen/side_margin">
             <TextView
                 style="@style/status_title"
-                android:text="@string/status" />
+                android:text="@string/app_status" />
+            <!--android:textSize="20sp"-->
             <TextView
                 style="@style/status_title"
-                android:text="@string/n_interactions" />
+                android:text="@string/user_status" />
+
         </LinearLayout>
+
+        <!-- UNDERBUTTON -->
+        <Button
+            android:id="@+id/how_it_works"
+            style="@style/underbutton"
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/how_it_works" />
 
 
         <ImageView
@@ -69,20 +79,11 @@
             android:layout_marginBottom="0dp"
             android:layout_gravity="center_horizontal"/>
 
-        <!-- UNDERBUTTON -->
-        <Button
-            android:id="@+id/how_it_works"
-            style="@style/underbutton"
-            android:textSize="15sp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/how_it_works" />
-
-
         <Button
             android:id="@+id/openMonitoring"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Open monitoring activity" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+            <!--android:layout_margin="16dp"-->
+            <!--android:text="Open monitoring activity" -->
     </LinearLayout>
 </ScrollView>

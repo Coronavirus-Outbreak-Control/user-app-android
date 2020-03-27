@@ -28,6 +28,7 @@ import org.json.simple.JSONValue;
 // https://www.javatpoint.com/java-json-example
 // https://square.github.io/okhttp/
 
+
 public class ApiManager {
 
     private static final String baseEndoint = "https://api.coronaviruscheck.org";
@@ -166,7 +167,8 @@ public class ApiManager {
         private String refreshToken() throws JSONException {
             //Refresh token, synchronously, save it, and return result code
             //you might use retrofit here
-            JSONObject object = registerDevice(BuildConfig.DEBUG ? "06c9cf6c-ecfb-4807-afb4-4220d0614593" : UUID.randomUUID().toString());
+            String deviceUUID = new PreferenceManager(CovidApplication.getContext()).getDeviceUUID();
+            JSONObject object = registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
             if (object != null) {
                 if (object.has("token")){
                     String token = object.getString("token");
@@ -176,7 +178,6 @@ public class ApiManager {
             }
             return null;
         }
-
 //        private int logout() {
 //            //logout your user
 //        }
