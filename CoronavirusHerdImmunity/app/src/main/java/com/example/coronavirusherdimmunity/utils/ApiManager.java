@@ -101,7 +101,7 @@ public class ApiManager {
         return null;
     }
 
-    public static JSONObject registerPushToken(int deviceId, String token, String authToken) {
+    public static JSONObject registerPushToken(Long deviceId, String token, String authToken) {
         Map body = new HashMap();
         body.put("id", deviceId);
         body.put("push_id", token);

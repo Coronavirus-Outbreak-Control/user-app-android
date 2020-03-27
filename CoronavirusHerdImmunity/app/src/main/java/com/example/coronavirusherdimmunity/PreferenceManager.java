@@ -45,13 +45,13 @@ public class PreferenceManager {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
-    public void setDeviceId(int device_id){
-        editor.putInt(DEVICE_ID, device_id);
+    public void setDeviceId(Long device_id){
+        editor.putLong(DEVICE_ID, device_id);
         editor.commit();
     }
 
-    public int getDeviceId(){
-        return pref.getInt(DEVICE_ID, -1);
+    public Long getDeviceId(){
+        return pref.getLong(DEVICE_ID, -1);
     }
 
 
