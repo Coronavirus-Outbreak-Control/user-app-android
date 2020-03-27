@@ -1,36 +1,71 @@
 <resources>
-
     <string name="app_name">CovidApp</string>
-    <string name="app_title">Verificação Anônima do Corona Vírus</string>
+    <string name="app_title">Covid Alerta Comunitário</string>
+    <string name="splash_title_first">Covid</string>
+    <string name="splash_title_next">App</string>
+    <string name="splash_subtitle">Covid Alerta Comunitário</string>
+    <!-- ******** Main Screen ********** -->
+    <string name="main_title">Tudo pronto! &#129303; </string>
+    <string name="if_you_got_close">Lembre de deixar seu Bluetooth e Localização ligados, nós faremos o resto. </string>
+    <string name="how_it_works">Como funciona? &#129300; </string>
+    <string name="status">STATUS </string>
+    <string name="app_status">STATUS APP</string>
+    <string name="user_status">STATUS USUÁRIO</string>
+    <string name="status_value">Ativo </string>
+    <string name="n_interactions">DISPOSITIVOS DETECTADOS </string>
+    <string name="n_interactions_value">0 </string>
+    <!-- ******************************* -->
+    <!-- ***** Introduction Slider ****** -->
+    <string name="welcome_first">Bem-vindo ao</string>
+    <string name="welcome_next">Covid Alerta\n</string>
+    <string name="welcome_last">Comunitário anônimo &#128075;</string>
+    <string name="together_we">Juntos podemos salvar vidas e ajudar pessoas a manter seus empregos. </string>
+    <string name="let_s_get_s">VAMOS COMEÇAR </string>
+    <string name="we_need_you_blueto">Nós vamos usar o seu Bluetooth para detectar dispositivos próximos. \n<b> De forma anônima!</b></string>
+    <string name="give_blueto">LIGAR O BLUETOOTH</string>
+    <string name="location">Monitoramento de Distância</string>
+    <string name="we_need_you_loc">Nós vamos usar o Monitoramento de Distância para calcular de forma precisa sua distância para outros dispositivos.\n<b> Sempre anônimo!</b></string>
+    <string name="give_loc">DAR PERMISSÃO</string>
+    <string name="help_community">Ajudar a Comunidade</string>
+    <string name="we_need_you_dist">Para ajudar médicos e pesquisadores a entender melhor o comportamento do vírus,
+        \nvocê pode escolher compartilhar <b>anonimamente</b> sua posição.\n Isso não é obrigatório, e é você quem decide se quer ou não compartilhar.</string>
+    <string name="give_dist">AJUDAR E COMPARTILHAR</string>
+    <string name="no_dist">AGORA NÃO</string>
+    <string name="all_set">Tudo pronto! </string>
+    <string name="we_need_you_notif">Nós vamos te avisar se você esteve próximo a uma pessoa infectada nas últimas duas semanas. Simples assim, apenas uma notificação.</string>
+    <string name="give_notif">IR PARA A APLICAÇÃO</string>
+    <!-- ****** Q&A *****-->
+    <string name="how_it_works_p0">Nós usamos o sinal do seu Bluetooth para anonimamente detectar os dispositivos que estiverem a menos de 2 metros de você, e também a duração deste encontro.</string>
+    <string name="how_it_works_q2">Como mantemos o seu anonimato?</string>
+    <string name="how_it_works_p2"> Nós salvamos somente as interações entre o seu telefone e outros dispositivos, e a duração do encontro. Nós não armazenamos qualquer informação pessoal ou seu histórico de localização.</string>
+    <string name="how_it_works_q1">Como nós te mantemos seguro?</string>
+    <string name="how_it_works_p1">Se um de seus encontros nos últimos 14 dias for diagnosticado com coronavírus,
+        você será avisado.</string>
+    <string name="how_it_works_q3">Como nós sabemos quem está doente?</string>
+    <string name="how_it_works_p3"> Somente um profissional de saúde pode diagnosticar pacientes.
+        Nesse caso, o profissional escaneia o código no telefone do paciente, e todas as pessoas que tiveram contato com ele são notificadas.
+    <string name="how_it_works_q4">O que acontece se você receber uma notificação?</string>
+    <string name="how_it_works_p4">Quer dizer que você teve contato com alguém que foi diagnosticado com coronavírus.
+        \nProteja seus entes queridos e a toda a comunidade se isolando por duas semanas.
+        \nLigue para uma unidade de saúde caso não esteja se sentindo bem.</string>
+    <string name="how_it_works_q5">O que você pode fazer para ajudar?</string>
+    <string name="how_it_works_p5">Apenas deixe esse aplicativo funcionando em seu telefone, nós faremos o resto.
+        \nSe você quer nos ajudar ainda mais, compartilhe este aplicativo com seus entes queridos e nos ajude a mantê-los seguros.</string>
 
-
-    <string name="splash_title_first"><font color='#FF6F61'>Covid</font></string>
-    <string name="splash_title_next"><font color='#444444'>App</font></string>
-    <string name="splash_subtitle"><font color='#444444'>Covid Community Alert</font></string>
-
-    <!-- *** Splash Screen  **** -->
-    <string name="welcome_first">Welcome to\nanonymous</string>
-    <string name="welcome_next"><font color='#FF6F61'>\nCovid</font></string>
-    <string name="welcome_last">Community\nAlert &#128075;</string>
-    <!--<string name="welcome_to_">Bem-vindo ao \nanonymous\nCorona Vírus\n check &#128075;</string>-->
-    <string name="together_we">Juntos podemos salvar vidas e ajudar as pessoas a manterem seus empregos. </string>
-    <string name="let_s_get_s">VAMOS COMEÇAR! </string>
-    <string name="how_it_works">Como funciona? &#129300;  </string>
-    <!-- *********** -->
-
-    <!-- *** Utils ****** -->
-
+    <!-- ******************************* -->
+    <!-- ******* Utils **************** -->
     <!-- Permission Request -->
     <string name="blue_disabled">Bluetooth Desabilitado</string>
     <string name="blue_please_en">Por favor, habilite o Bluetooth </string>
     <string name="loc_disabled">Localização Desabilitada </string>
     <string name="loc_please_en">Por favor, habilite a Localização </string>
-    <!-- *********** -->
-
-
-
-    <!-- ** Introduction Slider *** -->
-
+    <string name="bluetooth">Bluetooth</string>
+    <string name="blue_notsupported">Bluetooth LE não está disponível</string>
+    <string name="blue_msg_notsupported">Desculpe, nossa aplicação não funciona em seu telefone. </string>
+    <!-- Monitoring Screen -->
+    <string name="bt_enable_mon">Ativar Monitoramento </string>
+    <string name="bt_disable_mon">Desativar Monitoramento </string>
+    <!--Introduction Slider-->
     <string name="step_1_of_3">Passo 1 de 3 </string>
     <string name="step_2_of_3">Passo 2 de 3 </string>
     <string name="step_3_of_3">Passo 3 de 3 </string>
