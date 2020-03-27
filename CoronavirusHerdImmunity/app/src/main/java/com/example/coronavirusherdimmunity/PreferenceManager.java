@@ -61,7 +61,13 @@ public class PreferenceManager {
     }
 
     public String getDeviceUUID() {
-        return pref.getString(DEVICE_UUID, null);
+        String uiid = pref.getString(DEVICE_UUID, null);
+
+        if (uiid == null) {
+            uiid = UUID.randomUUID().toString();
+            setDeviceUUID(uiid);
+        }
+        return uiid;
     }
 
 

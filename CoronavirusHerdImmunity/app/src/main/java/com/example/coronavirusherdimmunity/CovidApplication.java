@@ -87,9 +87,6 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 public Integer call() throws Exception {
 
                     String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
-                    if (deviceUUID == null) {
-                        deviceUUID = UUID.randomUUID().toString();
-                    }
                     JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
                     if (object != null) {
                         if (object.has("token")){
