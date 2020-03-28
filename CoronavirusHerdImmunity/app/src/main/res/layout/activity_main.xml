@@ -89,11 +89,20 @@
                 android:textSize="30sp"
                 android:text="@string/help_us_title" />
 
+
+            <TextView
+                style="@style/intro_subtitle"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/share_app_title" />
+
             <TextView
                 style="@style/intro_subtitle"
                 android:layout_marginBottom="@dimen/side_margin"
                 android:text="@string/share_app_subtitle" />
 
+            <!--socials-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -159,8 +168,6 @@
                     android:drawableStart="@drawable/ic_link" />
             </LinearLayout>
 
-
-
         </LinearLayout>
 
         <Button style="@style/button_primary"
@@ -171,6 +178,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_gravity="center"
             android:paddingBottom="12dp"
             android:background="@drawable/button_image"
