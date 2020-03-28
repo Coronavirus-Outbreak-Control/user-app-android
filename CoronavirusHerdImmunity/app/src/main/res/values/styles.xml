@@ -77,7 +77,7 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">27sp</item>
-        <item name="android:textColor">#555</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
     <!-- ///////////////////////////////////////////////////////// -->
 
@@ -114,11 +114,13 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginEnd">@dimen/side_margin</item>
         <item name="android:layout_marginStart">@dimen/side_margin</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/side_margin</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">top</item>
         <item name="android:lineSpacingExtra">4sp</item>
         <item name="android:textSize"> 20sp </item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor"> @color/colorText </item>
     </style>
 
