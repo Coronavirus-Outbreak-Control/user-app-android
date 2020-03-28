@@ -55,15 +55,20 @@
     <!-- ///////////////////////////////////////////////////////// -->
     <!-- Splash Screen -->
     <style name="splashscreen_title">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/button_min_width</item>
         <item name="android:layout_marginTop">100dp</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">55sp</item>
         <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:drawableStart">@drawable/ic_notification</item>
+        <item name="android:drawablePadding">-28dp</item>
+        <item name="android:paddingEnd">25dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <style name="splashscreen_subtitle">
@@ -157,6 +162,18 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+    <style name="social">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:drawablePadding">20dp</item>
+    </style>
 
     <style name="question">
         <item name="android:layout_width">match_parent</item>

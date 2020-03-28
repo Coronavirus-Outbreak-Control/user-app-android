@@ -14,4 +14,13 @@
     <color name="gray_background">#F9F9F9</color>
     <color name="black">#000000</color>
 
+
+
+    <color name="facebook">#1877F2</color>
+    <color name="twitter">#1DA1F2</color>
+    <color name="whatsapp">#50C568</color>
+    <color name="mail">#7324D8</color>
+    <color name="sms">#ECB730</color>
+
+
 </resources>

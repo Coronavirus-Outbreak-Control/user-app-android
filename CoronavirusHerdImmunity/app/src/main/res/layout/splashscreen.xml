@@ -9,6 +9,24 @@
 
     <!-- illustration_bluetooth -->
 
+<!--
+
+    <TextView
+        style="@style/splashscreen_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_notification"
+        android:drawablePadding="-150dp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="sans-serif"
+        android:textSize="57sp"
+        android:gravity="center"
+        android:text="ovidApp" />
+
+-->
+
+
     <ImageView
         style="@style/background_image"
         android:layout_width="match_parent"
@@ -18,6 +36,7 @@
 
     <TextView
             style="@style/splashscreen_title"
+            android:layout_width="wrap_content"
             android:id="@+id/intro_title" />
     <TextView
         style="@style/splashscreen_subtitle"

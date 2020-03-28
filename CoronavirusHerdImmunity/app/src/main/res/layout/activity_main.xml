@@ -91,8 +91,74 @@
 
             <TextView
                 style="@style/intro_subtitle"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="@dimen/side_margin"
                 android:text="@string/share_app_subtitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin" >
+
+                <TextView
+                    style="@style/social"
+                    android:id="@+id/facebook"
+                    android:text="@string/facebook"
+                    android:textColor="@color/facebook"
+                    android:drawableStart="@drawable/ic_facebook" />
+
+                <TextView
+                    style="@style/social"
+                    android:id="@+id/twitter"
+                    android:text="@string/twitter"
+                    android:textColor="@color/twitter"
+                    android:drawableStart="@drawable/ic_twitter" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin" >
+
+                <TextView
+                    style="@style/social"
+                    android:id="@+id/whatsapp"
+                    android:text="@string/whatsapp"
+                    android:textColor="@color/whatsapp"
+                    android:drawableStart="@drawable/ic_whatsapp" />
+
+                <TextView
+                    style="@style/social"
+                    android:id="@+id/sms"
+                    android:text="@string/sms"
+                    android:textColor="@color/sms"
+                    android:drawableStart="@drawable/ic_sms" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin" >
+
+                <TextView
+                    style="@style/social"
+                    android:id="@+id/mail"
+                    android:text="@string/email"
+                    android:textColor="@color/mail"
+                    android:drawableStart="@drawable/ic_mail" />
+
+                <TextView
+                    style="@style/social"
+                    android:id="@+id/link"
+                    android:text="@string/link"
+                    android:textColor="@color/colorPrimary"
+                    android:drawableStart="@drawable/ic_link" />
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -104,23 +170,11 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/button_margin_bottom"
             android:layout_gravity="center"
             android:paddingBottom="12dp"
             android:background="@drawable/button_image"
             android:textColor="@color/colorPrimary"
             android:text="@string/how_it_works_no_emoji"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-
-
-        </LinearLayout>
-
 
         <!-- FOR TESTING -->
         <Button
