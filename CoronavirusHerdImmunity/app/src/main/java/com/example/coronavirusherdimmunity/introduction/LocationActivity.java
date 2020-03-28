@@ -35,7 +35,7 @@ public class LocationActivity  extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.intro2_location);
 
-        Button button_next;
+        Button button_next, button_skip;
 
         bundle = getIntent().getExtras(); //Retrieves data from the intent
 
@@ -45,7 +45,14 @@ public class LocationActivity  extends AppCompatActivity {
             public void onClick(View v) {
 
                 requestLocationPermission();  //require Local Permissions
+            }
+        });
 
+        button_skip = findViewById(R.id.button_skip);
+        button_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                go_nextActivity();
             }
         });
 

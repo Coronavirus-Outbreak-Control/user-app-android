@@ -10,6 +10,7 @@
         style="@style/background_image"
         android:id="@+id/logo_id"
         android:layout_marginTop="250dp"
+        android:layout_marginBottom="-50dp"
         android:src="@drawable/ic_illustration_bluetooth" />
 
     <!-- Step 1 of 3 -->
@@ -37,7 +38,13 @@
     <Button style="@style/button_primary"
         android:shadowColor="@color/white"
         android:id="@+id/button_next"
-        android:layout_marginBottom="50dp"
         android:text="@string/give_blueto" />
+
+
+    <!-- UNDERBUTTON -->
+    <Button
+        android:id="@+id/button_skip"
+        style="@style/underbutton"
+        android:text="@string/skip_step" />
 
 </RelativeLayout>
