@@ -10,7 +10,8 @@
     <!-- ******** Main Screen ********** -->
     <string name="main_title">All Set! &#129303; </string>
     <string name="if_you_got_close">Remember to leave your Bluetooth and Location on, and we\'ll do the rest. </string>
-    <string name="how_it_works">How it works? &#129300; </string>
+    <string name="how_it_works">How it works &#129300; </string>
+    <string name="how_it_works_no_emoji">How it works</string>
 
     <string name="status">STATUS </string>
     <string name="app_status">APP STATUS</string>
@@ -18,6 +19,19 @@
     <string name="status_value">Active </string>
     <string name="n_interactions">DEVICES DETECTED </string>
     <string name="n_interactions_value">0 </string>
+
+
+
+    <string name="help_us_title">Help us protect you and your loved ones.</string>
+    <string name="share_app_title">Share the app</string>
+    <string name="share_app_subtitle">The more people that have this app,
+        the safer you will be and the faster your government can react to stop the virus.</string>
+    <string name="facebook">Facebook</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="twitter">Twitter</string>
+    <string name="sms">SMS</string>
+    <string name="email">E-mail</string>
+    <string name="link">Copy link</string>
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
@@ -94,6 +108,7 @@
     <string name="step_2_of_3">Step 2 of 3 </string>
     <string name="step_3_of_3">Step 3 of 3 </string>
     <string name="skip_step">SKIP THIS STEP </string>
+    <string name="qr_code">QR Code</string>
 
     <!-- ******************************* -->
     <string name="permanent_notification">Status: %s <!-- - Interactions: %d--></string>

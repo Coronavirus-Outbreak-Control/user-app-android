@@ -7,7 +7,8 @@
     <!-- ******** Main Screen ********** -->
     <string name="main_title">Tudo pronto! &#129303; </string>
     <string name="if_you_got_close">Lembre de deixar seu Bluetooth e Localização ligados, nós faremos o resto. </string>
-    <string name="how_it_works">Como funciona? &#129300; </string>
+    <string name="how_it_works">Como funciona &#129300; </string>
+    <string name="how_it_works_no_emoji">Como funciona</string>
     <string name="status">STATUS </string>
     <string name="app_status">STATUS APP</string>
     <string name="user_status">STATUS USUÁRIO</string>

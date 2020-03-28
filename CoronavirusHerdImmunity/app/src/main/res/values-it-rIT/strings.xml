@@ -11,7 +11,8 @@
     <string name="main_title">Tutto pronto! &#129303; </string>
     <string name="if_you_got_close">Ricorda di lasciare il Bluetooth e la posizione accesi,
         e noi faremo il resto.</string>
-    <string name="how_it_works">Come funziona? &#129300; </string>
+    <string name="how_it_works">Come funziona &#129300; </string>
+    <string name="how_it_works_no_emoji">Come funziona</string>
 
     <string name="status">STATO</string>
     <string name="app_status">STATO APP</string>

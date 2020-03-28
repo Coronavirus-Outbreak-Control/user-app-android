@@ -3,11 +3,10 @@ package com.example.coronavirusherdimmunity.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import com.google.zxing.WriterException;
+
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 import static android.content.Context.WINDOW_SERVICE;
@@ -41,12 +40,12 @@ public class QRCodeGenerator {
 
         qrgEncoder = new QRGEncoder(inputValue, null, QRGContents.Type.TEXT, dimension);
 
-        try {
-            bitmap = qrgEncoder.encodeAsBitmap();
-            qrImage.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            Log.v(TAG, e.toString());
-        }
+        qrgEncoder.setColorWhite(0xF9F9F9);
+
+        // Getting QR-Code as Bitmap
+        bitmap = qrgEncoder.getBitmap();
+        // Setting Bitmap to ImageView
+        qrImage.setImageBitmap(bitmap);
     }
 
 }

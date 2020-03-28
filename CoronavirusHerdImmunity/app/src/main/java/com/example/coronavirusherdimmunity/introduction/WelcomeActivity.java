@@ -1,7 +1,6 @@
 package com.example.coronavirusherdimmunity.introduction;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
