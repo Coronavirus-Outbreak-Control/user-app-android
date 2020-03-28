@@ -13,76 +13,121 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/gray_background">
+
+            <TextView
                 style="@style/intro_title"
                 android:layout_marginTop="70dp"
                 android:text="@string/main_title" />
 
-        <!-- We need your permission to use Bluetooth to monitor
-        your distance from other devices. It's anonymous. -->
-        <TextView
-            style="@style/intro_subtitle"
-            android:text="@string/if_you_got_close" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/side_margin"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="@dimen/side_margin">
-
             <TextView
-                android:id="@+id/status_app"
-                style="@style/status_value"
-                android:gravity="top"/>
+                style="@style/intro_subtitle"
+                android:text="@string/if_you_got_close" />
+
+            <!-- UNDERBUTTON -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin"
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:id="@+id/status_app"
+                    style="@style/status_value"
+                    android:gravity="top" />
                 <!--android:textSize="30sp"-->
-            <TextView
-                android:id="@+id/status_user"
-                style="@style/status_value"
-                android:gravity="top" />
+                <TextView
+                    android:id="@+id/status_user"
+                    style="@style/status_value"
+                    android:gravity="top" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/side_margin"
+                android:layout_marginStart="@dimen/side_margin">
+
+                <TextView
+                    style="@style/status_title"
+                    android:text="@string/app_status" />
+                <!--android:textSize="20sp"-->
+                <TextView
+                    style="@style/status_title"
+                    android:text="@string/user_status" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/qr_code"
+                android:contentDescription="@string/qr_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/side_margin"
+                android:layout_marginBottom="@dimen/side_margin"/>
+
+
         </LinearLayout>
+
+        <!-- SHARE APP -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/intro_title"
+                android:layout_marginTop="70dp"
+                android:textSize="30sp"
+                android:text="@string/help_us_title" />
+
+            <TextView
+                style="@style/intro_subtitle"
+                android:layout_marginBottom="20dp"
+                android:text="@string/share_app_subtitle" />
+
+        </LinearLayout>
+
+        <Button style="@style/button_primary"
+            android:id="@+id/how_it_works"
+            android:layout_height="118dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/button_margin_bottom"
+            android:layout_gravity="center"
+            android:paddingBottom="12dp"
+            android:background="@drawable/button_image"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/how_it_works_no_emoji"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/side_margin"
-            android:layout_marginEnd="@dimen/side_margin">
-            <TextView
-                style="@style/status_title"
-                android:text="@string/app_status" />
-            <!--android:textSize="20sp"-->
-            <TextView
-                style="@style/status_title"
-                android:text="@string/user_status" />
+            android:layout_height="wrap_content">
+
+
+
 
         </LinearLayout>
 
-        <!-- UNDERBUTTON -->
-        <Button
-            android:id="@+id/how_it_works"
-            style="@style/underbutton"
-            android:textSize="17sp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/how_it_works" />
 
-
-        <ImageView
-            android:id="@+id/qr_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp" />
-
-        <View style="@style/divider"
-            android:layout_width="200dp"
-            android:layout_marginBottom="0dp"
-            android:layout_gravity="center_horizontal"/>
-
+        <!-- FOR TESTING -->
         <Button
             android:id="@+id/openMonitoring"
             android:layout_width="0dp"
-            android:layout_height="0dp"/>
-            <!--android:layout_margin="16dp"-->
-            <!--android:text="Open monitoring activity" -->
+            android:layout_height="0dp" />
+
     </LinearLayout>
+
 </ScrollView>
