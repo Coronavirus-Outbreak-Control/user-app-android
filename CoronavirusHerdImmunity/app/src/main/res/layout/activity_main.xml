@@ -114,6 +114,7 @@
                     android:text="@string/twitter"
                     android:textColor="@color/twitter"
                     android:drawableStart="@drawable/ic_twitter" />
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
