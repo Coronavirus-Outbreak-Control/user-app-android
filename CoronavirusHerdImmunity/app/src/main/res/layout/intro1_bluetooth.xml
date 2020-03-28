@@ -9,7 +9,7 @@
     <ImageView
         style="@style/background_image"
         android:id="@+id/logo_id"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="250dp"
         android:src="@drawable/ic_illustration_bluetooth" />
 
     <!-- Step 1 of 3 -->

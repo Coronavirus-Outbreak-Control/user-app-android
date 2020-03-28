@@ -118,7 +118,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">top</item>
         <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:textSize"> 20sp </item>
+        <item name="android:textSize"> 18sp </item>
         <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor"> @color/colorText </item>
@@ -129,7 +129,8 @@
     <style name="background_image">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginTop">370dp</item>
+        <item name="android:layout_marginTop">300dp</item>
+        <item name="android:layout_marginBottom">-100dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_alignParentBottom">true</item>
     </style>
