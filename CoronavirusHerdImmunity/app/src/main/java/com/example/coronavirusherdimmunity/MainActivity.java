@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -20,7 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.example.coronavirusherdimmunity.enums.PatientStatus;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.QRCodeGenerator;
@@ -29,10 +30,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-
 import java.util.concurrent.Callable;
-
 import bolts.Continuation;
+import static com.example.coronavirusherdimmunity.R.*;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(layout.activity_main);
 
         mContext = this;
 
@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         if (BuildConfig.DEBUG){
-            findViewById(R.id.openMonitoring).setVisibility(View.VISIBLE);
-            findViewById(R.id.openMonitoring).setOnClickListener(new View.OnClickListener() {
+            findViewById(id.openMonitoring).setVisibility(View.VISIBLE);
+            findViewById(id.openMonitoring).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent myIntent = new Intent(mContext, MonitoringActivity.class);
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } else {
-            findViewById(R.id.openMonitoring).setVisibility(View.GONE);
+            findViewById(id.openMonitoring).setVisibility(View.GONE);
         }
 
 
@@ -135,27 +135,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void writePatientStatus() {
-        TextView statusTextView = (TextView) findViewById(R.id.status_user);
 
-        String status = new PreferenceManager(getApplicationContext()).getPatientStatus().toString();
-        statusTextView.setText(String.valueOf(status));
-        //PatientStatus.setTextColor();
+        TextView statusTextView = (TextView) findViewById(id.status_user);
+
+        PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
+
+        String color = this.getPatientStatusColor(status.toInt());
+
+        statusTextView.setText(String.valueOf(status.toString()));
+        statusTextView.setTextColor(Color.parseColor(color));
     }
 
 
+    @SuppressLint("ResourceType")
+    public String getPatientStatusColor(int status) {
+        //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
+
+        String black = getResources().getString(color.colorTextDark);
+        String green = getResources().getString(R.color.green);
+        String red = getResources().getString(R.color.red);
+        String orange = getResources().getString(R.color.orange);
+        String yellow = getResources().getString(R.color.yellow);
+
+        switch (status) {
+            case 0:
+                return black;
+            case 1:
+                return red;
+            case 2:
+                return orange;
+            case 3:
+                return green;
+            case 4:
+                return yellow;
+        }
+        return black;
+    }
+
+
+
     private void writeAppStatus() {
-        TextView statusTextView = (TextView) findViewById(R.id.status_app);
+        TextView statusTextView = (TextView) findViewById(id.status_app);
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
 
         if (permissions.checkPermissions(true)) {
             statusTextView.setText(String.valueOf("Active"));
 
-            int green = getResources().getColor(R.color.green);
+            int green = getResources().getColor(color.green);
             statusTextView.setTextColor(green);
         }
         else {
             statusTextView.setText(String.valueOf("Inactive"));
-            int red = getResources().getColor(R.color.red);
+            int red = getResources().getColor(color.red);
             statusTextView.setTextColor(red);
         }
     }
@@ -168,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }*/
 
     private void writeQRCode() {
-        ImageView qrImage = (ImageView) findViewById(R.id.qr_code);
+        ImageView qrImage = (ImageView) findViewById(id.qr_code);
 
         int deviceId = new PreferenceManager(mContext.getApplicationContext()).getDeviceId();
 
@@ -180,11 +211,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.how_it_works:
+            case id.how_it_works:
                 startActivity(new Intent(MainActivity.this, HowItWorksActivity.class));
                 break;
 
-            case R.id.facebook:
+            case id.facebook:
                 // do your code
                 break;
 
@@ -196,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 shareToLinkedin(MESSAGE);
                 break;
 
-            case R.id.messenger:
+            case id.messenger:
                 // do your code
                 break;
 

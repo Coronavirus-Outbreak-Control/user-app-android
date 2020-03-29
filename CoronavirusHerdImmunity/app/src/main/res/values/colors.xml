@@ -2,20 +2,22 @@
 
 <resources>
     <color name="colorPrimary">#FF6F61</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray_background">#F9F9F9</color>
+
+    <!-- Text -->
     <color name="colorTextDark">#333333</color>
     <color name="colorText">#444444</color>
     <color name="colorTextLight">#999999</color>
 
-
-
+    <!-- Status -->
     <color name="green">#009874</color>
     <color name="red">#E20A19</color>
-    <color name="white">#ffffff</color>
-    <color name="gray_background">#F9F9F9</color>
-    <color name="black">#000000</color>
+    <color name="orange">#EE8F30</color>
+    <color name="yellow">#ECB730</color>
 
-
-
+    <!-- Social -->
     <color name="facebook">#1877F2</color>
     <color name="messenger">#2C97EE</color>
     <color name="linkedin">#0D6797</color>
