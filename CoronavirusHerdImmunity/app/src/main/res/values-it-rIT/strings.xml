@@ -115,6 +115,6 @@
     <!-- ************ Notification **************** -->
     <string name="permanent_notification">Stato Paziente: %s - %s <!-- - Interactions: %d--></string>
     <string name="notification_appstatus_title">Stato App è Inattivo: Richiesti Permessi</string>
-    <string name="notification_appstatus_msg">Perfavore entrare nell\' App per attivare i permessi.</string>
+    <string name="notification_appstatus_msg">Perfavore, attivare i permessi nell\' App.</string>
 
 </resources>

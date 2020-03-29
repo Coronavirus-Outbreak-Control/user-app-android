@@ -88,13 +88,12 @@ public class BluetoothActivity extends AppCompatActivity {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.blue_notsupported);
             builder.setMessage(R.string.blue_msg_notsupported);
-            builder.setPositiveButton(android.R.string.ok, null);
-            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
 
                 }
             });
+            builder.setCancelable(false);
             builder.show();
         } else {
             if (!bluetoothAdapter.isEnabled()) { // if bluetooth is not enabled then turn on

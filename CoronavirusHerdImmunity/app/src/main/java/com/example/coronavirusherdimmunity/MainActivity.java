@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void writeAppStatus() {
         TextView statusTextView = (TextView) findViewById(id.status_app);
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
@@ -248,16 +247,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             default:
                 break;
-        }
-    }
-
-
-    private void CopyToClipboard(String label, String text) {
-
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(label, text);
-        if (clipboard != null && clip != null) {
-            clipboard.setPrimaryClip(clip);
         }
     }
 
