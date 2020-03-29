@@ -30,6 +30,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.robertsimoes.shareable.Shareable;
+
 import java.util.concurrent.Callable;
 import bolts.Continuation;
 import static com.example.coronavirusherdimmunity.R.*;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Context mContext;
     final String MESSAGE = "Help us. Together we can save lives. https://coronavirus-outbreak-control.github.io/web/index.html";
     final String LABEL = "Coronavirus Outbreak Control Link";
+    final String URL = "https://coronavirus-outbreak-control.github.io/web/index.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,6 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case id.facebook:
                 // do your code
+                shareToFacebook(MESSAGE, URL);
                 break;
 
             case R.id.twitter:
@@ -248,11 +252,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.linkedin:
-                shareToLinkedin(MESSAGE);
+                shareToLinkedin(MESSAGE, URL);
                 break;
 
             case id.messenger:
                 // do your code
+                shareToMessenger(MESSAGE);
                 break;
 
             case R.id.whatsapp:
@@ -328,17 +333,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void shareToLinkedin(String message){
-        if(isPackageInstalled("com.linkedin.android")){
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setClassName("com.linkedin.android",
-                    "com.linkedin.android.home.UpdateStatusActivity");
-            shareIntent.setType("text/*");
-            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
-            startActivity(shareIntent);
+    private void shareToMessenger(String message) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, MESSAGE);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.facebook.orca");
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(sendIntent);
         } else {
             shareWith(MESSAGE);
         }
+    }
+
+    private void shareToFacebook(String message, String url){
+        Shareable shareAction = new Shareable.Builder(this)
+                .message(message)
+                .url(url)
+                .socialChannel(Shareable.Builder.FACEBOOK)
+                .build();
+        shareAction.share();
+    }
+
+
+    private void shareToLinkedin(String message, String url){
+//        if(isPackageInstalled("com.linkedin.android")){
+//            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//            shareIntent.setClassName("com.linkedin.android",
+//                    "com.linkedin.android.home.UpdateStatusActivity");
+//            shareIntent.setType("text/*");
+//            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
+//            startActivity(shareIntent);
+//        } else {
+//            shareWith(MESSAGE);
+//        }
+        Shareable shareAction = new Shareable.Builder(this)
+                .message(message)
+                .url(url)
+                .socialChannel(Shareable.Builder.LINKED_IN)
+                .build();
+        shareAction.share();
     }
 
 
