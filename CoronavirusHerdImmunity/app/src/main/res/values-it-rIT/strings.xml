@@ -110,7 +110,10 @@
     <string name="bt_enable_mon">Re-Enable Monitoring </string>
     <string name="bt_disable_mon">Disable Monitoring </string>
 
-    <string name="permanent_notification">Stato: %s <!-- - Interactions: %d--></string>
-    <!-- ******************************* -->
+
+    <!-- ************ Notification **************** -->
+    <string name="permanent_notification">Stato Paziente: %s - %s <!-- - Interactions: %d--></string>
+    <string name="notification_appstatus_title">Stato App è Inattivo: Richiesti Permessi</string>
+    <string name="notification_appstatus_msg">Perfavore entrare nell\' App per attivare i permessi.</string>
 
 </resources>

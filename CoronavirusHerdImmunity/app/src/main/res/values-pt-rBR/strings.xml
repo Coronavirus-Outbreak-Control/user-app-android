@@ -82,10 +82,10 @@
 
     <!-- ** Monitoring Screen **** -->
 
-
-    <string name="permanent_notification">Status: %s <!-- - Interactions: %d--></string>
-
-    <!-- *********** -->
+    <!-- ****** Notification ***** -->
+    <string name="permanent_notification">Status: %s - %s <!-- - Interactions: %d--></string>
+    <string name="notification_appstatus_title">App Status is Inactive: Permissions Required</string>
+    <string name="notification_appstatus_msg">Please enter on the App in order to enable the permissions.</string>
 
 
 </resources>

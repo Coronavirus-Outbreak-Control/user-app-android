@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
-        permissions.checkPermissions(); //check if bluetooth and location are enabled else go to activity in order to enable them
+        permissions.checkPermissions(true); //check if bluetooth and location are enabled else go to activity in order to enable them
 
 
         /* BUTTONS */
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView statusTextView = (TextView) findViewById(R.id.status_app);
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
 
-        if (permissions.checkPermissions()) {
+        if (permissions.checkPermissions(true)) {
             statusTextView.setText(String.valueOf("Active"));
 
             int green = getResources().getColor(R.color.green);
