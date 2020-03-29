@@ -76,114 +76,142 @@
 
         </LinearLayout>
 
-        <!-- SHARE APP -->
+
+    <!-- SHARE APP -->
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/intro_title"
+            android:layout_marginTop="70dp"
+            android:textSize="35sp"
+            android:text="@string/help_us_title" />
+
+        <TextView
+            style="@style/intro_subtitle"
+            android:text="@string/share_app_subtitle" />
+
+
+        <TextView
+            style="@style/intro_subtitle"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/side_margin"
+            android:text="@string/share_app_title" />
+
+
+        <!--socials-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginStart="@dimen/side_margin" >
 
-            <TextView
-                style="@style/intro_title"
-                android:layout_marginTop="70dp"
-                android:textSize="30sp"
-                android:text="@string/help_us_title" />
+            <Button
+                style="@style/social"
+                android:id="@+id/facebook"
+                android:text="@string/facebook"
+                android:textColor="@color/facebook"
+                android:drawableStart="@drawable/ic_facebook" />
 
-
-            <TextView
-                style="@style/intro_subtitle"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/share_app_title" />
-
-            <TextView
-                style="@style/intro_subtitle"
-                android:layout_marginBottom="@dimen/side_margin"
-                android:text="@string/share_app_subtitle" />
-
-            <!--socials-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
-
-                <TextView
-                    style="@style/social"
-                    android:id="@+id/facebook"
-                    android:text="@string/facebook"
-                    android:textColor="@color/facebook"
-                    android:drawableStart="@drawable/ic_facebook" />
-
-                <TextView
-                    style="@style/social"
-                    android:id="@+id/twitter"
-                    android:text="@string/twitter"
-                    android:textColor="@color/twitter"
-                    android:drawableStart="@drawable/ic_twitter" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
-
-                <TextView
-                    style="@style/social"
-                    android:id="@+id/whatsapp"
-                    android:text="@string/whatsapp"
-                    android:textColor="@color/whatsapp"
-                    android:drawableStart="@drawable/ic_whatsapp" />
-
-                <TextView
-                    style="@style/social"
-                    android:id="@+id/sms"
-                    android:text="@string/sms"
-                    android:textColor="@color/sms"
-                    android:drawableStart="@drawable/ic_sms" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
-
-                <TextView
-                    style="@style/social"
-                    android:id="@+id/mail"
-                    android:text="@string/email"
-                    android:textColor="@color/mail"
-                    android:drawableStart="@drawable/ic_mail" />
-
-                <TextView
-                    style="@style/social"
-                    android:id="@+id/link"
-                    android:text="@string/link"
-                    android:textColor="@color/colorPrimary"
-                    android:drawableStart="@drawable/ic_link" />
-            </LinearLayout>
+            <Button
+                style="@style/social"
+                android:id="@+id/twitter"
+                android:text="@string/twitter"
+                android:textColor="@color/twitter"
+                android:drawableStart="@drawable/ic_twitter" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginStart="@dimen/side_margin" >
+
+            <Button
+                style="@style/social"
+                android:id="@+id/linkedin"
+                android:text="@string/linkedin"
+                android:textColor="@color/linkedin"
+                android:drawableStart="@drawable/ic_linkedin" />
+
+            <Button
+                style="@style/social"
+                android:id="@+id/messenger"
+                android:text="@string/messenger"
+                android:textColor="@color/messenger"
+                android:drawableStart="@drawable/ic_messenger" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginStart="@dimen/side_margin" >
+
+            <Button
+                style="@style/social"
+                android:id="@+id/whatsapp"
+                android:text="@string/whatsapp"
+                android:textColor="@color/whatsapp"
+                android:drawableStart="@drawable/ic_whatsapp" />
+
+            <Button
+                style="@style/social"
+                android:id="@+id/sms"
+                android:text="@string/sms"
+                android:textColor="@color/sms"
+                android:drawableStart="@drawable/ic_sms" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginStart="@dimen/side_margin" >
+
+            <Button
+                style="@style/social"
+                android:id="@+id/mail"
+                android:text="@string/email"
+                android:textColor="@color/mail"
+                android:drawableStart="@drawable/ic_mail" />
+
+            <Button
+                style="@style/social"
+                android:id="@+id/link"
+                android:text="@string/link"
+                android:textColor="@color/colorPrimary"
+                android:drawableStart="@drawable/ic_link" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
         <Button style="@style/button_primary"
             android:id="@+id/how_it_works"
-            android:layout_height="118dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="20dp"
             android:layout_gravity="center"
             android:paddingBottom="12dp"
-            android:background="@drawable/button_image"
+            android:background="@drawable/button_transparent"
             android:textColor="@color/colorPrimary"
             android:text="@string/how_it_works_no_emoji"/>
+
+
 
         <!-- FOR TESTING -->
         <Button
