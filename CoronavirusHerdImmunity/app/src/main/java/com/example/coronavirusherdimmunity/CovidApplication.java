@@ -140,7 +140,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
         beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
         beaconTransmitter.startAdvertising(beacon);
-        mHandler.postDelayed(resetTransmission, 5*60*1000); // 5 min
+        mHandler.postDelayed(resetTransmission, 15 * 1000); // 15 sec
 
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
@@ -221,10 +221,10 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             lastAppStatus = "Inactive";
                             updateNotification();  //update permanent notification
 
-                            //String title = getString(R.string.notification_appstatus_title);
-                            //String msg = getString(R.string.notification_appstatus_msg);
+                            String title = getString(R.string.notification_appstatus_title);
+                            String msg = getString(R.string.notification_appstatus_msg);
 
-                            //FCMService.sendNotification (title, msg); //send notification to alert user about app status change
+                            new FCMService(getApplicationContext()).sendNotification (title, msg); //send notification to alert user about app status change
 
                         }
                     }
