@@ -13,15 +13,22 @@
     <string name="how_it_works">How it works &#129300; </string>
     <string name="how_it_works_no_emoji">How it works</string>
 
-    <string name="status">STATUS </string>
+    <string name="status">STATUS</string>
     <string name="app_status">APP STATUS</string>
     <string name="user_status">USER STATUS</string>
-    <string name="status_value">Active </string>
-    <string name="n_interactions">DEVICES DETECTED </string>
-    <string name="n_interactions_value">0 </string>
+    <string name="status_active">Active</string>
+    <string name="status_inactive">Inactive</string>
+    <string name="n_interactions">DEVICES DETECTED</string>
+    <string name="n_interactions_value">0</string>
 
+    <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
+    <string name="status_no_risk">No risk\ndetected</string>
+    <string name="status_infected">Infected</string>
+    <string name="status_quarantine">Quarantine</string>
+    <string name="status_healed">Healed</string>
+    <string name="status_suspect">Suspect</string>
 
-
+    <!-- Share -->
     <string name="help_us_title">Help us protect you and your loved ones.</string>
     <string name="share_app_title">Share it on:</string>
     <string name="share_app_subtitle">The more people have this app,
@@ -115,10 +122,7 @@
 
     <!-- ************* Notification ****************** -->
     <string name="permanent_notification">Status: %s - %s <!-- - Interactions: %d--></string>
-    <string name="notification_appstatus_title">App Status is Inactive: Permissions Required</string>
-    <string name="notification_appstatus_msg">Please, enable the permissions on App.</string>
-
-
-
+    <string name="notification_appstatus_title">App Status is Inactive:</string>
+    <string name="notification_appstatus_msg">Please, check your permissions in the App.</string>
 
 </resources>

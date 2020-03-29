@@ -17,10 +17,19 @@
     <string name="status">STATO</string>
     <string name="app_status">STATO APP</string>
     <string name="user_status">STATO UTENTE</string>
-    <string name="status_value">Attivo</string>
+    <string name="status_active">Attivo</string>
+    <string name="status_inactive">Inattivo</string>
     <string name="n_interactions">DISPOSITIVI INCONTRATI</string>
     <string name="n_interactions_value">0 </string>
 
+    <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
+    <string name="status_no_risk">0 rischi rilevati</string>
+    <string name="status_infected">Infetto</string>
+    <string name="status_quarantine">Quarantena</string>
+    <string name="status_healed">Guarito</string>
+    <string name="status_suspect">Sospetto</string>
+
+    <!--Share-->
     <string name="help_us_title">Aiutaci a proteggere te e i tuoi cari.</string>
     <string name="share_app_title">Condividi l\'app su:</string>
     <string name="share_app_subtitle">Più persone hanno quest\'app, più saremo capaci di proteggerti
@@ -28,6 +37,8 @@
     <string name="facebook">Facebook</string>
     <string name="whatsapp">Whatsapp</string>
     <string name="twitter">Twitter</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="messenger">Messenger</string>
     <string name="sms">SMS</string>
     <string name="email">E-mail</string>
     <string name="link">Copia link</string>
@@ -110,11 +121,11 @@
     <!-- Monitoring -->
     <string name="bt_enable_mon">Re-Enable Monitoring </string>
     <string name="bt_disable_mon">Disable Monitoring </string>
-
+    <string name="qr_code">Codice QR</string>
 
     <!-- ************ Notification **************** -->
     <string name="permanent_notification">Stato Paziente: %s - %s <!-- - Interactions: %d--></string>
-    <string name="notification_appstatus_title">Stato App è Inattivo: Richiesti Permessi</string>
+    <string name="notification_appstatus_title">Stato App è Inattivo:</string>
     <string name="notification_appstatus_msg">Perfavore, attivare i permessi nell\' App.</string>
 
 </resources>
