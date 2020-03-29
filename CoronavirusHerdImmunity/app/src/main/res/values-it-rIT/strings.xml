@@ -43,6 +43,11 @@
     <string name="email">E-mail</string>
     <string name="link">Copia link</string>
     <string name="other">Altro</string>
+
+    <string name="alert_exit_title">Esci</string>
+    <string name="alert_exit_msg">Vuoi uscire?</string>
+    <string name="alert_exit_pos_bt">Sì</string>
+    <string name="alert_exit_neg_bt">No</string>
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
@@ -118,6 +123,8 @@
     <string name="step_2_of_3">Pagina 2 di 3 </string>
     <string name="step_3_of_3">Pagina 3 di 3 </string>
     <string name="skip_step">SALTA</string>
+    <string name="qr_code">QR Code</string>
+
     <!-- Monitoring -->
     <string name="bt_enable_mon">Re-Enable Monitoring </string>
     <string name="bt_disable_mon">Disable Monitoring </string>
