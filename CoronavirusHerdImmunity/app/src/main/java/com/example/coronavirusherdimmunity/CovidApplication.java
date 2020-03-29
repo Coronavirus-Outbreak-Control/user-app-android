@@ -24,6 +24,7 @@ import com.example.coronavirusherdimmunity.enums.Distance;
 import com.example.coronavirusherdimmunity.enums.PatientStatus;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
+import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
 
 import org.altbeacon.beacon.Beacon;
@@ -69,7 +70,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private long pushStartTime = -1;
 
     private int lastCount = 0;
-    private PatientStatus lastStatus = PatientStatus.NORMAL;
+    private PatientStatus lastStatus = PatientStatus.NORMAL;      // Patient Status (NORMAL, INFECTED, QUARANTINE, HEALED, SUSPECT)
+    private String lastAppStatus = "Active";                      // App Status (ACTIVE if permissions are granted, INACTIVE if at least a permission is not granted)
 
     private static CovidApplication instance;
 
@@ -150,7 +152,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification), lastStatus.toString(), lastCount)
+                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString(), lastCount)
         );
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -200,9 +202,34 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    enableTrasmission();
-                    Log.e(TAG, "Transmission restart");
-                    mHandler.postDelayed(resetTransmission, 15*1000); // 15 sec
+                    PermissionRequest permissions = new PermissionRequest(getApplicationContext());
+                    if (permissions.checkPermissions(false) == true) {  //if bluetooth and location are granted -> enable transmission
+
+                        if (lastAppStatus == "Inactive"){  //used to update just one time permanent notification when the permission is granted
+
+                            lastAppStatus = "Active";
+                            updateNotification();
+                        }
+
+                        enableTrasmission();
+                        Log.e(TAG, "Transmission restart");
+
+                    } else{  //if bluetooth or location is not granted -> send a notification in order to alert the User
+
+                        if (lastAppStatus == "Active"){  //used to send just one notification when the permission are not granted
+
+                            lastAppStatus = "Inactive";
+                            updateNotification();  //update permanent notification
+
+                            //String title = getString(R.string.notification_appstatus_title);
+                            //String msg = getString(R.string.notification_appstatus_msg);
+
+                            //FCMService.sendNotification (title, msg); //send notification to alert user about app status change
+
+                        }
+                    }
+
+                    mHandler.postDelayed(resetTransmission, 15 * 1000); // 15 sec
                 }
             }, 5*1000); // 5 sec
         }
@@ -374,8 +401,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setPriority(Notification.PRIORITY_MIN);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification), lastStatus.toString(), lastCount)
-                );
+                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString(), lastCount)
+        );
 
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(

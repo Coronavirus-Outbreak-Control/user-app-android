@@ -112,8 +112,11 @@
     <string name="skip_step">SKIP THIS STEP </string>
     <string name="qr_code">QR Code</string>
 
-    <!-- ******************************* -->
-    <string name="permanent_notification">Status: %s <!-- - Interactions: %d--></string>
+    <!-- ************* Notification ****************** -->
+    <string name="permanent_notification">Status: %s - %s <!-- - Interactions: %d--></string>
+    <string name="notification_appstatus_title">App Status is Inactive: Permissions Required</string>
+    <string name="notification_appstatus_msg">Please enter on the App in order to enable the permissions.</string>
+
 
 
 
