@@ -23,7 +23,7 @@
     <string name="n_interactions_value">0 </string>
 
     <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
-    <string name="status_no_risk">Nessun rischio\nrilevato</string>
+    <string name="status_no_risk">0 rischi rilevati</string>
     <string name="status_infected">Infetto</string>
     <string name="status_quarantine">Quarantena</string>
     <string name="status_healed">Guarito</string>

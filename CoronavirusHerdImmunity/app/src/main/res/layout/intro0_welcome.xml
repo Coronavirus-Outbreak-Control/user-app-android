@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="100dp"
             android:layout_marginRight="0dp"
-            android:textSize="35sp"
+            android:textSize="37sp"
             android:fontFamily="sans-serif-medium"
             android:id="@+id/welcome_to"/>
             
