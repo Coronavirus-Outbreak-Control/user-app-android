@@ -34,6 +34,7 @@
     <string name="sms">SMS</string>
     <string name="email">E-mail</string>
     <string name="link">Copy link</string>
+    <string name="other">Other</string>
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
