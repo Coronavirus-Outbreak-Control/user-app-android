@@ -36,29 +36,23 @@
                 android:layout_marginStart="@dimen/side_margin"
                 android:layout_marginTop="50dp">
 
-                <TextView
-                    android:id="@+id/status_app"
-                    style="@style/status_value"
-                    android:gravity="top" />
-                <!--android:textSize="30sp"-->
-                <TextView
-                    android:id="@+id/status_user"
-                    style="@style/status_value"
-                    android:gravity="top" />
-            </LinearLayout>
+                <TextView style="@style/status_value"
+                    android:id="@+id/status_app"/>
 
+                <TextView style="@style/status_value"
+                    android:id="@+id/status_user"/>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/side_margin"
                 android:layout_marginStart="@dimen/side_margin">
 
-                <TextView
-                    style="@style/status_title"
+                <TextView style="@style/status_title"
                     android:text="@string/app_status" />
-                <!--android:textSize="20sp"-->
-                <TextView
-                    style="@style/status_title"
+
+                <TextView style="@style/status_title"
                     android:text="@string/user_status" />
 
             </LinearLayout>

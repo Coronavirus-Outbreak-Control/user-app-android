@@ -36,6 +36,7 @@ public enum PatientStatus {
         return stringValue;
     }
 
+
     public static PatientStatus valueOf(int value) {
         return map.get(value);
     }
