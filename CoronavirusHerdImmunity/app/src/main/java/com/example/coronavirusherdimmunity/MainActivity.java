@@ -10,7 +10,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.whatsapp).setOnClickListener(this);
         findViewById(R.id.sms).setOnClickListener(this);
         findViewById(R.id.mail).setOnClickListener(this);
-        findViewById(R.id.mail).setOnClickListener(this);
+        findViewById(R.id.other).setOnClickListener(this);
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -186,11 +189,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.twitter:
-                // do your code
+                shareToTwitter(MESSAGE);
                 break;
 
             case R.id.linkedin:
-                // do your code
+                shareToLinkedin(MESSAGE);
                 break;
 
             case R.id.messenger:
@@ -198,46 +201,121 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.whatsapp:
-                // do your code
+                shareToWhatsapp(MESSAGE);
                 break;
 
             case R.id.sms:
-                // do your code
+                shareToSMS(MESSAGE);
                 break;
 
             case R.id.mail:
-                // do your code
+                shareToEmail(LABEL, MESSAGE);
                 break;
 
-            case R.id.link:
-                //this.CopyToClipboard(this.LABEL, this.MESSAGE);
+            case R.id.other:
+               shareWith(MESSAGE);
                 break;
             default:
                 break;
         }
     }
 
-/*
 
     private void CopyToClipboard(String label, String text) {
 
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(label, text);
-        clipboard.setPrimaryClip(clip);
+        if (clipboard != null && clip != null) {
+            clipboard.setPrimaryClip(clip);
+        }
     }
-*/
 
-/*
-    private void shareWith() {
+    private void shareToTwitter(String message){
+        Intent intent = null;
+        try {
+            // get the Twitter app if possible
+            getPackageManager().getPackageInfo("com.twitter.android", 0);
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://post?message="+Uri.encode(message)));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        } catch (Exception e) {
+            // no Twitter app, revert to browser
+            String tweetUrl = "https://twitter.com/intent/tweet?text=" +  Uri.encode(message);
+            Uri uri = Uri.parse(tweetUrl);
+            intent = new Intent(Intent.ACTION_VIEW, uri);
+        }
+        startActivity(intent);
+    }
+
+    private void shareToWhatsapp(String message){
+        if (isPackageInstalled("com.whatsapp")){
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setType("text/plain");
+            sendIntent.setPackage("com.whatsapp");
+
+            startActivity(sendIntent);
+        } else {
+            shareWith(MESSAGE);
+        }
+    }
+
+    private void shareToEmail(String subject, String message) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            shareWith(MESSAGE);
+        }
+    }
+
+    private void shareToSMS(String message){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:")); // only SMMS apps should handle this
+        intent.putExtra("sms_body", message);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            shareWith(MESSAGE);
+        }
+    }
+
+    private void shareToLinkedin(String message){
+        if(isPackageInstalled("com.linkedin.android")){
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setClassName("com.linkedin.android",
+                    "com.linkedin.android.home.UpdateStatusActivity");
+            shareIntent.setType("text/*");
+            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
+            startActivity(shareIntent);
+        } else {
+            shareWith(MESSAGE);
+        }
+    }
+
+
+    private void shareWith(String message) {
 
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message);
         sendIntent.setType("text/plain");
 
         Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
     }
-*/
 
+
+    public boolean isPackageInstalled(String targetPackage){
+        PackageManager pm=getPackageManager();
+        try {
+            PackageInfo info=pm.getPackageInfo(targetPackage,PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+        return true;
+    }
 }
