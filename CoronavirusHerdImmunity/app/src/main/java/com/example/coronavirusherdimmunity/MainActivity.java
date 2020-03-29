@@ -140,22 +140,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
-        String color = this.getPatientStatusColor(status.toInt());
+        int color = this.getPatientStatusColor(status.toInt());
+        String text = getPatientStatusText(status.toInt());
 
-        statusTextView.setText(String.valueOf(status.toString()));
-        statusTextView.setTextColor(Color.parseColor(color));
+        statusTextView.setText(String.valueOf(text));
+        statusTextView.setTextColor(color);
     }
 
-
-    @SuppressLint("ResourceType")
-    public String getPatientStatusColor(int status) {
+    public String getPatientStatusText(int status) {
         //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
 
-        String black = getResources().getString(color.colorTextDark);
-        String green = getResources().getString(R.color.green);
-        String red = getResources().getString(R.color.red);
-        String orange = getResources().getString(R.color.orange);
-        String yellow = getResources().getString(R.color.yellow);
+        String normal = getResources().getString(string.status_no_risk);
+        String infected = getResources().getString(string.status_infected);
+        String quarantine = getResources().getString(string.status_quarantine);
+        String healed = getResources().getString(string.status_healed);
+        String suspect = getResources().getString(string.status_suspect);
+
+        switch (status) {
+            case 0:
+                return normal;
+            case 1:
+                return infected;
+            case 2:
+                return quarantine;
+            case 3:
+                return healed;
+            case 4:
+                return suspect;
+        }
+        return normal;
+    }
+
+    public int getPatientStatusColor(int status) {
+        //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
+
+        int black = getResources().getColor(color.colorTextDark);
+        int green = getResources().getColor(color.green);
+        int red = getResources().getColor(color.red);
+        int orange = getResources().getColor(color.orange);
+        int yellow = getResources().getColor(color.yellow);
 
         switch (status) {
             case 0:
@@ -174,17 +197,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void writeAppStatus() {
-        TextView statusTextView = (TextView) findViewById(id.status_app);
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
 
-        if (permissions.checkPermissions(true)) {
-            statusTextView.setText(String.valueOf("Active"));
+        TextView statusTextView = (TextView) findViewById(id.status_app);
+        String active = getResources().getString(string.status_active);
+        String inactive = getResources().getString(string.status_inactive);
 
+        if (permissions.checkPermissions(true)) {
+            statusTextView.setText(active);
             int green = getResources().getColor(color.green);
             statusTextView.setTextColor(green);
         }
         else {
-            statusTextView.setText(String.valueOf("Inactive"));
+            statusTextView.setText(inactive);
             int red = getResources().getColor(color.red);
             statusTextView.setTextColor(red);
         }
