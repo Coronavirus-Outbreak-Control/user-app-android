@@ -40,7 +40,7 @@ public class BluetoothActivity extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.intro1_bluetooth);
 
-        Button button_next;
+        Button button_next, button_skip;
 
         bundle = getIntent().getExtras(); //Retrieves data from the intent
 
@@ -49,6 +49,14 @@ public class BluetoothActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestBTPermission(); //requires bluetooth permissions and turn on
+            }
+        });
+
+        button_skip = findViewById(R.id.button_skip);
+        button_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                go_nextActivity();
             }
         });
     }

@@ -2,12 +2,14 @@ package com.example.coronavirusherdimmunity.utils;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.coronavirusherdimmunity.BuildConfig;
 import com.example.coronavirusherdimmunity.PreferenceManager;
 import com.example.coronavirusherdimmunity.enums.Distance;
 
@@ -77,6 +79,7 @@ public class BeaconDto {
             obj.put("d", distance.toString());
             obj.put("x", this.x);
             obj.put("y", this.y);
+            obj.put("v", BuildConfig.VERSION_CODE);
             return obj;
         }catch (Exception e){
             return null;

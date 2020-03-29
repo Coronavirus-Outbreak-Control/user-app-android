@@ -35,10 +35,13 @@
 
     <!-- BUTTON -->
     <Button style="@style/button_primary"
-        android:shadowColor="@color/white"
         android:id="@+id/button_next"
-        android:layout_marginBottom="50dp"
+        android:shadowColor="@color/white"
         android:text="@string/give_loc" />
 
+    <!-- UNDERBUTTON -->
+    <Button style="@style/underbutton"
+        android:id="@+id/button_skip"
+        android:text="@string/skip_step" />
 
 </RelativeLayout>

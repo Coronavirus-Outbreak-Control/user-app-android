@@ -1,7 +1,6 @@
 package com.example.coronavirusherdimmunity.introduction;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,13 +51,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     private void writeTitle() {
+
         String first = getResources().getString(R.string.welcome_first);
         String pink = getResources().getString(R.string.welcome_next);
         String last = getResources().getString(R.string.welcome_last);
         TextView t = (TextView) findViewById(R.id.welcome_to);
 
         t.setText(Html.fromHtml(first +
-                "<font color='#FF6F61'> " + pink + "</font>"
+                "<br/><font color='#FF6F61'> " + pink + "</font><br/>"
                 + last));
     }
 }

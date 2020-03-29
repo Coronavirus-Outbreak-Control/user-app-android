@@ -6,7 +6,7 @@ import java.util.Map;
 public enum PatientStatus {
     //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
 
-    NORMAL("Active", 0),
+    NORMAL("No Risk\nDetected", 0),
     INFECTED("Infected", 1),
     QUARANTINE("Quarantine", 2),
     HEALED("Healed", 3),

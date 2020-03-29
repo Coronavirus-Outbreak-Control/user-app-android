@@ -44,7 +44,11 @@ dependencies {
     implementation 'org.altbeacon:android-beacon-library:2+'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
 
-    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+    implementation 'com.google.zxing:core:3.3.2'
+    implementation "com.android.support:support-emoji-appcompat:$version"
+
+    implementation 'com.github.joielechong:countrycodepicker:2.4.1'
 
     implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta02'
     implementation 'com.google.firebase:firebase-analytics:17.2.3'

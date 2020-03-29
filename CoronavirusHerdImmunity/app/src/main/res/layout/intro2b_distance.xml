@@ -39,7 +39,6 @@
     <Button style="@style/button_primary"
         android:shadowColor="@color/white"
         android:id="@+id/button_next"
-        android:layout_marginBottom="80dp"
         android:text="@string/give_dist" />
 
     <!-- UNDERBUTTON -->

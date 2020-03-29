@@ -21,8 +21,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.coronavirusherdimmunity.enums.Distance;
+import com.example.coronavirusherdimmunity.enums.PatientStatus;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
+import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
 
 import org.altbeacon.beacon.Beacon;
@@ -67,6 +69,10 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private boolean isPushingInteractions = false;
     private long pushStartTime = -1;
 
+    private int lastCount = 0;
+    private PatientStatus lastStatus = PatientStatus.NORMAL;      // Patient Status (NORMAL, INFECTED, QUARANTINE, HEALED, SUSPECT)
+    private String lastAppStatus = "Active";                      // App Status (ACTIVE if permissions are granted, INACTIVE if at least a permission is not granted)
+
     private static CovidApplication instance;
 
     public static CovidApplication getInstance() {
@@ -80,13 +86,18 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     public void onCreate() {
         instance = this;
         super.onCreate();
+
+        lastCount = new StorageManager(getApplicationContext()).countInteractions();
+        lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
+
         int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId == -1) {
             Task.callInBackground(new Callable<Integer>() {
                 @Override
                 public Integer call() throws Exception {
 
-                        JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ UUID.randomUUID().toString());
+                    String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
+                    JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
                     if (object != null) {
                         if (object.has("token")){
                             new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));
@@ -141,10 +152,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification),
-                        new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
-                        new StorageManager(getApplicationContext()).countInteractions()
-                )
+                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString(), lastCount)
         );
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -194,9 +202,34 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    enableTrasmission();
-                    Log.e(TAG, "Transmission restart");
-                    mHandler.postDelayed(resetTransmission, 15*1000); // 15 sec
+                    PermissionRequest permissions = new PermissionRequest(getApplicationContext());
+                    if (permissions.checkPermissions(false) == true) {  //if bluetooth and location are granted -> enable transmission
+
+                        if (lastAppStatus == "Inactive"){  //used to update just one time permanent notification when the permission is granted
+
+                            lastAppStatus = "Active";
+                            updateNotification();
+                        }
+
+                        enableTrasmission();
+                        Log.e(TAG, "Transmission restart");
+
+                    } else{  //if bluetooth or location is not granted -> send a notification in order to alert the User
+
+                        if (lastAppStatus == "Active"){  //used to send just one notification when the permission are not granted
+
+                            lastAppStatus = "Inactive";
+                            updateNotification();  //update permanent notification
+
+                            //String title = getString(R.string.notification_appstatus_title);
+                            //String msg = getString(R.string.notification_appstatus_msg);
+
+                            //FCMService.sendNotification (title, msg); //send notification to alert user about app status change
+
+                        }
+                    }
+
+                    mHandler.postDelayed(resetTransmission, 15 * 1000); // 15 sec
                 }
             }, 5*1000); // 5 sec
         }
@@ -259,11 +292,12 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     }
 
     private void sendNotification() {
-        Notification.Builder builder =
+/*        Notification.Builder builder =
                 new Notification.Builder(this)
                         .setContentTitle("Beacon Reference Application")
                         .setContentText("An beacon is nearby.")
-                        .setSmallIcon(R.drawable.ic_notification);
+                        .setSmallIcon(R.mipmap.ic_launcher);*/
+/*
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
@@ -282,6 +316,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             builder.setChannelId(channel.getId());
         }
         notificationManager.notify(1, builder.build());
+*/
 
     }
 
@@ -320,12 +355,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             distance = Distance.NEAR;
                         }
 
-                        boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+                        //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
                         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
                         double x = 0;
                         double y = 0;
 
-                        if (sendBackendLocation && sendUserLocation) {
+                        //if (sendBackendLocation && sendUserLocation) {
+                        if (sendUserLocation) {
                             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                             if (locationManager != null &&
                                     (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
@@ -339,8 +375,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                         new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
-                updateNotification();
-                notifyUI();
+
+
+                if (lastCount != new StorageManager(getApplicationContext()).countInteractions() || lastStatus != new PreferenceManager(getApplicationContext()).getPatientStatus()) {
+                    lastCount = new StorageManager(getApplicationContext()).countInteractions();
+                    lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
+                    updateNotification();
+                    notifyUI();
+                }
                 pushInteractions();
             }
         });
@@ -357,12 +399,11 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
     private void updateNotification(){
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
+        builder.setPriority(Notification.PRIORITY_MIN);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification),
-                        new PreferenceManager(getApplicationContext()).getPatientStatus().toString(),
-                        new StorageManager(getApplicationContext()).countInteractions()
-                )
-                );
+                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString(), lastCount)
+        );
+
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
@@ -372,18 +413,18 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("FOREGROUNDBEACON",
-                    "Foreground beacon service", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("Foreground beacon service");
-            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            channel.enableLights(false);
-            channel.enableVibration(false);
-            channel.setShowBadge(false);
-            channel.setSound(null, null);
-
-
-            notificationManager.createNotificationChannel(channel);
-            builder.setChannelId(channel.getId());
+//            NotificationChannel channel = new NotificationChannel("FOREGROUNDBEACON",
+//                    "Foreground beacon service", NotificationManager.IMPORTANCE_MIN);
+//            channel.setDescription("Foreground beacon service");
+//            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+//            channel.enableLights(false);
+//            channel.enableVibration(false);
+//            channel.setShowBadge(false);
+//            channel.setSound(null, null);
+//
+//
+//            notificationManager.createNotificationChannel(channel);
+            builder.setChannelId("FOREGROUNDBEACON");
         }
         notificationManager.notify(456, builder.build());
     }
@@ -400,7 +441,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
             return;
 
-        boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+        //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
 
         ArrayList<Integer> dist = new ArrayList<>();
@@ -421,7 +462,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
-                    if (sendBackendLocation && sendUserLocation) {
+
+                    //if (sendBackendLocation && sendUserLocation) {
+                    if (sendUserLocation) {
                         lastGroup.x = beacon.x;
                         lastGroup.y = beacon.y;
                     } else {
