@@ -49,15 +49,14 @@ public class PermissionRequest {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(R.string.blue_disabled);
                 builder.setMessage(R.string.blue_please_en);
-                builder.setPositiveButton(android.R.string.ok, null);
-                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         //when you click "ok" then go to next activity in order to enable bluetooth
                         context.startActivity(intent_bt);
                         ((Activity) context).finish();
                     }
                 });
+                builder.setCancelable(false);
                 builder.show();
             }
 
@@ -77,15 +76,14 @@ public class PermissionRequest {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(R.string.loc_disabled);
                     builder.setMessage(R.string.loc_please_en);
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
+                    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             //when you click "ok" then go to Location Activity in order to enable location permission
                             context.startActivity(intent_loc);
                             ((Activity) context).finish();
                         }
                     });
+                    builder.setCancelable(false);
                     builder.show();
                 }
 
@@ -103,15 +101,14 @@ public class PermissionRequest {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle(R.string.loc_disabled);
                     builder.setMessage(R.string.loc_please_en);
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
+                    builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             //when you click "ok" then go to Location Activity in order to enable location permission
                             context.startActivity(intent_loc);
                             ((Activity) context).finish();
                         }
                     });
+                    builder.setCancelable(false);
                     builder.show();
                 }
 
