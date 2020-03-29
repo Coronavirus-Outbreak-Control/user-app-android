@@ -3,7 +3,7 @@
     <string name="app_name">CovidApp</string>
     <string name="app_title">Covid Community Alert</string>
 
-    <string name="splash_title_first"><font color='#FF6F61'>Covid</font></string>
+    <string name="splash_title_first"><font color='#FF6F61'>ovid</font></string>
     <string name="splash_title_next"><font color='#444444'>App</font></string>
     <string name="splash_subtitle"><font color='#444444'>Covid Community Alert</font></string>
 
@@ -34,9 +34,9 @@
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Welcome to \nanonymous</string>
-    <string name="welcome_next"><font color='#FF6F61'>\nCovid</font></string>
-    <string name="welcome_last">Community\nAlert &#128075;</string>
+    <string name="welcome_first">Welcome to\nanonymous\n</string>
+    <string name="welcome_next">CovidCommunity\n</string>
+    <string name="welcome_last">Alert &#128075;</string>
     <string name="together_we">Insieme possiamo salvare vite e aiutare persone a non perdere il lavoro. </string>
     <string name="let_s_get_s">INIZIA! </string>
 
