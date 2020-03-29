@@ -180,8 +180,8 @@
 
             <Button
                 style="@style/social"
-                android:id="@+id/link"
-                android:text="@string/link"
+                android:id="@+id/other"
+                android:text="@string/other"
                 android:textColor="@color/colorPrimary"
                 android:drawableStart="@drawable/ic_link" />
         </LinearLayout>
