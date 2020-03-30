@@ -506,13 +506,34 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             }
         }
 
-        if (groups.size() > 0) {
+        final List<BeaconDto> reducedGroups = new ArrayList<>();
+        for (BeaconDto b : groups) {
+            if (reducedGroups.size()==0){
+                reducedGroups.add(b);
+            } else {
+                BeaconDto lastGroup = groups.get(groups.size() -1);
+                if (lastGroup.distance == b.distance && b.timestmp < lastGroup.timestmp + lastGroup.interval + 30*1000 ){
+                    reducedGroups.remove(lastGroup);
+
+                    lastGroup.rssi = (lastGroup.rssi + b.rssi)/2;
+                    lastGroup.interval = lastGroup.interval + b.interval;
+                    lastGroup.distanceValue = (lastGroup.distanceValue + b.distanceValue) /2;
+
+                    reducedGroups.add(lastGroup);
+                } else {
+                    reducedGroups.add(b);
+                }
+            }
+        }
+
+
+        if (reducedGroups.size() > 0) {
             isPushingInteractions = true;
             pushStartTime = now.getTime();
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() throws Exception {
-                    return ApiManager.pushInteractions(getApplicationContext(), groups, new PreferenceManager(getApplicationContext()).getAuthToken());
+                    return ApiManager.pushInteractions(getApplicationContext(), reducedGroups, new PreferenceManager(getApplicationContext()).getAuthToken());
                 }
             }).onSuccess(new Continuation<JSONObject, Object>() {
                 @Override
