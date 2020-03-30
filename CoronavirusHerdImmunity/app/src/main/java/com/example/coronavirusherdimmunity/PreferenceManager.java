@@ -31,6 +31,7 @@ public class PreferenceManager {
     private static final String AUTH_TOKEN = "authToken";
     private static final String BACKEND_LOCATION = "backendLocation";
     private static final String USER_LOCATION_PERMISSION = "userLocationPermission";
+    private static final String EXCLUDE_FAR = "exclude_far";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -145,5 +146,14 @@ public class PreferenceManager {
 
     public boolean getUserLocationPermission() {
         return pref.getBoolean(USER_LOCATION_PERMISSION, false);
+    }
+
+    public void setExcludeFar(boolean excludeFar) {
+        editor.putBoolean(EXCLUDE_FAR, excludeFar);
+        editor.commit();
+    }
+
+    public boolean getExcludeFar() {
+        return pref.getBoolean(EXCLUDE_FAR, false);
     }
 }

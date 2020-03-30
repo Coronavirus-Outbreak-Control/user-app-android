@@ -359,24 +359,26 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             distance = Distance.NEAR;
                         }
 
-                        //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
-                        boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
-                        double x = 0;
-                        double y = 0;
+                        if (distance != Distance.FAR || !new PreferenceManager(getApplicationContext()).getExcludeFar()) {
+                            //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+                            boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
+                            double x = 0;
+                            double y = 0;
 
-                        //if (sendBackendLocation && sendUserLocation) {
-                        if (sendUserLocation) {
-                            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                            if (locationManager != null &&
-                                    (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                                            ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-                                x = (location == null ? 0 : location.getLatitude());
-                                y = (location == null ? 0 : location.getLongitude());
+                            //if (sendBackendLocation && sendUserLocation) {
+                            if (sendUserLocation) {
+                                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                                if (locationManager != null &&
+                                        (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                                                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                                    Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                                    x = (location == null ? 0 : location.getLatitude());
+                                    y = (location == null ? 0 : location.getLongitude());
+                                }
                             }
+                            BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, x, y);
+                            new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                         }
-                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, x, y);
-                        new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
 
@@ -499,8 +501,15 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     JSONObject result = task.getResult();
                     if (result != null) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
-                        new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
-                        new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
+                        if (result.has("next_try")) {
+                            new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
+                        }
+                        if (result.has("location")) {
+                            new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
+                        }
+                        if (result.has("exclude_far")) {
+                            new PreferenceManager(getApplicationContext()).setExcludeFar(result.getBoolean("exclude_far"));
+                        }
                     }
                     return null;
                 }
