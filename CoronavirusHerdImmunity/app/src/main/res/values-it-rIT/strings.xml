@@ -123,7 +123,6 @@
     <string name="step_2_of_3">Pagina 2 di 3 </string>
     <string name="step_3_of_3">Pagina 3 di 3 </string>
     <string name="skip_step">SALTA</string>
-    <string name="qr_code">QR Code</string>
 
     <!-- Monitoring -->
     <string name="bt_enable_mon">Re-Enable Monitoring </string>
