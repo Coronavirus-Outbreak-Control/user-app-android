@@ -228,7 +228,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             String title = getString(R.string.notification_appstatus_title);
                             String msg = getString(R.string.notification_appstatus_msg);
 
-                            new FCMService(getApplicationContext()).sendNotification (title, msg); //send notification to alert user about app status change
+                            new FCMService(getApplicationContext()).sendNotification(title, msg); //send notification to alert user about app status change
 
                         }
                     }

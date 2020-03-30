@@ -30,6 +30,7 @@ public class FCMService extends FirebaseMessagingService {
 
     private Context _context;
 
+    public FCMService() { }
     public FCMService(Context cont){
         this._context = cont;
     }

@@ -124,7 +124,7 @@
     <string name="qr_code">Codice QR</string>
 
     <!-- ************ Notification **************** -->
-    <string name="permanent_notification">Stato: %s - %s <!-- - Interactions: %d--></string>
+    <string name="permanent_notification">Stato: %s - %s </string> <!--- Interactions: %d-->
     <string name="notification_appstatus_title">Stato App è Inattivo:</string>
     <string name="notification_appstatus_msg">Perfavore, attivare i permessi nell\' App.</string>
 
