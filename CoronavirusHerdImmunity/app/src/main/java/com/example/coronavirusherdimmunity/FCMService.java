@@ -31,9 +31,6 @@ public class FCMService extends FirebaseMessagingService {
     private Context _context;
 
     public FCMService() { }
-    public FCMService(Context cont){
-        this._context = cont;
-    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -53,7 +50,7 @@ public class FCMService extends FirebaseMessagingService {
                 String title = data.get("title");
                 String message = data.get("message");
 
-                sendNotification(title, message);
+                sendNotification(_context, title, message);
 
                 LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("STATUS_UPDATE"));
             }
@@ -77,16 +74,18 @@ public class FCMService extends FirebaseMessagingService {
         });
     }
 
-    public void sendNotification(String title, String message) {
-        Intent intent = new Intent(_context, MainActivity.class);
+    public static void sendNotification(Context context, String title, String message) {
+
+        Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(_context, 0 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = "STATUS_UPDATE";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(_context, channelId)
+                new NotificationCompat.Builder(context, channelId)
                         .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle(title)
                         .setContentText(message)
@@ -94,15 +93,13 @@ public class FCMService extends FirebaseMessagingService {
                         .setSound(defaultSoundUri)
                         .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })       //Vibration
                         .setContentIntent(pendingIntent);
-
-
         NotificationManager notificationManager =
-                (NotificationManager) _context.getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId,
                     "Status update",
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_HIGH);
             channel.enableVibration(true);
             notificationManager.createNotificationChannel(channel);
         }
