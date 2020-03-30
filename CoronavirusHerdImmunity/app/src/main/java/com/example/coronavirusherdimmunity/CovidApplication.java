@@ -154,7 +154,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification), lastAppStatus.toString(), lastStatus.toString(), lastCount)
+                String.format(getString(R.string.permanent_notification), lastAppStatus.toString(), lastStatus.toString()) /*, lastCount*/
         );
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -405,7 +405,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setPriority(Notification.PRIORITY_MIN);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString(), lastCount)
+                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString()) /*, lastCount)*/
         );
 
         Intent intent = new Intent(this, MainActivity.class);
