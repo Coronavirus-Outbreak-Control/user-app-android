@@ -45,6 +45,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
@@ -521,7 +522,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (result != null) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
                         if (result.has("next_try")) {
-                            new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
+                            int next = result.getInt("next_try");
+                            Random r = new Random();
+                            double rangeMin = -0.25;
+                            double rangeMax = 0.25;
+                            double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+                            next = next + (int)(randomValue * next);
+                            new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + next);
                         }
                         if (result.has("location")) {
                             new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
