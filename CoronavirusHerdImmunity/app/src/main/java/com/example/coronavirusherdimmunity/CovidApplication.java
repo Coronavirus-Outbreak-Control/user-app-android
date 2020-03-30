@@ -6,7 +6,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +16,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -27,6 +27,12 @@ import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -38,6 +44,7 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -45,8 +52,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -93,38 +100,13 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
 
         Long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
-        if (deviceId == -1) {
-            Task.callInBackground(new Callable<Long>() {
-                @Override
-                public Long call() throws Exception {
-
-                    String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
-                    JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
-                    if (object != null) {
-                        if (object.has("token")){
-                            new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));
-                        }
-                        return object.getLong("id");
-                    } else {
-                        return Long.valueOf(-1);
-                    }
-                }
-            }).onSuccess(new Continuation<Long, Object>() {
-                @Override
-                public Object then(Task<Long> task) {
-                    Log.e(TAG, "dev " + task.getResult());
-                    if (task.getResult() != -1)
-                        new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());
-                        initBeacon(task.getResult());
-                    return null;
-                }
-            });
-        } else {
+        if (deviceId != -1) {
             initBeacon(deviceId);
         }
     }
 
-    private void initBeacon(Long deviceId){
+
+    public void initBeacon(Long deviceId){
         beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
 
         beacon = new Beacon.Builder()
@@ -219,7 +201,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
                     } else{  //if bluetooth or location is not granted -> send a notification in order to alert the User
 
-                        if (lastAppStatus.toInt() == 0){  //used to send just one notification when the permission are not granted
+                        PreferenceManager pm = new PreferenceManager(getApplicationContext());
+                        if (lastAppStatus.toInt() == 0 &&
+                            !pm.isFirstTimeLaunch()){  //0: Active and is not first time launch -> Used to send just one notification when the permission are not granted
 
                             new PreferenceManager(getApplicationContext()).setApplicationStatus(1);
                             lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
