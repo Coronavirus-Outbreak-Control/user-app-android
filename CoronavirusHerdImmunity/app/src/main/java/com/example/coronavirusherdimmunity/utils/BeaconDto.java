@@ -1,13 +1,6 @@
 package com.example.coronavirusherdimmunity.utils;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-
-import androidx.core.app.ActivityCompat;
 
 import com.example.coronavirusherdimmunity.BuildConfig;
 import com.example.coronavirusherdimmunity.PreferenceManager;
@@ -23,34 +16,38 @@ public class BeaconDto {
     public int identifier;
     public int rssi;
     public Distance distance;
+    public double distanceValue;
     public int interval;
     public double x = 0;
     public double y = 0;
 
-    public BeaconDto(int identifier, int rssi, Distance distance, double x, double y){
+    public BeaconDto(int identifier, int rssi, Distance distance, double distanceValue, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = new Date().getTime() / 1000;
         this.distance = distance;
+        this.distanceValue = distanceValue;
         this.x = x;
         this.y = y;
     }
 
-    public BeaconDto(int identifier, int rssi, long timestamp, Distance distance, double x, double y){
+    public BeaconDto(int identifier, int rssi, long timestamp, Distance distance, double distanceValue, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp;
         this.distance = distance;
+        this.distanceValue = distanceValue;
         this.x = x;
         this.y = y;
 
     }
 
-    public BeaconDto(int identifier, int rssi, Date timestamp, Distance distance, double x, double y){
+    public BeaconDto(int identifier, int rssi, Date timestamp, Distance distance, double distanceValue, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp.getTime() / 1000;
         this.distance = distance;
+        this.distanceValue = distanceValue;
         this.x = x;
         this.y = y;
     }
@@ -77,6 +74,7 @@ public class BeaconDto {
             obj.put("r", this.rssi);
             obj.put("p", "a");
             obj.put("d", distance.toString());
+            obj.put("s", distanceValue);
             obj.put("x", this.x);
             obj.put("y", this.y);
             obj.put("v", BuildConfig.VERSION_CODE);

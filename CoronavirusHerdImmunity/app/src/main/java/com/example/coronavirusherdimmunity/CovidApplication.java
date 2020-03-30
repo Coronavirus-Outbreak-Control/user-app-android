@@ -376,7 +376,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                                     y = (location == null ? 0 : location.getLongitude());
                                 }
                             }
-                            BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, x, y);
+                            BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, beacon.getDistance(), x, y);
                             new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                         }
                     }
@@ -451,22 +451,37 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
 
         ArrayList<Integer> dist = new ArrayList<>();
+        ArrayList<Integer> rssi = new ArrayList<>();
+        ArrayList<Double> distVal = new ArrayList<>();
 
         List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
         for (BeaconDto beacon: beacons) {
             if (groups.size()==0){
                 groups.add(beacon);
                 dist.clear();
+                distVal.clear();
+                rssi.clear();
                 dist.add(beacon.distance.toInt());
+                distVal.add(beacon.distanceValue);
+                rssi.add(beacon.rssi);
             } else {
                 BeaconDto lastGroup = groups.get(groups.size() -1);
                 if (lastGroup.identifier == beacon.identifier && lastGroup.timestmp + 3*60 > beacon.timestmp){
                     groups.remove(lastGroup);
 
                     dist.add(beacon.distance.toInt());
+                    distVal.add(beacon.distanceValue);
+                    rssi.add(beacon.rssi);
 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
+
+                    Collections.sort(distVal);
+                    lastGroup.distanceValue = distVal.get(distVal.size()/2);
+
+                    Collections.sort(rssi);
+                    lastGroup.rssi = rssi.get(rssi.size()/2);
+
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
 
                     //if (sendBackendLocation && sendUserLocation) {
@@ -481,7 +496,11 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 } else {
                     groups.add(beacon);
                     dist.clear();
+                    distVal.clear();
+                    rssi.clear();
                     dist.add(beacon.distance.toInt());
+                    distVal.add(beacon.distanceValue);
+                    rssi.add(beacon.rssi);
                 }
             }
         }

@@ -25,6 +25,7 @@ public class StorageManager extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_RSSI = "rssi";
         public static final String COLUMN_NAME_TIMESTAMP = "timestamp";
         public static final String COLUMN_NAME_DISTANCE = "distance";
+        public static final String COLUMN_NAME_DISTANCE_VALUE = "distance_val";
         public static final String COLUMN_NAME_X = "x";
         public static final String COLUMN_NAME_Y = "y";
 
@@ -39,7 +40,8 @@ public class StorageManager extends SQLiteOpenHelper {
                     BeaconEntry._ID + " INTEGER PRIMARY KEY," +
                     BeaconEntry.COLUMN_NAME_IDENTIFIER + " INTEGER," +
                     BeaconEntry.COLUMN_NAME_RSSI + " INTEGER," +
-                    BeaconEntry.COLUMN_NAME_DISTANCE + " INTEGER DEFAULT 0,"+
+                    BeaconEntry.COLUMN_NAME_DISTANCE + " INTEGER DEFAULT 0," +
+                    BeaconEntry.COLUMN_NAME_DISTANCE_VALUE + " REAL DEFAULT 0," +
                     BeaconEntry.COLUMN_NAME_TIMESTAMP + " INTEGER," +
                     BeaconEntry.COLUMN_NAME_X + " REAL DEFAULT 0," +
                     BeaconEntry.COLUMN_NAME_Y + " REAL DEFAULT 0)";
@@ -87,6 +89,7 @@ public class StorageManager extends SQLiteOpenHelper {
         values.put(BeaconEntry.COLUMN_NAME_RSSI, beacon.rssi);
         values.put(BeaconEntry.COLUMN_NAME_TIMESTAMP, beacon.timestmp);
         values.put(BeaconEntry.COLUMN_NAME_DISTANCE, beacon.distance.toInt());
+        values.put(BeaconEntry.COLUMN_NAME_DISTANCE_VALUE, beacon.distanceValue);
         values.put(BeaconEntry.COLUMN_NAME_X, beacon.x);
         values.put(BeaconEntry.COLUMN_NAME_Y, beacon.y);
 
@@ -107,6 +110,7 @@ public class StorageManager extends SQLiteOpenHelper {
             BeaconEntry.COLUMN_NAME_RSSI,
             BeaconEntry.COLUMN_NAME_TIMESTAMP,
             BeaconEntry.COLUMN_NAME_DISTANCE,
+            BeaconEntry.COLUMN_NAME_DISTANCE_VALUE,
             BeaconEntry.COLUMN_NAME_X,
             BeaconEntry.COLUMN_NAME_Y
         };
@@ -131,6 +135,7 @@ public class StorageManager extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_RSSI)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_TIMESTAMP)),
                     Distance.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_DISTANCE))),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_DISTANCE_VALUE)),
                     cursor.getDouble(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_X)),
                     cursor.getDouble(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_Y))
             );
