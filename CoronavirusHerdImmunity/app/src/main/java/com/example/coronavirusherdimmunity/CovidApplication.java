@@ -92,11 +92,11 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
         lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
 
-        int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
+        Long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId == -1) {
-            Task.callInBackground(new Callable<Integer>() {
+            Task.callInBackground(new Callable<Long>() {
                 @Override
-                public Integer call() throws Exception {
+                public Long call() throws Exception {
 
                     String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
                     JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
@@ -104,14 +104,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                         if (object.has("token")){
                             new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));
                         }
-                        return object.getInt("id");
+                        return object.getLong("id");
                     } else {
-                        return -1;
+                        return Long.valueOf(-1);
                     }
                 }
-            }).onSuccess(new Continuation<Integer, Object>() {
+            }).onSuccess(new Continuation<Long, Object>() {
                 @Override
-                public Object then(Task<Integer> task) {
+                public Object then(Task<Long> task) {
                     Log.e(TAG, "dev " + task.getResult());
                     if (task.getResult() != -1)
                         new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());
@@ -124,7 +124,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         }
     }
 
-    private void initBeacon(int deviceId){
+    private void initBeacon(Long deviceId){
         beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
 
         beacon = new Beacon.Builder()
@@ -350,7 +350,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (beacon.getId1().toString().equals(BEACON_ID)) {
 
                         // id2 major - id3 minor
-                        int deviceId = 65536 * beacon.getId3().toInt() + beacon.getId2().toInt();
+                        Long deviceId = Long.valueOf(65536 * beacon.getId3().toInt() + beacon.getId2().toInt());
 
                         Distance distance = Distance.FAR;
                         if (beacon.getDistance() <= 0.4){
