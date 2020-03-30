@@ -127,7 +127,7 @@
     <string name="qr_code">QR Code</string>
 
     <!-- ************* Notification ****************** -->
-    <string name="permanent_notification">Status: %s - %s <!-- - Interactions: %d--></string>
+    <string name="permanent_notification">Status: %s - %s </string> <!-- - Interactions: %d-->
     <string name="notification_appstatus_title">App Status is Inactive:</string>
     <string name="notification_appstatus_msg">Please, check your permissions in the App.</string>
 

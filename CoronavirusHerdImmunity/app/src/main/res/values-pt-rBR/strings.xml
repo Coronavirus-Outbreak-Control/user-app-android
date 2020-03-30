@@ -81,7 +81,7 @@
     <!-- **************************** TO TRANSLATE **************************** -->
 
     <!-- ****** Notification ***** -->
-    <string name="permanent_notification">Status: %s - %s <!-- - Interactions: %d--></string>
+    <string name="permanent_notification">Status: %s - %s</string>  <!-- - Interactions: %d-->
     <string name="notification_appstatus_title">App Status is Inactive: Permissions Required</string>
     <string name="notification_appstatus_msg">Please, enable the permissions on App.</string>
 
