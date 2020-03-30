@@ -20,6 +20,7 @@ import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.example.coronavirusherdimmunity.enums.ApplicationStatus;
 import com.example.coronavirusherdimmunity.enums.Distance;
 import com.example.coronavirusherdimmunity.enums.PatientStatus;
 import com.example.coronavirusherdimmunity.utils.ApiManager;
@@ -71,7 +72,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
     private int lastCount = 0;
     private PatientStatus lastStatus = PatientStatus.NORMAL;      // Patient Status (NORMAL, INFECTED, QUARANTINE, HEALED, SUSPECT)
-    private String lastAppStatus = "Active";                      // App Status (ACTIVE if permissions are granted, INACTIVE if at least a permission is not granted)
+    private ApplicationStatus lastAppStatus = ApplicationStatus.ACTIVE; // App Status (ACTIVE if permissions are granted, INACTIVE if at least a permission is not granted)
 
     private static CovidApplication instance;
 
@@ -89,6 +90,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
         lastCount = new StorageManager(getApplicationContext()).countInteractions();
         lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
+        lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
 
         int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId == -1) {
@@ -152,7 +154,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setContentTitle(
-                String.format(getString(R.string.permanent_notification), lastAppStatus, lastStatus.toString(), lastCount)
+                String.format(getString(R.string.permanent_notification), lastAppStatus.toString(), lastStatus.toString(), lastCount)
         );
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -205,9 +207,10 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     PermissionRequest permissions = new PermissionRequest(getApplicationContext());
                     if (permissions.checkPermissions(false) == true) {  //if bluetooth and location are granted -> enable transmission
 
-                        if (lastAppStatus == "Inactive"){  //used to update just one time permanent notification when the permission is granted
+                        if (lastAppStatus.toInt() == 1){  //1: Inactive. Used to update just one time permanent notification when the permission is granted
 
-                            lastAppStatus = "Active";
+                            new PreferenceManager(getApplicationContext()).setApplicationStatus(0);
+                            lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
                             updateNotification();
                         }
 
@@ -216,9 +219,10 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
                     } else{  //if bluetooth or location is not granted -> send a notification in order to alert the User
 
-                        if (lastAppStatus == "Active"){  //used to send just one notification when the permission are not granted
+                        if (lastAppStatus.toInt() == 0){  //used to send just one notification when the permission are not granted
 
-                            lastAppStatus = "Inactive";
+                            new PreferenceManager(getApplicationContext()).setApplicationStatus(1);
+                            lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
                             updateNotification();  //update permanent notification
 
                             String title = getString(R.string.notification_appstatus_title);

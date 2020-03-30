@@ -3,6 +3,7 @@ package com.example.coronavirusherdimmunity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.coronavirusherdimmunity.enums.ApplicationStatus;
 import com.example.coronavirusherdimmunity.enums.PatientStatus;
 
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class PreferenceManager {
     private static final String LAST_INTERACTIONS_PUSH_TIME = "lastInteractionsPushTime";
     private static final String NEXT_INTERACTIONS_PUSH_TIME = "nextInteractionsPushTime";
     private static final String PATIENT_STATUS = "patientStatus";
+    private static final String APPLICATION_STATUS = "applicationStatus";
     private static final String AUTH_TOKEN = "authToken";
     private static final String BACKEND_LOCATION = "backendLocation";
     private static final String USER_LOCATION_PERMISSION = "userLocationPermission";
@@ -101,6 +103,20 @@ public class PreferenceManager {
 
     public PatientStatus getPatientStatus() {
         return PatientStatus.valueOf(pref.getInt(PATIENT_STATUS, 0));
+    }
+
+    // {0: active, 1: inactive}
+    public void setApplicationStatus(ApplicationStatus status) {
+        setApplicationStatus(status.toInt());
+    }
+
+    public void setApplicationStatus(int status) {
+        editor.putInt(APPLICATION_STATUS, status);
+        editor.commit();
+    }
+
+    public ApplicationStatus getApplicationStatus() {
+        return ApplicationStatus.valueOf(pref.getInt(APPLICATION_STATUS, 0));
     }
 
     public void setAuthToken(String token) {
