@@ -142,64 +142,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void writePatientStatus() {
-
         TextView statusTextView = (TextView) findViewById(id.status_user);
-
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
-        int color = this.getPatientStatusColor(status.toInt());
-        String text = getPatientStatusText(status.toInt());
-
-        statusTextView.setText(String.valueOf(text));
-        statusTextView.setTextColor(color);
-    }
-
-    public String getPatientStatusText(int status) {
-        //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
-
-        String normal = getResources().getString(string.status_no_risk);
-        String infected = getResources().getString(string.status_infected);
-        String quarantine = getResources().getString(string.status_quarantine);
-        String healed = getResources().getString(string.status_healed);
-        String suspect = getResources().getString(string.status_suspect);
-
-        switch (status) {
-            case 0:
-                return normal;
-            case 1:
-                return infected;
-            case 2:
-                return quarantine;
-            case 3:
-                return healed;
-            case 4:
-                return suspect;
-        }
-        return normal;
-    }
-
-    public int getPatientStatusColor(int status) {
-        //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
-
-        int black = getResources().getColor(color.colorTextDark);
-        int green = getResources().getColor(color.green);
-        int red = getResources().getColor(color.red);
-        int orange = getResources().getColor(color.orange);
-        int yellow = getResources().getColor(color.yellow);
-
-        switch (status) {
-            case 0:
-                return black;
-            case 1:
-                return red;
-            case 2:
-                return orange;
-            case 3:
-                return green;
-            case 4:
-                return yellow;
-        }
-        return black;
+        statusTextView.setText(String.valueOf(status.toString()));
+        statusTextView.setTextColor(status.getColor());
     }
 
 

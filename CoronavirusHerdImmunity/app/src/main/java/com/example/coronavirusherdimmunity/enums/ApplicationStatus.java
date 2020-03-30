@@ -6,24 +6,23 @@ import com.example.coronavirusherdimmunity.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum PatientStatus {
-    //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
-    NORMAL(R.string.status_no_risk, R.color.colorTextDark, 0),
-    INFECTED(R.string.status_infected, R.color.green, 1),
-    QUARANTINE(R.string.status_quarantine, R.color.red, 2),
-    HEALED(R.string.status_healed, R.color.orange, 3),
-    SUSPECT(R.string.status_suspect, R.color.yellow, 4);
+public enum ApplicationStatus {
+
+    ACTIVE(R.string.status_active, R.color.green, 0),
+    INACTIVE(R.string.status_inactive, R.color.red, 1);
+
     private int intValue;
     private int colorValue;
     private int stringValue;
-    private static Map<Integer, PatientStatus> map = new HashMap<Integer, PatientStatus>();
+
+    private static Map<Integer, ApplicationStatus> map = new HashMap<Integer, ApplicationStatus>();
     static {
-        for (PatientStatus enu : PatientStatus.values()) {
+        for (ApplicationStatus enu : ApplicationStatus.values()) {
             map.put(enu.intValue, enu);
         }
     }
 
-    private PatientStatus(int toString, int color, int value) {
+    private ApplicationStatus(int toString, int color, int value) {
         stringValue = toString;
         colorValue = color;
         intValue = value;
@@ -46,7 +45,8 @@ public enum PatientStatus {
         return CovidApplication.getContext().getResources().getColor(colorValue);
     }
 
-    public static PatientStatus valueOf(int value) {
+    public static ApplicationStatus valueOf(int value) {
         return map.get(value);
     }
+
 }
