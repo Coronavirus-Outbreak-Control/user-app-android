@@ -56,6 +56,7 @@
     <string name="welcome_last">Alert &#128075;</string>
     <string name="together_we">Insieme possiamo salvare vite e aiutare persone a non perdere il lavoro. </string>
     <string name="let_s_get_s">INIZIA! </string>
+    <string name="text_progbar">Registra dispositivo...</string>
 
     <string name="we_need_you_blueto">Useremo il tuo Bluetooth per monitorare la distanza
         tra il tuo telefono ed altri dispositivi.\n<b>È anonimo!</b></string>
