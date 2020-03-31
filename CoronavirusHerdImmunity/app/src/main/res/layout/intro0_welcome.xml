@@ -6,15 +6,15 @@
     android:gravity="center"
     android:background="@color/white">
 
-        <!-- Welcome to anonymous Coronavirus check 👋 -->
-        <TextView style="@style/intro_title"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="0dp"
-            android:textSize="37sp"
-            android:fontFamily="sans-serif-medium"
-            android:id="@+id/welcome_to"/>
-            
+    <!-- Welcome to anonymous Coronavirus check 👋 -->
+    <TextView style="@style/intro_title"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="0dp"
+        android:textSize="37sp"
+        android:fontFamily="sans-serif-medium"
+        android:id="@+id/welcome_to"/>
+
     <!-- Together we can save lives and help people keep their jobs -->
     <TextView
         style="@style/intro_subtitle"
@@ -35,4 +35,31 @@
         android:id="@+id/how_it_works"
         style="@style/underbutton"
         android:text="@string/how_it_works" />
+
+
+    <RelativeLayout
+        android:id="@+id/rel_progbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button_next">
+
+        <TextView
+            android:id="@+id/tv_progbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_progbar"
+            android:textColor="@color/colorText"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_progbar"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+
+    </RelativeLayout>
+
 </RelativeLayout>
