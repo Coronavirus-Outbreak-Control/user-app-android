@@ -31,6 +31,7 @@ public class PreferenceManager {
     private static final String AUTH_TOKEN = "authToken";
     private static final String BACKEND_LOCATION = "backendLocation";
     private static final String USER_LOCATION_PERMISSION = "userLocationPermission";
+    private static final String CHALLENGE = "challenge"; //google challenge (token received by reCaptcha)
     private static final String EXCLUDE_FAR = "exclude_far";
 
     public PreferenceManager(Context context) {
@@ -146,6 +147,15 @@ public class PreferenceManager {
 
     public boolean getUserLocationPermission() {
         return pref.getBoolean(USER_LOCATION_PERMISSION, false);
+    }
+
+    public void setChallenge(String challenge) {
+        editor.putString(CHALLENGE, challenge);
+        editor.commit();
+    }
+
+    public String getChallenge(){
+        return pref.getString(CHALLENGE, null);
     }
 
     public void setExcludeFar(boolean excludeFar) {
