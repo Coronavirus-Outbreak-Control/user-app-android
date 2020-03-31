@@ -13,7 +13,7 @@ import java.util.Date;
 public class BeaconDto {
 
     public long timestmp;
-    public int identifier;
+    public Long identifier;
     public int rssi;
     public Distance distance;
     public double distanceValue;

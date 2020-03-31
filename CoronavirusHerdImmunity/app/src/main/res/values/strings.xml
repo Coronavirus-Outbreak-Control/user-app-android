@@ -42,6 +42,12 @@
     <string name="email">E-mail</string>
     <string name="link">Copy link</string>
     <string name="other">Other</string>
+
+
+    <string name="alert_exit_title">Exit</string>
+    <string name="alert_exit_msg">Do you want to exit?</string>
+    <string name="alert_exit_pos_bt">Yes</string>
+    <string name="alert_exit_neg_bt">No</string>
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->

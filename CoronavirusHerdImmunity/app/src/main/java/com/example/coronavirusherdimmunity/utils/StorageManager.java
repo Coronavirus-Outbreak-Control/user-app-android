@@ -131,7 +131,7 @@ public class StorageManager extends SQLiteOpenHelper {
         List<BeaconDto> beacons = new ArrayList<>();
         while(cursor.moveToNext()) {
             BeaconDto beacon = new BeaconDto(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_IDENTIFIER)),
+                    cursor.getLong(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_IDENTIFIER)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_RSSI)),
                     cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_TIMESTAMP)),
                     Distance.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(BeaconEntry.COLUMN_NAME_DISTANCE))),
