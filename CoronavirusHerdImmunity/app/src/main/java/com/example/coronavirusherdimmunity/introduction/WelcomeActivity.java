@@ -27,6 +27,7 @@ import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import org.altbeacon.beacon.BeaconManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -93,80 +94,93 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onClick_registerDevice() {
         String API_SITE_KEY = "6LcxTeUUAAAAAFeCan-0kQdEhz0_B6wtlPFCFfq3";
 
-        //check reCaptcha
-        SafetyNet.getClient(this).verifyWithRecaptcha(API_SITE_KEY)
-                .addOnSuccessListener( this,
-                        new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                            @Override
-                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
+        //if 'device id' is unknown then check reCaptcha and call register device in order to get device id and auth token
+        if (new PreferenceManager(getApplicationContext()).getDeviceId() == -1) {
 
-                                // Indicates communication with reCAPTCHA service was successful.
-                                final String userResponseToken = response.getTokenResult();
-                                if (!userResponseToken.isEmpty()) {
-                                    // Received reCaptcha token and This token still needs to be validated on the server using the SECRET key api.
-                                    Log.i("ReCaptcha", "onSuccess: " + response.getTokenResult());
+            //check reCaptcha
+            SafetyNet.getClient(this).verifyWithRecaptcha(API_SITE_KEY)
+                    .addOnSuccessListener(this,
+                            new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
+                                @Override
+                                public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
 
-                                    Task.callInBackground(new Callable<Long>() {
-                                        @Override
-                                        public Long call() throws Exception {
+                                    // Indicates communication with reCAPTCHA service was successful.
+                                    final String userResponseToken = response.getTokenResult();
+                                    if (!userResponseToken.isEmpty()) {
+                                        // Received reCaptcha token and This token still needs to be validated on the server using the SECRET key api.
+                                        Log.i("ReCaptcha", "onSuccess: " + response.getTokenResult());
 
-                                            new PreferenceManager(CovidApplication.getContext()).setChallenge(userResponseToken); //save 'challenge' on shared preference
+                                        new PreferenceManager(CovidApplication.getContext()).setChallenge(userResponseToken); //save 'challenge' on shared preference
 
-                                            String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
-                                            String challenge = userResponseToken;
-                                            if (challenge != null) {
-                                                JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID, challenge); //call registerDevice
-                                                if (object != null) {
-                                                    if (object.has("token")) {
-                                                        try {
-                                                            new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));  //save auth token in shared preferences
+                                        Task.callInBackground(new Callable<Long>() {
+                                            @Override
+                                            public Long call() throws Exception {
 
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
+                                                String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
+                                                String challenge = userResponseToken;
+                                                if (challenge != null) {
+                                                    JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID, challenge); //call registerDevice
+                                                    if (object != null) {
+                                                        if (object.has("token")) {
+                                                            try {
+                                                                new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));  //save auth token in shared preferences
+
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
                                                         }
+                                                        return object.getLong("id");
                                                     }
-                                                    return object.getLong("id");
                                                 }
+                                                return Long.valueOf(-1);
+
                                             }
-                                            return Long.valueOf(-1);
+                                        }).onSuccess(new Continuation<Long, Object>() {
+                                            @Override
+                                            public Object then(Task<Long> task) {
+                                                Log.e("CovidApp", "dev " + task.getResult());
 
-                                        }
-                                    }).onSuccess(new Continuation<Long, Object>() {
-                                        @Override
-                                        public Object then(Task<Long> task) {
-                                            Log.e("CovidApp", "dev " + task.getResult());
+                                                Long res = task.getResult();
+                                                if (res != -1) {
+                                                    new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());   //save device id in shared preferences
 
-                                            if (task.getResult() != -1) {
-                                                new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());   //save device id in shared preferences
-                                                CovidApplication application = ((CovidApplication) getApplicationContext());
-                                                application.initBeacon(task.getResult());
+                                                    //if init beacon has not been already started
+                                                    if (!BeaconManager.getInstanceForApplication(getApplicationContext()).isAnyConsumerBound()) {
+                                                        CovidApplication application = ((CovidApplication) getApplicationContext());
+                                                        application.initBeacon(res);
+                                                    }
 
-                                                startActivity(new Intent(getApplicationContext(), BluetoothActivity.class));    //go to bluetooth activity
+                                                    startActivity(new Intent(WelcomeActivity.this, BluetoothActivity.class));    //go to bluetooth activity
+                                                }
+                                                return null;
                                             }
-                                            return null;
-                                        }
-                                    });
+                                        });
 
+                                    }
                                 }
+                            })
+                    .addOnFailureListener(this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            if (e instanceof ApiException) {
+                                // An error occurred when communicating with the
+                                // reCAPTCHA service. Refer to the status code to
+                                // handle the error appropriately.
+                                ApiException apiException = (ApiException) e;
+                                int statusCode = apiException.getStatusCode();
+                                Log.d("ReCaptcha", "Error: " + CommonStatusCodes
+                                        .getStatusCodeString(statusCode));
+                            } else {
+                                // A different, unknown type of error occurred.
+                                Log.d("ReCaptcha", "Error: " + e.getMessage());
                             }
-                        })
-                .addOnFailureListener( this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        if (e instanceof ApiException) {
-                            // An error occurred when communicating with the
-                            // reCAPTCHA service. Refer to the status code to
-                            // handle the error appropriately.
-                            ApiException apiException = (ApiException) e;
-                            int statusCode = apiException.getStatusCode();
-                            Log.d("ReCaptcha", "Error: " + CommonStatusCodes
-                                    .getStatusCodeString(statusCode));
-                        } else {
-                            // A different, unknown type of error occurred.
-                            Log.d("ReCaptcha", "Error: " + e.getMessage());
                         }
-                    }
-                });
+                    });
 
+        }
+        else{  //else if 'device id' has been already known then go to next activity
+
+            startActivity(new Intent(WelcomeActivity.this, BluetoothActivity.class));    //go to bluetooth activity
+        }
     }
 }
