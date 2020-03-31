@@ -31,6 +31,7 @@ public class PreferenceManager {
     private static final String AUTH_TOKEN = "authToken";
     private static final String BACKEND_LOCATION = "backendLocation";
     private static final String USER_LOCATION_PERMISSION = "userLocationPermission";
+    private static final String EXCLUDE_FAR = "exclude_far";
 
     public PreferenceManager(Context context) {
         this._context = context;
@@ -47,13 +48,13 @@ public class PreferenceManager {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
-    public void setDeviceId(int device_id){
-        editor.putInt(DEVICE_ID, device_id);
+    public void setDeviceId(Long device_id){
+        editor.putLong(DEVICE_ID, device_id);
         editor.commit();
     }
 
-    public int getDeviceId(){
-        return pref.getInt(DEVICE_ID, -1);
+    public Long getDeviceId(){
+        return pref.getLong(DEVICE_ID, -1);
     }
 
 
@@ -145,5 +146,14 @@ public class PreferenceManager {
 
     public boolean getUserLocationPermission() {
         return pref.getBoolean(USER_LOCATION_PERMISSION, false);
+    }
+
+    public void setExcludeFar(boolean excludeFar) {
+        editor.putBoolean(EXCLUDE_FAR, excludeFar);
+        editor.commit();
+    }
+
+    public boolean getExcludeFar() {
+        return pref.getBoolean(EXCLUDE_FAR, false);
     }
 }

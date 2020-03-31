@@ -15,6 +15,11 @@
     <string name="status_active">Ativo</string>
     <string name="n_interactions">DISPOSITIVOS DETECTADOS </string>
     <string name="n_interactions_value">0 </string>
+
+    <string name="alert_exit_title">Saída</string>
+    <string name="alert_exit_msg">Você quer sair?</string>
+    <string name="alert_exit_pos_bt">Sim</string>
+    <string name="alert_exit_neg_bt">Não</string>
     <!-- ******************************* -->
     <!-- ***** Introduction Slider ****** -->
     <string name="welcome_first">Bem-vindo ao</string>
@@ -71,7 +76,6 @@
     <string name="step_2_of_3">Passo 2 de 3 </string>
     <string name="step_3_of_3">Passo 3 de 3 </string>
     <string name="skip_step">PULAR ESTE PASSO </string>
-
 
 
     <!-- **************************** TO TRANSLATE **************************** -->

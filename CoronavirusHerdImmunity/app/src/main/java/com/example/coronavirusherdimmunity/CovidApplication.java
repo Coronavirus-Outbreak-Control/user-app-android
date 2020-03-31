@@ -6,7 +6,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +16,7 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -27,6 +27,12 @@ import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.example.coronavirusherdimmunity.utils.BeaconDto;
 import com.example.coronavirusherdimmunity.utils.PermissionRequest;
 import com.example.coronavirusherdimmunity.utils.StorageManager;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -38,6 +44,7 @@ import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -45,8 +52,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -92,39 +101,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
         lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
 
-        int deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
-        if (deviceId == -1) {
-            Task.callInBackground(new Callable<Integer>() {
-                @Override
-                public Integer call() throws Exception {
-
-                    String deviceUUID = new PreferenceManager(getApplicationContext()).getDeviceUUID();
-                    JSONObject object = ApiManager.registerDevice(/*"06c9cf6c-ecfb-4807-afb4-4220d0614593"*/ deviceUUID);
-                    if (object != null) {
-                        if (object.has("token")){
-                            new PreferenceManager(getApplicationContext()).setAuthToken(object.getString("token"));
-                        }
-                        return object.getInt("id");
-                    } else {
-                        return -1;
-                    }
-                }
-            }).onSuccess(new Continuation<Integer, Object>() {
-                @Override
-                public Object then(Task<Integer> task) {
-                    Log.e(TAG, "dev " + task.getResult());
-                    if (task.getResult() != -1)
-                        new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());
-                        initBeacon(task.getResult());
-                    return null;
-                }
-            });
-        } else {
+        Long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
+        if (deviceId != -1) {
             initBeacon(deviceId);
         }
     }
 
-    private void initBeacon(int deviceId){
+
+    public void initBeacon(Long deviceId){
         beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
 
         beacon = new Beacon.Builder()
@@ -219,7 +203,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
                     } else{  //if bluetooth or location is not granted -> send a notification in order to alert the User
 
-                        if (lastAppStatus.toInt() == 0){  //used to send just one notification when the permission are not granted
+                        PreferenceManager pm = new PreferenceManager(getApplicationContext());
+                        if (lastAppStatus.toInt() == 0 &&
+                            !pm.isFirstTimeLaunch()){  //0: Active and is not first time launch -> Used to send just one notification when the permission are not granted
 
                             new PreferenceManager(getApplicationContext()).setApplicationStatus(1);
                             lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
@@ -350,7 +336,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (beacon.getId1().toString().equals(BEACON_ID)) {
 
                         // id2 major - id3 minor
-                        int deviceId = 65536 * beacon.getId3().toInt() + beacon.getId2().toInt();
+                        Long deviceId = Long.valueOf(65536 * beacon.getId3().toInt() + beacon.getId2().toInt());
 
                         Distance distance = Distance.FAR;
                         if (beacon.getDistance() <= 0.4){
@@ -359,24 +345,26 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             distance = Distance.NEAR;
                         }
 
-                        //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
-                        boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
-                        double x = 0;
-                        double y = 0;
+                        if (distance != Distance.FAR || !new PreferenceManager(getApplicationContext()).getExcludeFar()) {
+                            //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
+                            boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
+                            double x = 0;
+                            double y = 0;
 
-                        //if (sendBackendLocation && sendUserLocation) {
-                        if (sendUserLocation) {
-                            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                            if (locationManager != null &&
-                                    (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                                            ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-                                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-                                x = (location == null ? 0 : location.getLatitude());
-                                y = (location == null ? 0 : location.getLongitude());
+                            //if (sendBackendLocation && sendUserLocation) {
+                            if (sendUserLocation) {
+                                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                                if (locationManager != null &&
+                                        (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                                                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+                                    Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                                    x = (location == null ? 0 : location.getLatitude());
+                                    y = (location == null ? 0 : location.getLongitude());
+                                }
                             }
+                            BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, beacon.getDistance(), x, y);
+                            new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                         }
-                        BeaconDto beaconDto = new BeaconDto(deviceId, beacon.getRssi(), distance, x, y);
-                        new StorageManager(getApplicationContext()).insertBeacon(beaconDto);
                     }
                 }
 
@@ -449,22 +437,37 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
 
         ArrayList<Integer> dist = new ArrayList<>();
+        ArrayList<Integer> rssi = new ArrayList<>();
+        ArrayList<Double> distVal = new ArrayList<>();
 
         List<BeaconDto> beacons = new StorageManager(getApplicationContext()).readBeacons(lastPushDate);
         for (BeaconDto beacon: beacons) {
             if (groups.size()==0){
                 groups.add(beacon);
                 dist.clear();
+                distVal.clear();
+                rssi.clear();
                 dist.add(beacon.distance.toInt());
+                distVal.add(beacon.distanceValue);
+                rssi.add(beacon.rssi);
             } else {
                 BeaconDto lastGroup = groups.get(groups.size() -1);
                 if (lastGroup.identifier == beacon.identifier && lastGroup.timestmp + 3*60 > beacon.timestmp){
                     groups.remove(lastGroup);
 
                     dist.add(beacon.distance.toInt());
+                    distVal.add(beacon.distanceValue);
+                    rssi.add(beacon.rssi);
 
                     Collections.sort(dist);
                     lastGroup.distance = Distance.valueOf(dist.get(dist.size()/2));
+
+                    Collections.sort(distVal);
+                    lastGroup.distanceValue = distVal.get(distVal.size()/2);
+
+                    Collections.sort(rssi);
+                    lastGroup.rssi = rssi.get(rssi.size()/2);
+
                     lastGroup.interval = (int) Math.abs(lastGroup.timestmp - beacon.timestmp)+10;
 
                     //if (sendBackendLocation && sendUserLocation) {
@@ -479,18 +482,43 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 } else {
                     groups.add(beacon);
                     dist.clear();
+                    distVal.clear();
+                    rssi.clear();
                     dist.add(beacon.distance.toInt());
+                    distVal.add(beacon.distanceValue);
+                    rssi.add(beacon.rssi);
                 }
             }
         }
 
-        if (groups.size() > 0) {
+        final List<BeaconDto> reducedGroups = new ArrayList<>();
+        for (BeaconDto b : groups) {
+            if (reducedGroups.size()==0){
+                reducedGroups.add(b);
+            } else {
+                BeaconDto lastGroup = groups.get(groups.size() -1);
+                if (lastGroup.distance == b.distance && b.timestmp < lastGroup.timestmp + lastGroup.interval + 30*1000 ){
+                    reducedGroups.remove(lastGroup);
+
+                    lastGroup.rssi = (lastGroup.rssi + b.rssi)/2;
+                    lastGroup.interval = lastGroup.interval + b.interval;
+                    lastGroup.distanceValue = (lastGroup.distanceValue + b.distanceValue) /2;
+
+                    reducedGroups.add(lastGroup);
+                } else {
+                    reducedGroups.add(b);
+                }
+            }
+        }
+
+
+        if (reducedGroups.size() > 0) {
             isPushingInteractions = true;
             pushStartTime = now.getTime();
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() throws Exception {
-                    return ApiManager.pushInteractions(getApplicationContext(), groups, new PreferenceManager(getApplicationContext()).getAuthToken());
+                    return ApiManager.pushInteractions(getApplicationContext(), reducedGroups, new PreferenceManager(getApplicationContext()).getAuthToken());
                 }
             }).onSuccess(new Continuation<JSONObject, Object>() {
                 @Override
@@ -499,8 +527,21 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     JSONObject result = task.getResult();
                     if (result != null) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
-                        new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + result.getInt("next_try"));
-                        new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
+                        if (result.has("next_try")) {
+                            int next = result.getInt("next_try");
+                            Random r = new Random();
+                            double rangeMin = -0.25;
+                            double rangeMax = 0.25;
+                            double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+                            next = next + (int)(randomValue * next);
+                            new PreferenceManager(getApplicationContext()).setNextInteractionsPushTime(now.getTime() / 1000 + next);
+                        }
+                        if (result.has("location")) {
+                            new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
+                        }
+                        if (result.has("exclude_far")) {
+                            new PreferenceManager(getApplicationContext()).setExcludeFar(result.getBoolean("exclude_far"));
+                        }
                     }
                     return null;
                 }

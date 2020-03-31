@@ -3,6 +3,7 @@ package com.example.coronavirusherdimmunity.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
+import android.view.KeyEvent;
 
 import androidx.core.app.ActivityCompat;
 
@@ -57,6 +59,17 @@ public class PermissionRequest {
                     }
                 });
                 builder.setCancelable(false);
+                builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+
+                        if(keyCode == KeyEvent.KEYCODE_BACK){ // if you click back button then close dialog
+                            dialog.dismiss();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
                 builder.show();
             }
 
@@ -84,6 +97,17 @@ public class PermissionRequest {
                         }
                     });
                     builder.setCancelable(false);
+                    builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                        @Override
+                        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+
+                            if(keyCode == KeyEvent.KEYCODE_BACK){ // if you click back button then close dialog
+                                dialog.dismiss();
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
                     builder.show();
                 }
 
@@ -109,6 +133,17 @@ public class PermissionRequest {
                         }
                     });
                     builder.setCancelable(false);
+                    builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                        @Override
+                        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+
+                            if(keyCode == KeyEvent.KEYCODE_BACK){ // if you click back button then close dialog
+                                dialog.dismiss();
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
                     builder.show();
                 }
 
