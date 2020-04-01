@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mContext = this;
 
+        PreferenceManager preferenceManager = new PreferenceManager(this);
+        preferenceManager.setFirstTimeLaunch(false);
+
         this.writeQRCode();
 
         FirebaseInstanceId.getInstance().getInstanceId()

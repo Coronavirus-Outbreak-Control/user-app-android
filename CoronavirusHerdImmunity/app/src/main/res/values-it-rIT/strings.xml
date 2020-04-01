@@ -8,7 +8,7 @@
     <string name="splash_subtitle"><font color='#444444'>Covid Community Alert</font></string>
 
     <!-- ******** Main Screen ********** -->
-    <string name="main_title">Tutto pronto! &#129303; </string>
+    <string name="main_title">Fatto! &#129303; </string>
     <string name="if_you_got_close">Ricorda di lasciare il Bluetooth e la posizione accesi,
         e noi faremo il resto.</string>
     <string name="how_it_works">Come funziona &#129300; </string>
@@ -45,7 +45,7 @@
     <string name="other">Altro</string>
 
     <string name="alert_exit_title">Esci</string>
-    <string name="alert_exit_msg">Vuoi uscire?</string>
+    <string name="alert_exit_msg">Sei sicuro di voler uscire?</string>
     <string name="alert_exit_pos_bt">Sì</string>
     <string name="alert_exit_neg_bt">No</string>
     <!-- ******************************* -->
@@ -56,7 +56,7 @@
     <string name="welcome_last">Alert &#128075;</string>
     <string name="together_we">Insieme possiamo salvare vite e aiutare persone a non perdere il lavoro. </string>
     <string name="let_s_get_s">INIZIA! </string>
-    <string name="text_progbar">Registra dispositivo...</string>
+    <string name="text_progbar">Registra dispositivo…</string>
 
     <string name="we_need_you_blueto">Useremo il tuo Bluetooth per monitorare la distanza
         tra il tuo telefono ed altri dispositivi.\n<b>È anonimo!</b></string>
@@ -75,9 +75,10 @@
     <string name="no_dist">NON ADESSO</string>
 
     <string name="all_set">Fatto!</string>
-    <string name="we_need_you_notif">Se sei stato vicino a una persona infetta nelle ultime due settimane, ti faremo sapere.
-        Tutto qui, solo una notifica.</string>
-    <string name="give_notif">VAI ALL\'APPLICAZIONE </string>
+    <string name="we_need_you_notif">Se sei stato vicino a una persona infetta nelle ultime due settimane, ti faremo sapere.</string>
+    <string name="by_clicking">Continuando e cliccando su “Accetta e continua!”, accetti i \ </string>
+    <string name="tos">Termini di Servizio e la Politica di Privacy.</string>
+    <string name="give_notif">ACCETTA E CONTINUA!</string>
 
     <!-- ******************************* -->
 
