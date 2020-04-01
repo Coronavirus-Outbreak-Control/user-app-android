@@ -3,8 +3,10 @@ package com.example.coronavirusherdimmunity.utils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
+//import android.database.sqlite.SQLiteDatabase;
+//import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import com.example.coronavirusherdimmunity.enums.Distance;
@@ -16,6 +18,7 @@ import java.util.List;
 
 public class StorageManager extends SQLiteOpenHelper {
 
+    private String password = "1234";
     // https://developer.android.com/training/data-storage/sqlite#java
 
     public static class BeaconEntry implements BaseColumns {
@@ -63,6 +66,7 @@ public class StorageManager extends SQLiteOpenHelper {
 
     public StorageManager(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        SQLiteDatabase.loadLibs(context);
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -82,7 +86,7 @@ public class StorageManager extends SQLiteOpenHelper {
     }
 
     public void insertBeacon(BeaconDto beacon){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase(password);
 
         ContentValues values = new ContentValues();
         values.put(BeaconEntry.COLUMN_NAME_IDENTIFIER, beacon.identifier);
@@ -98,12 +102,13 @@ public class StorageManager extends SQLiteOpenHelper {
         this.close();
     }
 
+
     public List<BeaconDto> readBeaconsToday(){
         return this.readBeacons(Helper.getToday());
     }
 
     public List<BeaconDto> readBeacons(Date timestamp){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase(password);
         String[] projection = {
             BeaconEntry._ID,
             BeaconEntry.COLUMN_NAME_IDENTIFIER,
@@ -148,7 +153,7 @@ public class StorageManager extends SQLiteOpenHelper {
     }
 
     public int countInteractions() {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase(password);
 
         Cursor cursor = db.rawQuery(
                 "select (count( distinct " + BeaconEntry.COLUMN_NAME_IDENTIFIER +
@@ -167,7 +172,7 @@ public class StorageManager extends SQLiteOpenHelper {
     }
 
     public int countInteractions(Date fromTimestamp){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase(password);
         int tmp = (int)fromTimestamp.getTime() / 1000;
 
         Cursor cursor = db.rawQuery(
