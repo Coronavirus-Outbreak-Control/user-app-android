@@ -21,8 +21,7 @@
     <TextView
         android:id="@+id/we_need_you_notif"
         style="@style/intro_subtitle"
-        android:layout_below="@id/notifications"
-        android:text="@string/we_need_you_notif" />
+        android:layout_below="@id/notifications"/>
 
     <!-- BUTTON -->
     <Button style="@style/button_primary"
