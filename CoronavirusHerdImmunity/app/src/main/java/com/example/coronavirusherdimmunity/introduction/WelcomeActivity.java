@@ -1,5 +1,6 @@
 package com.example.coronavirusherdimmunity.introduction;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.coronavirusherdimmunity.CovidApplication;
@@ -40,6 +43,8 @@ import bolts.Task;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    private RelativeLayout progBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
         this.writeTitle();
 
+        progBar = (RelativeLayout) findViewById(R.id.rel_progbar);
+        progBar.setVisibility(View.GONE);  //set invisible the relative layout (progress bar + text view)
 
         Button start_button = (Button) findViewById(R.id.button_next);
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +119,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                         new PreferenceManager(CovidApplication.getContext()).setChallenge(userResponseToken); //save 'challenge' on shared preference
 
+                                        progBar.setVisibility(View.VISIBLE);  //set visible the relative layout (progress bar + text view)
+
                                         Task.callInBackground(new Callable<Long>() {
                                             @Override
                                             public Long call() throws Exception {
@@ -151,10 +160,13 @@ public class WelcomeActivity extends AppCompatActivity {
                                                     }
 
                                                     startActivity(new Intent(WelcomeActivity.this, BluetoothActivity.class));    //go to bluetooth activity
+
+                                                    progBar.setVisibility(View.GONE);  //set invisible the relative layout (progress bar + text view)
                                                 }
                                                 return null;
+
                                             }
-                                        });
+                                        },Task.UI_THREAD_EXECUTOR);
 
                                     }
                                 }

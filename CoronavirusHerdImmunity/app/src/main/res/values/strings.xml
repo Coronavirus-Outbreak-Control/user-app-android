@@ -56,6 +56,8 @@
     <string name="welcome_last">Alert &#128075;</string>
     <string name="together_we">Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s">LET\'S GET STARTED!</string>
+    <string name="text_progbar">Register device...</string>
+
 
     <string name="we_need_you_blueto">We use the Bluetooth signal to anonymously detect nearby devices,
         and the time the two devices have been interacting for.\n<b>It\'s anonymous!</b></string>
