@@ -28,6 +28,8 @@
     <string name="together_we">Juntos podemos salvar vidas e ajudar pessoas a manter seus empregos. </string>
     <string name="let_s_get_s">VAMOS COMEÇAR </string>
     <string name="text_progbar">Registrar o dispositivo...</string>
+    <string name="toast_error_regdev">Erro, clique no botão novamente</string>
+
 
     <string name="we_need_you_blueto">Nós vamos usar o seu Bluetooth para detectar dispositivos próximos. \n<b> De forma anônima!</b></string>
     <string name="give_blueto">LIGAR O BLUETOOTH</string>
