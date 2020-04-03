@@ -31,8 +31,8 @@ public enum PatientStatus {
     private PatientStatus(int value, int toString, int title, int description, int color) {
         intValue = value;
         stringValue = toString;
-        colorValue = title;
-        intValue = description;
+        titleValue = title;
+        descriptionValue = description;
         colorValue = color;
     }
 

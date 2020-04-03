@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Spannable statusText = new SpannableString(status.toString());
         Spannable title = new SpannableString(status.getTitle());
-        Spannable description = new SpannableString(status.getDescription());
+        String description = status.getDescription();
 
         if (status.toInt() == 0) {
             statusTextView.setText(getResources().getString(string.no_risk_detected));
@@ -172,6 +172,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         statusTextView.setText(String.valueOf(title));
         statusTextView.append(String.valueOf(statusText));
         descriptionTextView.setText(String.valueOf(description));
+
+        return;
     }
 /*
         TextView t = (TextView) findViewById(R.id.welcome_to);
