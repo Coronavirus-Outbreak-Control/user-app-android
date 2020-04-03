@@ -369,13 +369,20 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 }
 
 
-                if (lastCount != new StorageManager(getApplicationContext()).countInteractions() || lastStatus != new PreferenceManager(getApplicationContext()).getPatientStatus()) {
-                    lastCount = new StorageManager(getApplicationContext()).countInteractions();
-                    lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
-                    updateNotification();
-                    notifyUI();
-                }
-                pushInteractions();
+                Task.callInBackground(new Callable<Object>() {
+                    @Override
+                    public Object call() throws Exception {
+                        int countInteractions = new StorageManager(getApplicationContext()).countInteractions();
+                        if (lastCount != countInteractions || lastStatus != new PreferenceManager(getApplicationContext()).getPatientStatus()) {
+                            lastCount = countInteractions;
+                            lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
+                            updateNotification();
+                            notifyUI();
+                        }
+                        pushInteractions();
+                        return null;
+                    }
+                });
             }
         });
 

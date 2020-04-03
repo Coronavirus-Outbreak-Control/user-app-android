@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.coronavirusherdimmunity">
 
+    <uses-sdk tools:overrideLibrary="androidx.security" />   <!-- added androidx.security for SDK versions: >=23 -->
+
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
