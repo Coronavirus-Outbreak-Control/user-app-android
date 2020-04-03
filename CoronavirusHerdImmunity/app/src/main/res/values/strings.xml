@@ -79,8 +79,11 @@
 
     <string name="all_set">All Set! </string>
     <string name="we_need_you_notif">If you have been close to an infected person in the past two weeks,
-        we will notify you.\n\nThat\'s it, just one notification.</string>
-    <string name="give_notif">GO TO APPLICATION</string>
+        we will notify you.</string>
+    <string name="by_clicking">By continuing and clicking on "Accept and Continue!", you agree to our \ </string>
+    <string name="tos">Terms and Conditions and Privacy Policy.</string>
+
+    <string name="give_notif">ACCEPT AND CONTINUE</string>
 
 
     <!-- ****** Q&A *****-->
