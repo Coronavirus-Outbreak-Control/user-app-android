@@ -18,6 +18,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PreferenceManager preferenceManager = new PreferenceManager(this);
         preferenceManager.setFirstTimeLaunch(false);
 
+        preferenceManager.setPatientStatus(1);
         this.writeQRCode();
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             //writeInteractions();
-            writeAppStatus();
+            //writeAppStatus();
             writePatientStatus();
         }
     };
@@ -134,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("STATUS_UPDATE"));
         super.onResume();
         //writeInteractions();
-        writeAppStatus();
+        //writeAppStatus();
         writePatientStatus();
     }
 
@@ -144,21 +150,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
+
+    private void writePatientStatus() {
+        TextView statusTextView = (TextView) findViewById(id.title);
+        TextView descriptionTextView = (TextView) findViewById(id.subtitle);
+        PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
+
+        Spannable statusText = new SpannableString(status.toString());
+        Spannable title = new SpannableString(status.getTitle());
+        Spannable description = new SpannableString(status.getDescription());
+
+        if (status.toInt() == 0) {
+            statusTextView.setText(getResources().getString(string.no_risk_detected));
+            return;
+        }
+        title.setSpan(new ForegroundColorSpan(getResources().getColor(color.colorTextDark)),
+                0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        statusText.setSpan(new ForegroundColorSpan(status.getColor()),
+                0, statusText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        statusTextView.setText(String.valueOf(title));
+        statusTextView.append(String.valueOf(statusText));
+        descriptionTextView.setText(String.valueOf(description));
+    }
+/*
+        TextView t = (TextView) findViewById(R.id.welcome_to);
+        Spanned text = Html.fromHtml(getResources().getString(R.string.welcome));
+        t.setText(text);
+
+        statusTextView.setText(String.valueOf(text));*/
+/*
     private void writePatientStatus() {
         TextView statusTextView = (TextView) findViewById(id.status_user);
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
+
         statusTextView.setText(String.valueOf(status.toString()));
         statusTextView.setTextColor(status.getColor());
-    }
+    }*/
 
-
-    private void writeAppStatus() {
+  /*  private void writeAppStatus() {
         PermissionRequest permissions = new PermissionRequest(MainActivity.this);
-
         TextView statusTextView = (TextView) findViewById(id.status_app);
         String active = getResources().getString(string.status_active);
         String inactive = getResources().getString(string.status_inactive);
+
 
         if (permissions.checkPermissions(true)) {
             statusTextView.setText(active);
@@ -171,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             statusTextView.setTextColor(red);
         }
     }
-
+*/
     /*private void writeInteractions() {
         TextView interactionsTextView = (TextView) findViewById(R.id.n_interactions);
 

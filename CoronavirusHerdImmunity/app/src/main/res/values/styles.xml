@@ -15,6 +15,7 @@
         <item name="android:layout_marginStart">@dimen/side_margin</item>
         <item name="android:layout_height">56dp</item>
         <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:layout_marginBottom">@dimen/button_margin_bottom</item>
         <item name="android:background">@drawable/button_primary</item>

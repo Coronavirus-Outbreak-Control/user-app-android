@@ -10,6 +10,7 @@
     <string name="main_title">All Set! &#129303; </string>
     <string name="if_you_got_close">Remember to leave your Bluetooth and Location on, and we\'ll do the rest. </string>
     <string name="how_it_works">How it works &#129300; </string>
+    <string name="read_more">Read More!</string>
     <string name="how_it_works_no_emoji">How it works</string>
 
     <string name="status">STATUS</string>
@@ -23,14 +24,26 @@
     <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
 
 
-    <string name="your_status_is">Hi,\nYour Status\nis </string>
-    <string name="your_risk_is">Hi,\nYour Risk Level\nis </string>
+    <string name="hi">Hi,</string>
+    <string name="your_status_is">Your status is \ </string>
+    <string name="your_risk_is">Your risk level is \ </string>
+    <string name="no_risk_detected">No Risk has been detected.</string>
 
-    <string name="status_no_risk">No risk\ndetected</string>
-    <string name="status_infected">Infected</string>
-    <string name="status_quarantine">Quarantine</string>
-    <string name="status_healed">Healed</string>
-    <string name="status_suspect">Suspect</string>
+    <string name="status_normal">Normal.</string>
+    <string name="status_infected">Infected.</string>
+    <string name="status_healed">Healed.</string>
+    <string name="status_suspect">Suspect.</string>
+    <string name="status_lowrisk">Low.</string>
+    <string name="status_mediumrisk">Medium.</string>
+    <string name="status_highrisk">High.</string>
+
+    <string name="description_normal">This is a short description of the Normal status.</string>
+    <string name="description_infected">This is a short description of the Infected status.</string>
+    <string name="description_healed">This is a short description of the Healed status.</string>
+    <string name="description_suspect">This is a short description of the Suspect status.</string>
+    <string name="description_lowrisk">This is a short description of the Low Risk status.</string>
+    <string name="description_mediumrisk">This is a short description of the Medium Risk status.</string>
+    <string name="description_highrisk">This is a short description of the infected High status.</string>
 
     <!-- Share -->
     <string name="help_us_title">Help us protect you and your loved ones.</string>

@@ -19,50 +19,41 @@
             android:orientation="vertical"
             android:background="@color/gray_background">
 
+
             <TextView
                 style="@style/intro_title"
                 android:layout_marginTop="70dp"
-                android:text="@string/main_title" />
+                android:text="@string/hi"/>
+
+            <TextView
+                style="@style/intro_title"
+                android:id="@+id/title"
+                android:textSize="35sp"
+                android:layout_marginTop="0dp" />
 
             <TextView
                 style="@style/intro_subtitle"
-                android:text="@string/if_you_got_close" />
+                android:id="@+id/description" />
 
-            <!-- UNDERBUTTON -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin"
-                android:layout_marginTop="50dp">
 
-                <TextView style="@style/status_value"
-                    android:id="@+id/status_app"/>
+            <!-- BUTTON -->
+            <Button style="@style/button_primary"
+                android:shadowColor="@color/white"
+                android:id="@+id/button_next"
+                android:layout_marginBottom="@dimen/side_margin"
+                android:paddingStart="@dimen/side_margin"
+                android:paddingEnd="@dimen/side_margin"
+                android:layout_gravity="center"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:text="@string/read_more" />
 
-                <TextView style="@style/status_value"
-                    android:id="@+id/status_user"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin">
-
-                <TextView style="@style/status_title"
-                    android:text="@string/app_status" />
-
-                <TextView style="@style/status_title"
-                    android:text="@string/user_status" />
-
-            </LinearLayout>
 
             <ImageView
                 android:id="@+id/qr_code"
                 android:contentDescription="@string/qr_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/side_margin"
                 android:layout_marginBottom="@dimen/side_margin"/>
 
@@ -198,7 +189,6 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
             android:paddingBottom="12dp"
             android:background="@drawable/button_transparent"
             android:textColor="@color/colorPrimary"
