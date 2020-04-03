@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.coronavirusherdimmunity.CovidApplication;
 import com.example.coronavirusherdimmunity.HowItWorksActivity;
@@ -45,6 +46,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private RelativeLayout progBar;
 
+    private Button start_button;
+    private Button how_it_works_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity {
         progBar = (RelativeLayout) findViewById(R.id.rel_progbar);
         progBar.setVisibility(View.GONE);  //set invisible the relative layout (progress bar + text view)
 
-        Button start_button = (Button) findViewById(R.id.button_next);
+        start_button = (Button) findViewById(R.id.button_next);
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +74,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        Button how_it_works_button = (Button) findViewById(R.id.how_it_works);
+        how_it_works_button = (Button) findViewById(R.id.how_it_works);
         how_it_works_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +123,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                         new PreferenceManager(CovidApplication.getContext()).setChallenge(userResponseToken); //save 'challenge' on shared preference
 
+                                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);  //disable interaction with UI when progress bar is loading
                                         progBar.setVisibility(View.VISIBLE);  //set visible the relative layout (progress bar + text view)
 
                                         Task.callInBackground(new Callable<Long>() {
@@ -150,7 +156,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                                 Log.e("CovidApp", "dev " + task.getResult());
 
                                                 Long res = task.getResult();
-                                                if (res != -1) {
+                                                if (res != -1) {  //case on success (have got "token + device id")
                                                     new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());   //save device id in shared preferences
 
                                                     //if init beacon has not been already started
@@ -161,7 +167,15 @@ public class WelcomeActivity extends AppCompatActivity {
 
                                                     startActivity(new Intent(WelcomeActivity.this, BluetoothActivity.class));    //go to bluetooth activity
 
+                                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE); //reenable interaction with UI
                                                     progBar.setVisibility(View.GONE);  //set invisible the relative layout (progress bar + text view)
+                                                }
+                                                else{           //case on failure
+
+                                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE); //reenable interaction with UI
+                                                    progBar.setVisibility(View.GONE);  //set invisible the relative layout (progress bar + text view)
+
+                                                    Toast.makeText(getApplicationContext(), R.string.toast_error_regdev,Toast.LENGTH_SHORT).show();
                                                 }
                                                 return null;
 

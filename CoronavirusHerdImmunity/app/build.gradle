@@ -67,4 +67,6 @@ dependencies {
     implementation 'net.zetetic:android-database-sqlcipher:4.3.0@aar'  //added for SQLCIPHER
     implementation "androidx.sqlite:sqlite:2.0.1"                      //added for SQLLITE
 
+    implementation "androidx.security:security-crypto:1.0.0-alpha02"   //added for EncryptedSharedPreferences
+
 }

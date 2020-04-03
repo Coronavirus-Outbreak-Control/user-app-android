@@ -22,7 +22,7 @@ public class LocationActivity  extends AppCompatActivity {
 
     private final int REQUEST_ID_PERMISSION_LOCATION = 2;
 
-    private int lenght_listPermissionsNeeded = 0;
+    private int length_listPermissionsNeeded = 0;
     private Bundle bundle;
 
     @Override
@@ -93,7 +93,7 @@ public class LocationActivity  extends AppCompatActivity {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
         }
 
-        lenght_listPermissionsNeeded = listPermissionsNeeded.size();
+        length_listPermissionsNeeded = listPermissionsNeeded.size();
         //if the permission list is not empty then requires the permissions
         if (!listPermissionsNeeded.isEmpty()) {
 
@@ -111,7 +111,7 @@ public class LocationActivity  extends AppCompatActivity {
      * else return false
      */
     private boolean check_permission_granted(int[] grantResults){
-        for (int i = 0; i < lenght_listPermissionsNeeded; i++ ) {
+        for (int i = 0; i < length_listPermissionsNeeded; i++ ) {
             if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
                 return false;
             }
