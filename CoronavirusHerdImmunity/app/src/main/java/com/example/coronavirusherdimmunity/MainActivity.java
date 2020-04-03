@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void writePatientStatus() {
         TextView statusTextView = (TextView) findViewById(id.title);
-        TextView descriptionTextView = (TextView) findViewById(id.subtitle);
+        TextView descriptionTextView = (TextView) findViewById(id.description);
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
         Spannable statusText = new SpannableString(status.toString());
@@ -169,11 +169,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         statusText.setSpan(new ForegroundColorSpan(status.getColor()),
                 0, statusText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        statusTextView.setText(String.valueOf(title));
-        statusTextView.append(String.valueOf(statusText));
+        statusTextView.setText(title);
+        statusTextView.append(statusText);
         descriptionTextView.setText(String.valueOf(description));
 
-        return;
     }
 /*
         TextView t = (TextView) findViewById(R.id.welcome_to);
