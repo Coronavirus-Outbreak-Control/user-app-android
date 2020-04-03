@@ -22,12 +22,12 @@
     <string name="alert_exit_neg_bt">Não</string>
     <!-- ******************************* -->
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Bem-vindo ao</string>
-    <string name="welcome_next">Covid Alerta\n</string>
-    <string name="welcome_last">Comunitário \nanônimo &#128075;</string>
+    <string name="welcome"><![CDATA[
+    Bem-vindo ao<br/>anônimo<br/><font color=\'#FF6F61\'>CovidCommunity</font><br/>Alert  &#128075;
+    ]]> </string>
     <string name="together_we">Juntos podemos salvar vidas e ajudar pessoas a manter seus empregos. </string>
     <string name="let_s_get_s">VAMOS COMEÇAR </string>
-    <string name="text_progbar">Registrar o dispositivo...</string>
+    <string name="text_progbar">Registrar o dispositivo…</string>
     <string name="toast_error_regdev">Erro, clique no botão novamente</string>
 
 

@@ -2,7 +2,6 @@
 
     <string name="app_name">CovidApp</string>
     <string name="app_title">Covid Community Alert</string>
-
     <string name="splash_title_first">ovid</string>
     <string name="splash_title_next">App</string>
     <string name="splash_subtitle">Covid Community Alert</string>
@@ -22,6 +21,11 @@
     <string name="n_interactions_value">0</string>
 
     <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
+
+
+    <string name="your_status_is">Hi,\nYour Status\nis </string>
+    <string name="your_risk_is">Hi,\nYour Risk Level\nis </string>
+
     <string name="status_no_risk">No risk\ndetected</string>
     <string name="status_infected">Infected</string>
     <string name="status_quarantine">Quarantine</string>
@@ -51,14 +55,13 @@
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Welcome to\nanonymous\n</string>
-    <string name="welcome_next">CovidCommunity\n</string>
-    <string name="welcome_last">Alert &#128075;</string>
+    <string name="welcome"><![CDATA[
+    Welcome to<br/>anonymous <br/><font color=\'#FF6F61\'>CovidCommunity</font><br/>Alert  &#128075;
+    ]]> </string>
     <string name="together_we">Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s">LET\'S GET STARTED!</string>
-    <string name="text_progbar">Register device...</string>
+    <string name="text_progbar">Register device…</string>
     <string name="toast_error_regdev">Error, please click button again</string>
-
 
 
     <string name="we_need_you_blueto">We use the Bluetooth signal to anonymously detect nearby devices,

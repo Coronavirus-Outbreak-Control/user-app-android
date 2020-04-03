@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -86,15 +87,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     private void writeTitle() {
-
-        String first = getResources().getString(R.string.welcome_first);
-        String pink = getResources().getString(R.string.welcome_next);
-        String last = getResources().getString(R.string.welcome_last);
         TextView t = (TextView) findViewById(R.id.welcome_to);
-
-        t.setText(Html.fromHtml(first +
-                "<br/><font color='#FF6F61'> " + pink + "</font><br/>"
-                + last));
+        Spanned text = Html.fromHtml(getResources().getString(R.string.welcome));
+        t.setText(text);
     }
 
 
