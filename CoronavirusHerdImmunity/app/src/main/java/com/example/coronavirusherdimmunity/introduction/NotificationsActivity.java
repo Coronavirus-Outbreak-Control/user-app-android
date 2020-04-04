@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.coronavirusherdimmunity.MainActivity;
 import com.example.coronavirusherdimmunity.PreferenceManager;
@@ -32,10 +35,9 @@ public class NotificationsActivity extends AppCompatActivity {
         //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.intro3_notifications);
 
-        Button button_next;
-        PreferenceManager preferenceManager = new PreferenceManager(this);
-        preferenceManager.setFirstTimeLaunch(false);
-        button_next = findViewById(R.id.button_next);
+        writeText();
+
+        Button button_next = findViewById(R.id.button_next);
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,5 +46,17 @@ public class NotificationsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void writeText() {
+        String first = getResources().getString(R.string.we_need_you_notif);
+        String second = getResources().getString(R.string.by_clicking);
+        String pink = getResources().getString(R.string.tos);
+
+        TextView t = (TextView) findViewById(R.id.we_need_you_notif);
+
+        t.setText(Html.fromHtml(first + "<br/><br/>" + second +
+                "<font color='#FF6F61'>" +
+                "<u>" + pink + "</u></font>"));
     }
 }
