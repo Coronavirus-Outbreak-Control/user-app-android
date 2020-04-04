@@ -345,7 +345,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                             distance = Distance.NEAR;
                         }
 
-                        if (distance != Distance.FAR || !new PreferenceManager(getApplicationContext()).getExcludeFar()) {
+                        Double distanceFilter = new PreferenceManager(getApplicationContext()).getDistanceFilter();
+                        if (distanceFilter < 0 || beacon.getDistance() <= distanceFilter) {
                             //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
                             boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
                             double x = 0;
@@ -436,9 +437,23 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         long nextPushTime = new PreferenceManager(getApplicationContext()).getNextInteractionPushTime();
         Date lastPushDate = new Date(lastPushTime*1000);
 
+        Log.i("PUSH new isPushing", isPushingInteractions? "TRUE" : "FALSE");
+        Log.i("PUSH new startTime", ""+pushStartTime);
+        Log.i("PUSH new nowtime  ", ""+now.getTime());
+        Log.i("PUSH new nextTime ", ""+nextPushTime);
+        Log.i("PUSH new", "---------------------------------");
+        Log.i("PUSH new time", now.getTime()/1000 < nextPushTime? "TRUE" : "FALSE");
+        Log.i("PUSH new pushing",  (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime())? "TRUE" : "FALSE");
+        Log.i("PUSH new", "---------------------------------");
+
         if (now.getTime()/1000 < nextPushTime ||
-                (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime()))
+                (isPushingInteractions && pushStartTime + 2*60*1000 > now.getTime()))
             return;
+
+        isPushingInteractions = true;
+        pushStartTime = now.getTime();
+        Log.i("PUSH start isPushing", isPushingInteractions? "TRUE" : "FALSE");
+        Log.i("PUSH start startTime", ""+pushStartTime);
 
         //boolean sendBackendLocation = new PreferenceManager(getApplicationContext()).getBackendLocation();
         boolean sendUserLocation = new PreferenceManager(getApplicationContext()).getUserLocationPermission();
@@ -520,8 +535,6 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
 
 
         if (reducedGroups.size() > 0) {
-            isPushingInteractions = true;
-            pushStartTime = now.getTime();
             Task.callInBackground(new Callable<JSONObject>() {
                 @Override
                 public JSONObject call() throws Exception {
@@ -530,10 +543,10 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             }).onSuccess(new Continuation<JSONObject, Object>() {
                 @Override
                 public Object then(Task<JSONObject> task) throws Exception {
-                    isPushingInteractions = false;
                     JSONObject result = task.getResult();
                     if (result != null) {
                         new PreferenceManager(getApplicationContext()).setLastInteractionsPushTime(now.getTime() / 1000);
+                        Log.i("PUSH last time", "" + now.getTime() / 1000);
                         if (result.has("next_try")) {
                             int next = result.getInt("next_try");
                             Random r = new Random();
@@ -546,10 +559,16 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                         if (result.has("location")) {
                             new PreferenceManager(getApplicationContext()).setBackendLocation(result.getBoolean("location"));
                         }
-                        if (result.has("exclude_far")) {
-                            new PreferenceManager(getApplicationContext()).setExcludeFar(result.getBoolean("exclude_far"));
+                        if (result.has("distance_filter")) {
+                            new PreferenceManager(getApplicationContext()).setDistanceFilter(result.getDouble("distance_filter"));
+                        } else {
+                            new PreferenceManager(getApplicationContext()).setDistanceFilter(-1);
                         }
                     }
+                    isPushingInteractions = false;
+                    pushStartTime = -1;
+                    Log.i("PUSH end isPushing", isPushingInteractions? "TRUE" : "FALSE");
+                    Log.i("PUSH end result", task.getResult().toString());
                     return null;
                 }
             });
