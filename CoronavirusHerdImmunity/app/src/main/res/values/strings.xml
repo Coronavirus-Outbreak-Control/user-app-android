@@ -2,7 +2,6 @@
 
     <string name="app_name">CovidApp</string>
     <string name="app_title">Covid Community Alert</string>
-
     <string name="splash_title_first">ovid</string>
     <string name="splash_title_next">App</string>
     <string name="splash_subtitle">Covid Community Alert</string>
@@ -11,6 +10,10 @@
     <string name="main_title">All Set! &#129303; </string>
     <string name="if_you_got_close">Remember to leave your Bluetooth and Location on, and we\'ll do the rest. </string>
     <string name="how_it_works">How it works &#129300; </string>
+    <string name="show_id">Show your ID</string>
+    <string name="read_more">Get more details</string>
+    <string name="your_id_is">Your indentification code is:\n</string>
+
     <string name="how_it_works_no_emoji">How it works</string>
 
     <string name="status">STATUS</string>
@@ -21,12 +24,34 @@
     <string name="n_interactions">DEVICES DETECTED</string>
     <string name="n_interactions_value">0</string>
 
-    <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
-    <string name="status_no_risk">No risk\ndetected</string>
+    <!-- status -->
+    <string name="status_normal">No risk detected</string>
     <string name="status_infected">Infected</string>
-    <string name="status_quarantine">Quarantine</string>
     <string name="status_healed">Healed</string>
-    <string name="status_suspect">Suspect</string>
+    <string name="status_suspect">Suspected</string>
+    <string name="status_lowrisk">Low risk detected</string>
+    <string name="status_mediumrisk">Medium risk detected</string>
+    <string name="status_highrisk">High risk detected</string>
+
+    <string name="title_normal">No risk detected</string>
+
+    <string name="title_infected"><![CDATA[
+    You tested positive to <font color=\'#E20A19\'>Coronavirus.</font>
+    ]]></string>
+    <string name="title_healed">You are healed!</string>
+    <string name="title_suspect">You are a suspected Coronavirus case.</string>
+    <string name="title_lowrisk">Low risk detected</string>
+    <string name="title_mediumrisk">Medium risk detected</string>
+    <string name="title_highrisk">High risk detected</string>
+
+    <string name="description_normal">This is a short description of the Normal status.</string>
+    <string name="description_infected">You tested positive to Coronavirus. Stay at home to protect
+        you and the others around you.</string>
+    <string name="description_healed">This is a short description of the Healed status.</string>
+    <string name="description_suspect">This is a short description of the Suspect status.</string>
+    <string name="description_lowrisk">This is a short description of the Low Risk status.</string>
+    <string name="description_mediumrisk">This is a short description of the Medium Risk status.</string>
+    <string name="description_highrisk">This is a short description of the infected High status.</string>
 
     <!-- Share -->
     <string name="help_us_title">Help us protect you and your loved ones.</string>
@@ -51,14 +76,13 @@
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Welcome to\nanonymous\n</string>
-    <string name="welcome_next">CovidCommunity\n</string>
-    <string name="welcome_last">Alert &#128075;</string>
+    <string name="welcome"><![CDATA[
+    Welcome to<br/>anonymous <br/><font color=\'#FF6F61\'>CovidCommunity</font><br/>Alert  &#128075;
+    ]]> </string>
     <string name="together_we">Together we can save lives and help people keep their jobs. </string>
     <string name="let_s_get_s">LET\'S GET STARTED!</string>
-    <string name="text_progbar">Register device...</string>
+    <string name="text_progbar">Register device…</string>
     <string name="toast_error_regdev">Error, please click button again</string>
-
 
 
     <string name="we_need_you_blueto">We use the Bluetooth signal to anonymously detect nearby devices,
@@ -80,10 +104,10 @@
     <string name="all_set">All Set! </string>
     <string name="we_need_you_notif">If you have been close to an infected person in the past two weeks,
         we will notify you.</string>
-    <string name="by_clicking">By continuing and clicking on "Accept and Continue!", you agree to our \ </string>
+    <string name="by_clicking">By continuing and clicking on "Accept and Continue", you agree to our \ </string>
     <string name="tos">Terms and Conditions and Privacy Policy.</string>
 
-    <string name="give_notif">ACCEPT AND CONTINUE</string>
+    <string name="give_notif">ACCEPT AND CONTINUE!</string>
 
 
     <!-- ****** Q&A *****-->

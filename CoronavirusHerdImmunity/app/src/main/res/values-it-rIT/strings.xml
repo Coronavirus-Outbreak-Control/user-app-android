@@ -23,7 +23,7 @@
     <string name="n_interactions_value">0 </string>
 
     <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
-    <string name="status_no_risk">0 rischi rilevati</string>
+    <string name="status_no_risk">Nessun rischio rilevato</string>
     <string name="status_infected">Infetto</string>
     <string name="status_quarantine">Quarantena</string>
     <string name="status_healed">Guarito</string>
@@ -51,9 +51,9 @@
     <!-- ******************************* -->
 
     <!-- ***** Introduction Slider ****** -->
-    <string name="welcome_first">Welcome to\nanonymous\n</string>
-    <string name="welcome_next">CovidCommunity\n</string>
-    <string name="welcome_last">Alert &#128075;</string>
+    <string name="welcome"><![CDATA[
+    Welcome to<br/>anonymous <br/><font color=\'#FF6F61\'>CovidCommunity</font><br/>Alert  &#128075;
+    ]]> </string>
     <string name="together_we">Insieme possiamo salvare vite e aiutare persone a non perdere il lavoro. </string>
     <string name="let_s_get_s">INIZIA! </string>
     <string name="text_progbar">Registra dispositivo...</string>

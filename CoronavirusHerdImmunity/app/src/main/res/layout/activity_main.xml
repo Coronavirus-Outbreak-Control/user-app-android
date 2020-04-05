@@ -1,217 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+
+    <ScrollView
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/gray_background">
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/side_margin"
+                android:background="@color/gray_background">
+
+                <LinearLayout
+                    android:id="@+id/background_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="-80dp">
+
+                <TextView
+                    style="@style/intro_title"
+                    android:id="@+id/title"
+                    android:textSize="35sp"
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginTop="70dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/button_more_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/ic_rectangle_description" >
+
+                    <TextView
+                        style="@style/intro_subtitle"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/description" />
+
+                    <View style="@style/divider"
+                        android:layout_height="1dp"/>
+
+                    <TextView
+                        style="@style/intro_subtitle"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginTop="0dp"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:text="@string/read_more"
+                        android:drawableEnd="@drawable/button_shadow"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+
+                <ImageView
+                    android:id="@+id/qr_code"
+                    android:contentDescription="@string/qr_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingBottom="0dp"/>
+
+                <Button style="@style/button_primary"
+                    android:id="@+id/button_show_id"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingBottom="12dp"
+                    android:background="@drawable/button_transparent"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/show_id"/>
+
+                <TextView
+                    style="@style/intro_subtitle"
+                    android:textSize="13sp"
+                    android:layout_marginTop="-35dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp"
+                    android:gravity="center_horizontal|top"
+                    android:text="This ID will be useful for the doctor."/>
+
+            </LinearLayout>
+
+
+        <!-- SHARE APP -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/intro_title"
                 android:layout_marginTop="70dp"
-                android:text="@string/main_title" />
+                android:textSize="35sp"
+                android:text="@string/help_us_title" />
 
             <TextView
                 style="@style/intro_subtitle"
-                android:text="@string/if_you_got_close" />
+                android:text="@string/share_app_subtitle" />
 
-            <!-- UNDERBUTTON -->
+
+            <TextView
+                style="@style/intro_subtitle"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/side_margin"
+                android:text="@string/share_app_title" />
+
+            <!--socials-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin"
-                android:layout_marginTop="50dp">
-
-                <TextView style="@style/status_value"
-                    android:id="@+id/status_app"/>
-
-                <TextView style="@style/status_value"
-                    android:id="@+id/status_user"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin">
-
-                <TextView style="@style/status_title"
-                    android:text="@string/app_status" />
-
-                <TextView style="@style/status_title"
-                    android:text="@string/user_status" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/qr_code"
-                android:contentDescription="@string/qr_code"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/side_margin"
-                android:layout_marginBottom="@dimen/side_margin"/>
+                android:orientation="vertical"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="@dimen/side_margin" >
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/facebook"
+                        android:text="@string/facebook"
+                        android:textColor="@color/facebook"
+                        android:drawableStart="@drawable/ic_facebook" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/twitter"
+                        android:text="@string/twitter"
+                        android:textColor="@color/twitter"
+                        android:drawableStart="@drawable/ic_twitter" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/linkedin"
+                        android:text="@string/linkedin"
+                        android:textColor="@color/linkedin"
+                        android:drawableStart="@drawable/ic_linkedin" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/messenger"
+                        android:text="@string/messenger"
+                        android:textColor="@color/messenger"
+                        android:drawableStart="@drawable/ic_messenger" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/whatsapp"
+                        android:text="@string/whatsapp"
+                        android:textColor="@color/whatsapp"
+                        android:drawableStart="@drawable/ic_whatsapp" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/sms"
+                        android:text="@string/sms"
+                        android:textColor="@color/sms"
+                        android:drawableStart="@drawable/ic_sms" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/mail"
+                        android:text="@string/email"
+                        android:textColor="@color/mail"
+                        android:drawableStart="@drawable/ic_mail" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/other"
+                        android:text="@string/other"
+                        android:textColor="@color/colorPrimary"
+                        android:drawableStart="@drawable/ic_link" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
-
-    <!-- SHARE APP -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/intro_title"
-            android:layout_marginTop="70dp"
-            android:textSize="35sp"
-            android:text="@string/help_us_title" />
-
-        <TextView
-            style="@style/intro_subtitle"
-            android:text="@string/share_app_subtitle" />
-
-
-        <TextView
-            style="@style/intro_subtitle"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/side_margin"
-            android:text="@string/share_app_title" />
-
-
-        <!--socials-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginEnd="@dimen/side_margin"
-            android:layout_marginStart="@dimen/side_margin" >
-
-            <Button
-                style="@style/social"
-                android:id="@+id/facebook"
-                android:text="@string/facebook"
-                android:textColor="@color/facebook"
-                android:drawableStart="@drawable/ic_facebook" />
-
-            <Button
-                style="@style/social"
-                android:id="@+id/twitter"
-                android:text="@string/twitter"
-                android:textColor="@color/twitter"
-                android:drawableStart="@drawable/ic_twitter" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginEnd="@dimen/side_margin"
-            android:layout_marginStart="@dimen/side_margin" >
-
-            <Button
-                style="@style/social"
-                android:id="@+id/linkedin"
-                android:text="@string/linkedin"
-                android:textColor="@color/linkedin"
-                android:drawableStart="@drawable/ic_linkedin" />
-
-            <Button
-                style="@style/social"
-                android:id="@+id/messenger"
-                android:text="@string/messenger"
-                android:textColor="@color/messenger"
-                android:drawableStart="@drawable/ic_messenger" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginEnd="@dimen/side_margin"
-            android:layout_marginStart="@dimen/side_margin" >
-
-            <Button
-                style="@style/social"
-                android:id="@+id/whatsapp"
-                android:text="@string/whatsapp"
-                android:textColor="@color/whatsapp"
-                android:drawableStart="@drawable/ic_whatsapp" />
-
-            <Button
-                style="@style/social"
-                android:id="@+id/sms"
-                android:text="@string/sms"
-                android:textColor="@color/sms"
-                android:drawableStart="@drawable/ic_sms" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginEnd="@dimen/side_margin"
-            android:layout_marginStart="@dimen/side_margin" >
-
-            <Button
-                style="@style/social"
-                android:id="@+id/mail"
-                android:text="@string/email"
-                android:textColor="@color/mail"
-                android:drawableStart="@drawable/ic_mail" />
-
-            <Button
-                style="@style/social"
-                android:id="@+id/other"
-                android:text="@string/other"
+            <Button style="@style/button_primary"
+                android:id="@+id/how_it_works"
+                android:layout_height="110dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/side_margin"
+                android:paddingBottom="12dp"
+                android:background="@drawable/button_transparent"
                 android:textColor="@color/colorPrimary"
-                android:drawableStart="@drawable/ic_link" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-        <Button style="@style/button_primary"
-            android:id="@+id/how_it_works"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:paddingBottom="12dp"
-            android:background="@drawable/button_transparent"
-            android:textColor="@color/colorPrimary"
-            android:text="@string/how_it_works_no_emoji"/>
-
-
-
+                android:text="@string/how_it_works_no_emoji"/>
         <!-- FOR TESTING -->
         <Button
             android:id="@+id/openMonitoring"
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
+            android:text="DEBUG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
 </ScrollView>
+</RelativeLayout>

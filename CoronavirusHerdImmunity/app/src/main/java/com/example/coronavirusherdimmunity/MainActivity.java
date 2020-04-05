@@ -18,10 +18,16 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +45,13 @@ import com.robertsimoes.shareable.Shareable;
 import java.util.concurrent.Callable;
 import bolts.Continuation;
 import static com.example.coronavirusherdimmunity.R.*;
+import static com.example.coronavirusherdimmunity.utils.CheckSum.computeChecksum;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
 
     private Context mContext;
+    PreferenceManager preferenceManager;
     final String MESSAGE = "Help us. Together we can save lives. https://coronavirus-outbreak-control.github.io/web/index.html";
     final String LABEL = "Coronavirus Outbreak Control Link";
     final String URL = "https://coronavirus-outbreak-control.github.io/web/index.html";
@@ -55,9 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mContext = this;
 
-        PreferenceManager preferenceManager = new PreferenceManager(this);
+        preferenceManager = new PreferenceManager(this);
         preferenceManager.setFirstTimeLaunch(false);
 
+        //preferenceManager.setPatientStatus(2);
         this.writeQRCode();
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         bolts.Task.callInBackground(new Callable<Object>() {
                             @Override
                             public Object call() throws Exception {
-                                Long deviceId = new PreferenceManager(mContext).getDeviceId();
+                                long deviceId = new PreferenceManager(mContext).getDeviceId();
                                 ApiManager.registerPushToken(deviceId, token, new PreferenceManager(mContext).getAuthToken());
                                 return null;
                             }
@@ -109,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /* BUTTONS */
 
+        findViewById(id.button_show_id).setOnClickListener(this);
+        findViewById(id.button_more_info).setOnClickListener(this);
         findViewById(R.id.how_it_works).setOnClickListener(this);
         findViewById(R.id.facebook).setOnClickListener(this);
         findViewById(R.id.twitter).setOnClickListener(this);
@@ -124,8 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             //writeInteractions();
-            writeAppStatus();
-            writePatientStatus();
+            writePatientInfo();
         }
     };
 
@@ -134,8 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("STATUS_UPDATE"));
         super.onResume();
         //writeInteractions();
-        writeAppStatus();
-        writePatientStatus();
+        writePatientInfo();
     }
 
     @Override
@@ -144,31 +153,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
-    private void writePatientStatus() {
-        TextView statusTextView = (TextView) findViewById(id.status_user);
-        PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
-        statusTextView.setText(String.valueOf(status.toString()));
-        statusTextView.setTextColor(status.getColor());
+    private void showId() {
+
+        long device_id = preferenceManager.getDeviceId();
+
+        String id_text = Long.toString(device_id) + Long.toString(computeChecksum(device_id));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        // builder.setCancelable(false);
+        builder.setTitle(R.string.your_id_is);
+        builder.setMessage(id_text);
+
+        AlertDialog alert=builder.create();
+        alert.show();
     }
 
+    private void writePatientInfo() {
+        TextView statusTextView = (TextView) findViewById(id.title);
+        TextView descriptionTextView = (TextView) findViewById(id.description);
+        LinearLayout back_color = (LinearLayout) findViewById(id.background_color);
+        PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
-    private void writeAppStatus() {
-        PermissionRequest permissions = new PermissionRequest(MainActivity.this);
 
-        TextView statusTextView = (TextView) findViewById(id.status_app);
-        String active = getResources().getString(string.status_active);
-        String inactive = getResources().getString(string.status_inactive);
+        statusTextView.setText(String.valueOf(status.getTitle()));
+        descriptionTextView.setText(String.valueOf(status.getDescription()));
 
-        if (permissions.checkPermissions(true)) {
-            statusTextView.setText(active);
-            int green = getResources().getColor(color.green);
-            statusTextView.setTextColor(green);
+        back_color.setBackgroundColor(status.getColor());
+
+        if (status.toInt() > 1) {
+            statusTextView.setTextColor(getResources().getColor(R.color.white));
         }
-        else {
-            statusTextView.setText(inactive);
-            int red = getResources().getColor(color.red);
-            statusTextView.setTextColor(red);
+        if (status.toInt() == 1) {
+            statusTextView.setText(Html.fromHtml(status.getTitle()));
         }
     }
 
@@ -182,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void writeQRCode() {
         ImageView qrImage = (ImageView) findViewById(id.qr_code);
 
-        Long deviceId = new PreferenceManager(mContext.getApplicationContext()).getDeviceId();
+        long deviceId = new PreferenceManager(mContext.getApplicationContext()).getDeviceId();
 
         QRCodeGenerator generator = new QRCodeGenerator(mContext);
         generator.generateQRCode(deviceId, qrImage);
@@ -192,6 +209,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
+
+            case id.button_show_id:
+                showId();
+                break;
+
+            case id.button_more_info:
+                startActivity(new Intent(MainActivity.this, MoreInfoActivity.class));
+                break;
+
             case id.how_it_works:
                 startActivity(new Intent(MainActivity.this, HowItWorksActivity.class));
                 break;
