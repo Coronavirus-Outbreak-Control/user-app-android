@@ -43,8 +43,8 @@ public class PreferenceManager {
     private static final String BACKEND_LOCATION = "backendLocation";
     private static final String USER_LOCATION_PERMISSION = "userLocationPermission";
     private static final String CHALLENGE = "challenge"; //google challenge (token received by reCaptcha)
-    private static final String EXCLUDE_FAR = "exclude_far";
     private static final String PASSWORD_DB = "password_db"; //password to open SQLcipher DB
+    private static final String DISTANCE_FILTER = "distance_filter";
 
 
     /***** Key shared preferences "WelcomeActivity" *******/
@@ -128,8 +128,8 @@ public class PreferenceManager {
         boolean backend_location             = getBackendLocation();
         boolean user_location_permission     = getUserLocationPermission();
         String challenge                     = getChallenge();
-        boolean exclude_far                  = getExcludeFar();
         String password_db                   = getPasswordDB();
+        double distanceFilter                = getDistanceFilter();
 
         try {
 
@@ -160,7 +160,7 @@ public class PreferenceManager {
             setBackendLocation(backend_location);
             setUserLocationPermission(user_location_permission);
             setChallenge(challenge);
-            setExcludeFar(exclude_far);
+            setDistanceFilter(distanceFilter);
             setPasswordDB(password_db);
 
         } catch (Exception e){
@@ -291,13 +291,13 @@ public class PreferenceManager {
         return pref.getString(CHALLENGE, null);
     }
 
-    public void setExcludeFar(boolean excludeFar) {
-        editor.putBoolean(EXCLUDE_FAR, excludeFar);
+    public void setDistanceFilter(double distanceFilter) {
+        editor.putLong(DISTANCE_FILTER, Double.doubleToRawLongBits(distanceFilter));
         editor.commit();
     }
 
-    public boolean getExcludeFar() {
-        return pref.getBoolean(EXCLUDE_FAR, false);
+    public double getDistanceFilter() {
+        return Double.longBitsToDouble(pref.getLong(DISTANCE_FILTER, Double.doubleToLongBits(-1)));
     }
 
 

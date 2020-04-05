@@ -1,6 +1,7 @@
 package com.example.coronavirusherdimmunity.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.coronavirusherdimmunity.BuildConfig;
 import com.example.coronavirusherdimmunity.PreferenceManager;
@@ -8,6 +9,8 @@ import com.example.coronavirusherdimmunity.enums.Distance;
 
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 public class BeaconDto {
@@ -25,6 +28,7 @@ public class BeaconDto {
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = new Date().getTime() / 1000;
+        Log.i("BEACONTIME", ""+timestmp);
         this.distance = distance;
         this.distanceValue = distanceValue;
         this.x = x;
@@ -66,18 +70,15 @@ public class BeaconDto {
         try {
             JSONObject obj = new JSONObject();
 
-            obj.put("i", new PreferenceManager(context).getDeviceId());
-
             obj.put("o", this.identifier);
             obj.put("w", this.timestmp);
             obj.put("t", this.interval);
-            obj.put("r", this.rssi);
-            obj.put("p", "a");
-            obj.put("d", distance.toString());
-            obj.put("s", distanceValue);
-            obj.put("x", this.x);
-            obj.put("y", this.y);
-            obj.put("v", BuildConfig.VERSION_CODE);
+            obj.put("r", Math.abs(this.rssi));
+
+            obj.put("s", new BigDecimal(this.distanceValue).setScale(1, RoundingMode.HALF_UP).doubleValue());
+            obj.put("x", new BigDecimal(this.x).setScale(5, RoundingMode.HALF_UP).doubleValue());
+            obj.put("y", new BigDecimal(this.y).setScale(5, RoundingMode.HALF_UP).doubleValue());
+
             return obj;
         }catch (Exception e){
             return null;

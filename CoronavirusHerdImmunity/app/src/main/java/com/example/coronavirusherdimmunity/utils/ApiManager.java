@@ -20,6 +20,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 import okio.BufferedSink;
 
 import org.json.*;
@@ -82,7 +83,26 @@ public class ApiManager {
             }
         }
 
-        RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(arr));
+        JSONObject body = new JSONObject();
+
+        try {
+            body.put("i", new PreferenceManager(context).getDeviceId());
+            body.put("p", "a");
+            body.put("v", BuildConfig.VERSION_CODE);
+            body.put("z", arr);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody rq = RequestBody.create(JSONContentType, JSONValue.toJSONString(body));
+        try {
+            Log.i("BEACONTIME PUSH boby", requestBodyToString(rq));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         Request request = new Request.Builder()
                 .url(baseEndoint + "/interaction/report")
                 .addHeader("Authorization", "Bearer " + authToken)
@@ -100,6 +120,12 @@ public class ApiManager {
             Log.d("CHI", "EXCEPTION on pushing interaction");
         }
         return null;
+    }
+
+    public static String requestBodyToString(RequestBody requestBody) throws IOException {
+        Buffer buffer = new Buffer();
+        requestBody.writeTo(buffer);
+        return buffer.readUtf8();
     }
 
     public static JSONObject registerPushToken(Long deviceId, String token, String authToken) {
