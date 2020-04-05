@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PreferenceManager preferenceManager = new PreferenceManager(this);
         preferenceManager.setFirstTimeLaunch(false);
 
-        preferenceManager.setPatientStatus(1);
+        //preferenceManager.setPatientStatus(1);
         this.writeQRCode();
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -132,8 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             //writeInteractions();
-            //writeAppStatus();
-            writePatientStatus();
+            writePatientInfo();
         }
     };
 
@@ -142,8 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("STATUS_UPDATE"));
         super.onResume();
         //writeInteractions();
-        //writeAppStatus();
-        writePatientStatus();
+        writePatientInfo();
     }
 
     @Override
@@ -153,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void writePatientStatus() {
+    private void writePatientInfo() {
         TextView statusTextView = (TextView) findViewById(id.title);
         TextView descriptionTextView = (TextView) findViewById(id.description);
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
@@ -161,41 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         statusTextView.setText(String.valueOf(status.getTitle()));
         descriptionTextView.setText(String.valueOf(status.getDescription()));
     }
-/*
-        TextView t = (TextView) findViewById(R.id.welcome_to);
-        Spanned text = Html.fromHtml(getResources().getString(R.string.welcome));
-        t.setText(text);
 
-        statusTextView.setText(String.valueOf(text));*/
-/*
-    private void writePatientStatus() {
-        TextView statusTextView = (TextView) findViewById(id.status_user);
-        PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
-
-
-        statusTextView.setText(String.valueOf(status.toString()));
-        statusTextView.setTextColor(status.getColor());
-    }*/
-
-  /*  private void writeAppStatus() {
-        PermissionRequest permissions = new PermissionRequest(MainActivity.this);
-        TextView statusTextView = (TextView) findViewById(id.status_app);
-        String active = getResources().getString(string.status_active);
-        String inactive = getResources().getString(string.status_inactive);
-
-
-        if (permissions.checkPermissions(true)) {
-            statusTextView.setText(active);
-            int green = getResources().getColor(color.green);
-            statusTextView.setTextColor(green);
-        }
-        else {
-            statusTextView.setText(inactive);
-            int red = getResources().getColor(color.red);
-            statusTextView.setTextColor(red);
-        }
-    }
-*/
     /*private void writeInteractions() {
         TextView interactionsTextView = (TextView) findViewById(R.id.n_interactions);
 

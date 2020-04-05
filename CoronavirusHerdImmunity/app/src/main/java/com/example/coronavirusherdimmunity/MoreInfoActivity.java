@@ -17,6 +17,7 @@ public class MoreInfoActivity extends Activity {
             //Remove notification bar
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             //set content view AFTER ABOVE sequence (to avoid crash)
+
             setContentView(R.layout.more_info);
 
 

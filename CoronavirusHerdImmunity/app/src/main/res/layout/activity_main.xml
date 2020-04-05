@@ -226,17 +226,6 @@
                 android:background="@drawable/button_transparent"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/how_it_works_no_emoji"/>
-
-            <!-- FOR TESTING -->
-            <Button
-                android:id="@+id/openMonitoring"
-                android:layout_width="0dp"
-                android:layout_height="0dp" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
         <!-- FOR TESTING -->
         <Button
             android:id="@+id/openMonitoring"

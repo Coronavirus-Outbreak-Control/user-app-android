@@ -56,6 +56,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".MoreInfoActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".HowItWorksActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
