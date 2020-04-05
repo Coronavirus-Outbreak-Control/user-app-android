@@ -12,6 +12,8 @@
     <string name="how_it_works">How it works &#129300; </string>
     <string name="show_id">Show your ID</string>
     <string name="read_more">Get more details</string>
+    <string name="your_id_is">Your indentification code is:\n</string>
+
     <string name="how_it_works_no_emoji">How it works</string>
 
     <string name="status">STATUS</string>

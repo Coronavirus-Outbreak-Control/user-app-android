@@ -44,11 +44,13 @@ import com.robertsimoes.shareable.Shareable;
 import java.util.concurrent.Callable;
 import bolts.Continuation;
 import static com.example.coronavirusherdimmunity.R.*;
+import static com.example.coronavirusherdimmunity.utils.CheckSum.computeChecksum;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
 
     private Context mContext;
+    PreferenceManager preferenceManager;
     final String MESSAGE = "Help us. Together we can save lives. https://coronavirus-outbreak-control.github.io/web/index.html";
     final String LABEL = "Coronavirus Outbreak Control Link";
     final String URL = "https://coronavirus-outbreak-control.github.io/web/index.html";
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mContext = this;
 
-        PreferenceManager preferenceManager = new PreferenceManager(this);
+        preferenceManager = new PreferenceManager(this);
         preferenceManager.setFirstTimeLaunch(false);
 
         //preferenceManager.setPatientStatus(1);
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /* BUTTONS */
 
-
+        findViewById(id.button_show_id).setOnClickListener(this);
         findViewById(id.button_more_info).setOnClickListener(this);
         findViewById(R.id.how_it_works).setOnClickListener(this);
         findViewById(R.id.facebook).setOnClickListener(this);
@@ -151,6 +153,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void showId() {
+
+        long device_id = preferenceManager.getDeviceId();
+
+        String id_text = Long.toString(device_id) + Long.toString(computeChecksum(device_id));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        // builder.setCancelable(false);
+        builder.setTitle(R.string.your_id_is);
+        builder.setMessage(id_text);
+
+        AlertDialog alert=builder.create();
+        alert.show();
+    }
+
     private void writePatientInfo() {
         TextView statusTextView = (TextView) findViewById(id.title);
         TextView descriptionTextView = (TextView) findViewById(id.description);
@@ -180,6 +197,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
+
+            case id.button_show_id:
+                showId();
+                break;
 
             case id.button_more_info:
                 startActivity(new Intent(MainActivity.this, MoreInfoActivity.class));
