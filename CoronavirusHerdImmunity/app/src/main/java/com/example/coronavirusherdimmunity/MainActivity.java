@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         preferenceManager = new PreferenceManager(this);
         preferenceManager.setFirstTimeLaunch(false);
 
-        //preferenceManager.setPatientStatus(1);
+        //preferenceManager.setPatientStatus(2);
         this.writeQRCode();
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -171,10 +172,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void writePatientInfo() {
         TextView statusTextView = (TextView) findViewById(id.title);
         TextView descriptionTextView = (TextView) findViewById(id.description);
+        LinearLayout back_color = (LinearLayout) findViewById(id.background_color);
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
+
 
         statusTextView.setText(String.valueOf(status.getTitle()));
         descriptionTextView.setText(String.valueOf(status.getDescription()));
+
+        back_color.setBackgroundColor(status.getColor());
+
+        if (status.toInt() > 1) {
+            statusTextView.setTextColor(getResources().getColor(R.color.white));
+        }
+        if (status.toInt() == 1) {
+            statusTextView.setText(Html.fromHtml(status.getTitle()));
+        }
     }
 
     /*private void writeInteractions() {

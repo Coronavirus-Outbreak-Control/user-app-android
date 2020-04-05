@@ -8,8 +8,8 @@ import java.util.Map;
 
 public enum PatientStatus {
     //{0: normal, 1: infected, 2: healed, 3: suspect, 4: lowRisk, 5: mediumRisk, 6: highRisk}
-    NORMAL(0, R.string.status_normal, R.string.title_normal, R.string.description_normal, R.color.colorTextDark),
-    INFECTED(1, R.string.status_infected, R.string.title_infected, R.string.description_infected, R.color.red),
+    NORMAL(0, R.string.status_normal, R.string.title_normal, R.string.description_normal, R.color.normal),
+    INFECTED(1, R.string.status_infected, R.string.title_infected, R.string.description_infected, R.color.normal),
     HEALED(2, R.string.status_healed, R.string.title_healed, R.string.description_healed, R.color.green),
     SUSPECT(3, R.string.status_suspect, R.string.title_suspect  , R.string.description_suspect, R.color.orange),
     LOW_RISK(4, R.string.status_infected, R.string.title_lowrisk, R.string.description_lowrisk, R.color.lightblue),

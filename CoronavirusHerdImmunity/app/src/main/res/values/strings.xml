@@ -24,24 +24,20 @@
     <string name="n_interactions">DEVICES DETECTED</string>
     <string name="n_interactions_value">0</string>
 
-    <!-- status = {0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect} -->
-
-
-    <string name="hi">Hi,</string>
-    <string name="your_status_is">Your status is \ </string>
-    <string name="your_risk_is">Your risk level is \ </string>
-    <string name="no_risk_detected">No Risk has been detected.</string>
-
-    <string name="status_normal">Normal</string>
+    <!-- status -->
+    <string name="status_normal">No risk detected</string>
     <string name="status_infected">Infected</string>
     <string name="status_healed">Healed</string>
-    <string name="status_suspect">Suspect</string>
-    <string name="status_lowrisk">Low</string>
-    <string name="status_mediumrisk">Medium</string>
-    <string name="status_highrisk">High</string>
+    <string name="status_suspect">Suspected</string>
+    <string name="status_lowrisk">Low risk detected</string>
+    <string name="status_mediumrisk">Medium risk detected</string>
+    <string name="status_highrisk">High risk detected</string>
 
     <string name="title_normal">No risk detected</string>
-    <string name="title_infected">You tested positive to Coronavirus.</string>
+
+    <string name="title_infected"><![CDATA[
+    You tested positive to <font color=\'#E20A19\'>Coronavirus.</font>
+    ]]></string>
     <string name="title_healed">You are healed!</string>
     <string name="title_suspect">You are a suspected Coronavirus case.</string>
     <string name="title_lowrisk">Low risk detected</string>
