@@ -142,7 +142,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                                         return object.getLong("id");
                                                     }
                                                 }
-                                                return Long.valueOf(-1);
+                                                return -1L;
 
                                             }
                                         }).onSuccess(new Continuation<Long, Object>() {
@@ -150,7 +150,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                             public Object then(Task<Long> task) {
                                                 Log.e("CovidApp", "dev " + task.getResult());
 
-                                                Long res = task.getResult();
+                                                long res = task.getResult();
                                                 if (res != -1) {  //case on success (have got "token + device id")
                                                     new PreferenceManager(getApplicationContext()).setDeviceId(task.getResult());   //save device id in shared preferences
 
