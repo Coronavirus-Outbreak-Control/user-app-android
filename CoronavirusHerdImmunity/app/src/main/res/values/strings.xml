@@ -10,7 +10,8 @@
     <string name="main_title">All Set! &#129303; </string>
     <string name="if_you_got_close">Remember to leave your Bluetooth and Location on, and we\'ll do the rest. </string>
     <string name="how_it_works">How it works &#129300; </string>
-    <string name="read_more">Read More!</string>
+    <string name="show_id">Show your ID</string>
+    <string name="read_more">Get more details</string>
     <string name="how_it_works_no_emoji">How it works</string>
 
     <string name="status">STATUS</string>
@@ -29,16 +30,25 @@
     <string name="your_risk_is">Your risk level is \ </string>
     <string name="no_risk_detected">No Risk has been detected.</string>
 
-    <string name="status_normal">Normal.</string>
-    <string name="status_infected">Infected.</string>
-    <string name="status_healed">Healed.</string>
-    <string name="status_suspect">Suspect.</string>
-    <string name="status_lowrisk">Low.</string>
-    <string name="status_mediumrisk">Medium.</string>
-    <string name="status_highrisk">High.</string>
+    <string name="status_normal">Normal</string>
+    <string name="status_infected">Infected</string>
+    <string name="status_healed">Healed</string>
+    <string name="status_suspect">Suspect</string>
+    <string name="status_lowrisk">Low</string>
+    <string name="status_mediumrisk">Medium</string>
+    <string name="status_highrisk">High</string>
+
+    <string name="title_normal">No risk detected</string>
+    <string name="title_infected">You tested positive to Coronavirus.</string>
+    <string name="title_healed">You are healed!</string>
+    <string name="title_suspect">You are a suspected Coronavirus case.</string>
+    <string name="title_lowrisk">Low risk detected</string>
+    <string name="title_mediumrisk">Medium risk detected</string>
+    <string name="title_highrisk">High risk detected</string>
 
     <string name="description_normal">This is a short description of the Normal status.</string>
-    <string name="description_infected">This is a short description of the Infected status.</string>
+    <string name="description_infected">You tested positive to Coronavirus. Stay at home to protect
+        you and the others around you.</string>
     <string name="description_healed">This is a short description of the Healed status.</string>
     <string name="description_suspect">This is a short description of the Suspect status.</string>
     <string name="description_lowrisk">This is a short description of the Low Risk status.</string>
@@ -96,10 +106,10 @@
     <string name="all_set">All Set! </string>
     <string name="we_need_you_notif">If you have been close to an infected person in the past two weeks,
         we will notify you.</string>
-    <string name="by_clicking">By continuing and clicking on "Accept and Continue!", you agree to our \ </string>
+    <string name="by_clicking">By continuing and clicking on "Accept and Continue", you agree to our \ </string>
     <string name="tos">Terms and Conditions and Privacy Policy.</string>
 
-    <string name="give_notif">ACCEPT AND CONTINUE</string>
+    <string name="give_notif">ACCEPT AND CONTINUE!</string>
 
 
     <!-- ****** Q&A *****-->

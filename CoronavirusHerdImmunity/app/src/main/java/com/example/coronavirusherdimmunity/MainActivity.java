@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /* BUTTONS */
 
+
+        findViewById(id.button_more_info).setOnClickListener(this);
         findViewById(R.id.how_it_works).setOnClickListener(this);
         findViewById(R.id.facebook).setOnClickListener(this);
         findViewById(R.id.twitter).setOnClickListener(this);
@@ -156,23 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView descriptionTextView = (TextView) findViewById(id.description);
         PatientStatus status = new PreferenceManager(getApplicationContext()).getPatientStatus();
 
-        Spannable statusText = new SpannableString(status.toString());
-        Spannable title = new SpannableString(status.getTitle());
-        String description = status.getDescription();
-
-        if (status.toInt() == 0) {
-            statusTextView.setText(getResources().getString(string.no_risk_detected));
-            return;
-        }
-        title.setSpan(new ForegroundColorSpan(getResources().getColor(color.colorTextDark)),
-                0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        statusText.setSpan(new ForegroundColorSpan(status.getColor()),
-                0, statusText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        statusTextView.setText(title);
-        statusTextView.append(statusText);
-        descriptionTextView.setText(String.valueOf(description));
-
+        statusTextView.setText(String.valueOf(status.getTitle()));
+        descriptionTextView.setText(String.valueOf(status.getDescription()));
     }
 /*
         TextView t = (TextView) findViewById(R.id.welcome_to);
@@ -229,6 +216,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
+
+            case id.button_more_info:
+                startActivity(new Intent(MainActivity.this, MoreInfoActivity.class));
+                break;
+
             case id.how_it_works:
                 startActivity(new Intent(MainActivity.this, HowItWorksActivity.class));
                 break;

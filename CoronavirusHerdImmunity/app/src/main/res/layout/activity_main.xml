@@ -4,7 +4,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <ScrollView
@@ -23,91 +24,76 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:paddingBottom="@dimen/side_margin"
                 android:background="@color/gray_background">
-
-
-                <TextView
-                    style="@style/intro_title"
-                    android:layout_marginTop="50dp"
-                    android:text="@string/hi"/>
 
                 <TextView
                     style="@style/intro_title"
                     android:id="@+id/title"
                     android:textSize="35sp"
-                    android:layout_marginTop="0dp" />
-
-                <TextView
-                    style="@style/intro_subtitle"
-                    android:id="@+id/description"
-                    android:layout_marginBottom="@dimen/side_margin"/>
+                    android:layout_marginTop="70dp" />
 
                 <LinearLayout
+                    android:id="@+id/button_more_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginBottom="0dp"
-                    android:orientation="horizontal" >
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="@dimen/side_margin"
+                    android:orientation="vertical"
+                    android:background="@drawable/ic_rectangle_description" >
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/ic_letter_empty"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Read your messages" />
-                    </LinearLayout>
+                    <TextView
+                        style="@style/intro_subtitle"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/description" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-                        <ImageView
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:background="@drawable/ic_question_mark"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/how_it_works_no_emoji" />
-                    </LinearLayout>
+                    <View style="@style/divider"
+                        android:layout_height="1dp"/>
+
+                    <TextView
+                        style="@style/intro_subtitle"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginTop="0dp"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:text="@string/read_more"
+                        android:drawableEnd="@drawable/button_shadow"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
-<!--
-                &lt;!&ndash; BUTTON &ndash;&gt;
-                <Button style="@style/button_primary"
-                    android:shadowColor="@color/white"
-                    android:id="@+id/button_next"
-                    android:layout_marginBottom="@dimen/side_margin"
-                    android:paddingStart="@dimen/side_margin"
-                    android:paddingEnd="@dimen/side_margin"
-                    android:layout_gravity="center"
-                    android:drawableEnd="@drawable/ic_arrow_right"
-                    android:text="@string/read_more" />
--->
+
                 <ImageView
                     android:id="@+id/qr_code"
                     android:contentDescription="@string/qr_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="@dimen/side_margin"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingBottom="0dp"/>
 
+                <Button style="@style/button_primary"
+                    android:id="@+id/button_show_id"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingBottom="12dp"
+                    android:background="@drawable/button_transparent"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/show_id"/>
+
+                <TextView
+                    style="@style/intro_subtitle"
+                    android:textSize="13sp"
+                    android:layout_marginTop="-35dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp"
+                    android:gravity="center_horizontal|top"
+                    android:text="This ID will be useful for the doctor."/>
 
             </LinearLayout>
 
@@ -139,98 +125,95 @@
                 android:layout_marginBottom="@dimen/side_margin"
                 android:text="@string/share_app_title" />
 
-
             <!--socials-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
+                android:orientation="vertical"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="@dimen/side_margin" >
 
-                <Button
-                    style="@style/social"
-                    android:id="@+id/facebook"
-                    android:text="@string/facebook"
-                    android:textColor="@color/facebook"
-                    android:drawableStart="@drawable/ic_facebook" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
 
-                <Button
-                    style="@style/social"
-                    android:id="@+id/twitter"
-                    android:text="@string/twitter"
-                    android:textColor="@color/twitter"
-                    android:drawableStart="@drawable/ic_twitter" />
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/facebook"
+                        android:text="@string/facebook"
+                        android:textColor="@color/facebook"
+                        android:drawableStart="@drawable/ic_facebook" />
 
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/twitter"
+                        android:text="@string/twitter"
+                        android:textColor="@color/twitter"
+                        android:drawableStart="@drawable/ic_twitter" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/linkedin"
+                        android:text="@string/linkedin"
+                        android:textColor="@color/linkedin"
+                        android:drawableStart="@drawable/ic_linkedin" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/messenger"
+                        android:text="@string/messenger"
+                        android:textColor="@color/messenger"
+                        android:drawableStart="@drawable/ic_messenger" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/whatsapp"
+                        android:text="@string/whatsapp"
+                        android:textColor="@color/whatsapp"
+                        android:drawableStart="@drawable/ic_whatsapp" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/sms"
+                        android:text="@string/sms"
+                        android:textColor="@color/sms"
+                        android:drawableStart="@drawable/ic_sms" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/mail"
+                        android:text="@string/email"
+                        android:textColor="@color/mail"
+                        android:drawableStart="@drawable/ic_mail" />
+
+                    <Button
+                        style="@style/social"
+                        android:id="@+id/other"
+                        android:text="@string/other"
+                        android:textColor="@color/colorPrimary"
+                        android:drawableStart="@drawable/ic_link" />
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
-
-                <Button
-                    style="@style/social"
-                    android:id="@+id/linkedin"
-                    android:text="@string/linkedin"
-                    android:textColor="@color/linkedin"
-                    android:drawableStart="@drawable/ic_linkedin" />
-
-                <Button
-                    style="@style/social"
-                    android:id="@+id/messenger"
-                    android:text="@string/messenger"
-                    android:textColor="@color/messenger"
-                    android:drawableStart="@drawable/ic_messenger" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
-
-                <Button
-                    style="@style/social"
-                    android:id="@+id/whatsapp"
-                    android:text="@string/whatsapp"
-                    android:textColor="@color/whatsapp"
-                    android:drawableStart="@drawable/ic_whatsapp" />
-
-                <Button
-                    style="@style/social"
-                    android:id="@+id/sms"
-                    android:text="@string/sms"
-                    android:textColor="@color/sms"
-                    android:drawableStart="@drawable/ic_sms" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginEnd="@dimen/side_margin"
-                android:layout_marginStart="@dimen/side_margin" >
-
-                <Button
-                    style="@style/social"
-                    android:id="@+id/mail"
-                    android:text="@string/email"
-                    android:textColor="@color/mail"
-                    android:drawableStart="@drawable/ic_mail" />
-
-                <Button
-                    style="@style/social"
-                    android:id="@+id/other"
-                    android:text="@string/other"
-                    android:textColor="@color/colorPrimary"
-                    android:drawableStart="@drawable/ic_link" />
-            </LinearLayout>
-
 
         </LinearLayout>
-
 
             <Button style="@style/button_primary"
                 android:id="@+id/how_it_works"
@@ -238,13 +221,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="@dimen/side_margin"
                 android:paddingBottom="12dp"
                 android:background="@drawable/button_transparent"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/how_it_works_no_emoji"/>
-
-
 
             <!-- FOR TESTING -->
             <Button
@@ -256,27 +237,4 @@
 
     </ScrollView>
 
-  <!--  <RelativeLayout
-    android:id="@+id/footer"
-    android:layout_width="fill_parent"
-    android:layout_height="50dp"
-    android:background="@drawable/footer"
-    android:layout_alignParentBottom="true">
-
-    <TextView
-        android:id="@+id/texthere2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="app is running..."
-        android:textSize="15sp" />
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
-
--->
 </RelativeLayout>
