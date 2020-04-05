@@ -157,7 +157,7 @@ public class StorageManager extends SQLiteOpenHelper {
             beacons.add(beacon);
         }
         cursor.close();
-
+        this.close();
         return beacons;
     }
 
@@ -173,6 +173,7 @@ public class StorageManager extends SQLiteOpenHelper {
         //TODO: to test
         int count = cursor.getInt(cursor.getColumnIndex(BeaconEntry.COUNT_BEACONS));
         cursor.close();
+        this.close();
         return count;
     }
 
@@ -194,6 +195,8 @@ public class StorageManager extends SQLiteOpenHelper {
         //TODO: to test
         int count = cursor.getInt(cursor.getColumnIndex(BeaconEntry.COUNT_BEACONS));
         cursor.close();
+        this.close();
+
         return count;
     }
 }
