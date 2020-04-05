@@ -118,7 +118,7 @@ public class PreferenceManager {
 
         /* get shared data saved into shared preferences */
         boolean is_first_time_launch         = isFirstTimeLaunch();
-        Long device_id                       = getDeviceId();
+        long device_id                       = getDeviceId();
         String device_UIID                   = getDeviceUUID();
         long last_interaction_push_time      = getLastInteractionPushTime();
         long next_interaction_push_time      = getNextInteractionPushTime();
@@ -183,12 +183,12 @@ public class PreferenceManager {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
-    public void setDeviceId(Long device_id){
+    public void setDeviceId(long device_id){
         editor.putLong(DEVICE_ID, device_id);
         editor.commit();
     }
 
-    public Long getDeviceId(){
+    public long getDeviceId(){
         return pref.getLong(DEVICE_ID, -1);
     }
 

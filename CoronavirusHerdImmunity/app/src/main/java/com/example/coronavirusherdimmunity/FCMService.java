@@ -67,7 +67,7 @@ public class FCMService extends FirebaseMessagingService {
         Task.callInBackground(new Callable<Object>() {
             @Override
             public Object call() throws Exception {
-                Long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
+                long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
                 ApiManager.registerPushToken(deviceId, token, new PreferenceManager(getApplicationContext()).getAuthToken());
                 return null;
             }

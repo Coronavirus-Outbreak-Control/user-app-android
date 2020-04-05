@@ -16,7 +16,7 @@ import java.util.Date;
 public class BeaconDto {
 
     public long timestmp;
-    public Long identifier;
+    public long identifier;
     public int rssi;
     public Distance distance;
     public double distanceValue;
@@ -24,7 +24,7 @@ public class BeaconDto {
     public double x = 0;
     public double y = 0;
 
-    public BeaconDto(Long identifier, int rssi, Distance distance, double distanceValue, double x, double y){
+    public BeaconDto(long identifier, int rssi, Distance distance, double distanceValue, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = new Date().getTime() / 1000;
@@ -35,7 +35,7 @@ public class BeaconDto {
         this.y = y;
     }
 
-    public BeaconDto(Long identifier, int rssi, long timestamp, Distance distance, double distanceValue, double x, double y){
+    public BeaconDto(long identifier, int rssi, long timestamp, Distance distance, double distanceValue, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp;
@@ -46,7 +46,7 @@ public class BeaconDto {
 
     }
 
-    public BeaconDto(Long identifier, int rssi, Date timestamp, Distance distance, double distanceValue, double x, double y){
+    public BeaconDto(long identifier, int rssi, Date timestamp, Distance distance, double distanceValue, double x, double y){
         this.identifier = identifier;
         this.rssi = rssi;
         this.timestmp = timestamp.getTime() / 1000;

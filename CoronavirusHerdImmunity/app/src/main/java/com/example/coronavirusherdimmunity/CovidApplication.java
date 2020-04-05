@@ -101,14 +101,14 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         lastStatus = new PreferenceManager(getApplicationContext()).getPatientStatus();
         lastAppStatus = new PreferenceManager(getApplicationContext()).getApplicationStatus();
 
-        Long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
+        long deviceId = new PreferenceManager(getApplicationContext()).getDeviceId();
         if (deviceId != -1) {
             initBeacon(deviceId);
         }
     }
 
 
-    public void initBeacon(Long deviceId){
+    public void initBeacon(long deviceId){
         beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
 
         beacon = new Beacon.Builder()
@@ -132,7 +132,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
 
-        BeaconManager.setDebug(true);
+        BeaconManager.setDebug(BuildConfig.DEBUG);
 
         /**/
         Notification.Builder builder = new Notification.Builder(this);
@@ -336,7 +336,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                     if (beacon.getId1().toString().equals(BEACON_ID)) {
 
                         // id2 major - id3 minor
-                        Long deviceId = Long.valueOf(65536 * beacon.getId3().toInt() + beacon.getId2().toInt());
+                        long deviceId = Long.valueOf(65536 * beacon.getId3().toInt() + beacon.getId2().toInt());
 
                         Distance distance = Distance.FAR;
                         if (beacon.getDistance() <= 0.4){
@@ -429,7 +429,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         notificationManager.notify(456, builder.build());
     }
 
-    private void pushInteractions(){
+    private synchronized void pushInteractions(){
         final List<BeaconDto> groups = new ArrayList<>();
 
         final Date now = new Date();
@@ -443,7 +443,7 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         Log.i("PUSH new nextTime ", ""+nextPushTime);
         Log.i("PUSH new", "---------------------------------");
         Log.i("PUSH new time", now.getTime()/1000 < nextPushTime? "TRUE" : "FALSE");
-        Log.i("PUSH new pushing",  (isPushingInteractions && pushStartTime + 2*60*1000 < now.getTime())? "TRUE" : "FALSE");
+        Log.i("PUSH new pushing",  (isPushingInteractions && pushStartTime + 2*60*1000 > now.getTime())? "TRUE" : "FALSE");
         Log.i("PUSH new", "---------------------------------");
 
         if (now.getTime()/1000 < nextPushTime ||

@@ -170,6 +170,7 @@ public class ApiManager {
             Response response = chain.proceed(request); //perform request, here original request will be executed
 
             if (response.code() == 401) { //if unauthorized
+                Log.i("PUSH","refresh token");
                 synchronized (this) { //perform all 401 in sync blocks, to avoid multiply token updates
                     String code = null;
                     try {

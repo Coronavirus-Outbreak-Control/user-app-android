@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         bolts.Task.callInBackground(new Callable<Object>() {
                             @Override
                             public Object call() throws Exception {
-                                Long deviceId = new PreferenceManager(mContext).getDeviceId();
+                                long deviceId = new PreferenceManager(mContext).getDeviceId();
                                 ApiManager.registerPushToken(deviceId, token, new PreferenceManager(mContext).getAuthToken());
                                 return null;
                             }
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void writeQRCode() {
         ImageView qrImage = (ImageView) findViewById(id.qr_code);
 
-        Long deviceId = new PreferenceManager(mContext.getApplicationContext()).getDeviceId();
+        long deviceId = new PreferenceManager(mContext.getApplicationContext()).getDeviceId();
 
         QRCodeGenerator generator = new QRCodeGenerator(mContext);
         generator.generateQRCode(deviceId, qrImage);
