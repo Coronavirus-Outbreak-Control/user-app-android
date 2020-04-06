@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "org.coronavirus_outbreak_control.android"
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 2
         versionName "1.0.1"

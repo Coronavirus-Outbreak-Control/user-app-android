@@ -1,12 +1,10 @@
 package com.example.coronavirusherdimmunity;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -19,9 +17,13 @@ import com.example.coronavirusherdimmunity.utils.ApiManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import bolts.Continuation;
 import bolts.Task;
 
 public class FCMService extends FirebaseMessagingService {
@@ -42,18 +44,66 @@ public class FCMService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
             Map<String, String> data = remoteMessage.getData();
+
             String _status = data.get("status");
+            int status = 0;
             if (_status != null) {
-                int status = Integer.parseInt(_status);
-                new PreferenceManager(getApplicationContext()).setPatientStatus(status);
-
-                String title = data.get("title");
-                String message = data.get("message");
-
-                sendNotification(_context, title, message);
-
-                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("STATUS_UPDATE"));
+                status = Integer.parseInt(_status);
             }
+            new PreferenceManager(getApplicationContext()).setPatientStatus(status);
+
+            String _wlevel = data.get("warning_level");
+            int wlevel = 0;
+            if (_wlevel != null) {
+                wlevel = Integer.parseInt(_wlevel);
+            }
+            new PreferenceManager(getApplicationContext()).setWarningLevel(wlevel);
+
+            String _filterId = data.get("filter_id");
+            int filterId = 0;
+            if (_filterId != null) {
+                filterId = Integer.parseInt(_filterId);
+            }
+            new PreferenceManager(getApplicationContext()).setAlertFilterId(filterId);
+
+            final String link = data.get("link");
+            new PreferenceManager(getApplicationContext()).setAlertLink(link);
+
+            final String language = data.get("language");
+            String fb_language = null;
+            try {
+                String content = data.get("content");
+                if (content != null) {
+                    JSONObject jsonObject = new JSONObject(content);
+                    fb_language = jsonObject.getString("language");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new PreferenceManager(getApplicationContext()).setAlertLanguage(language != null ? language : fb_language);
+
+            if (link != null) {
+                final int finalFilterId = filterId;
+                Task.callInBackground(new Callable<JSONObject>() {
+                    @Override
+                    public JSONObject call() throws Exception {
+                        return ApiManager.downloadAlert(link, finalFilterId, language);
+                    }
+                }).onSuccess(new Continuation<JSONObject, Object>() {
+                    @Override
+                    public Object then(Task<JSONObject> task) throws Exception {
+                        new PreferenceManager(getApplicationContext()).setAlertContent(task.getResult());
+                        return null;
+                    }
+                });
+            }
+
+            String title = data.get("title");
+            String message = data.get("message");
+
+            sendNotification(_context, title, message);
+
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("STATUS_UPDATE"));
         }
     }
 

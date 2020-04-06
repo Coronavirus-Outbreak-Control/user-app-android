@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.coronavirusherdimmunity.BuildConfig;
 import com.example.coronavirusherdimmunity.CovidApplication;
 import com.example.coronavirusherdimmunity.PreferenceManager;
@@ -11,6 +13,7 @@ import com.example.coronavirusherdimmunity.PreferenceManager;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -210,5 +213,52 @@ public class ApiManager {
 //        private int logout() {
 //            //logout your user
 //        }
+    }
+
+    public static JSONObject downloadAlert(@NonNull String url, int filterId, String remoteLanguage){
+        String myLocalizedUrl = url.replace("{language}", Locale.getDefault().getLanguage());
+        String remoteLocalizedUrl = url.replace("{language}", remoteLanguage);
+
+
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new HttpInterceptor()).build();
+        Request request = new Request.Builder()
+                .url(myLocalizedUrl)
+                .addHeader("Content-Type", "application/json")
+                .get()
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            String strResponse;
+            if (response.code() == 200){
+                strResponse = response.body().string();
+            } else {
+                request = new Request.Builder()
+                        .url(remoteLocalizedUrl)
+                        .addHeader("Content-Type", "application/json")
+                        .get()
+                        .build();
+                response = client.newCall(request).execute();
+                strResponse = response.body().string();
+            }
+
+            JSONObject obj = new JSONObject(strResponse);
+            JSONArray filters = obj.getJSONArray("filters");
+            JSONObject res = null;
+            for (int i=0; i<filters.length(); i++) {
+                JSONObject o = filters.getJSONObject(i);
+                if (o.has("filter_id") && o.getInt("filter_id")==filterId){
+                    String filterLang = o.getString("language");
+                    JSONObject content = o.getJSONObject("content");
+
+                    res = content.has(Locale.getDefault().getLanguage()) ? content.getJSONObject(Locale.getDefault().getLanguage()) : content.getJSONObject(filterLang);
+                }
+            }
+            return res;
+        }catch(Exception e){
+            e.printStackTrace();
+            Log.d("CHI", "EXCEPTION downloading url");
+        }
+        return null;
     }
 }
