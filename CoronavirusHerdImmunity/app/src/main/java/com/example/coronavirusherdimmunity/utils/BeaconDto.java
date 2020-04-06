@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.Locale;
 
 public class BeaconDto {
 
@@ -75,10 +76,12 @@ public class BeaconDto {
             obj.put("t", this.interval);
             obj.put("r", Math.abs(this.rssi));
 
-            obj.put("s", new BigDecimal(this.distanceValue).setScale(1, RoundingMode.HALF_UP).doubleValue());
-            obj.put("x", new BigDecimal(this.x).setScale(5, RoundingMode.HALF_UP).doubleValue());
-            obj.put("y", new BigDecimal(this.y).setScale(5, RoundingMode.HALF_UP).doubleValue());
+            obj.put("s", String.format(Locale.getDefault(),"%.1f", this.distanceValue));
 
+            if (this.x != 0 && this.y != 0) {
+                obj.put("x", String.format(Locale.getDefault(), "%.5f", this.x));
+                obj.put("y", String.format(Locale.getDefault(), "%.5f", this.y));
+            }
             return obj;
         }catch (Exception e){
             return null;
