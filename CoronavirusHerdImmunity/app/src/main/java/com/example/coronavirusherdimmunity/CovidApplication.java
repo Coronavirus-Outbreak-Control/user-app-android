@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.bluetooth.le.AdvertiseSettings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -125,6 +126,9 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
                 .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24");
 
         beaconTransmitter = new BeaconTransmitter(getApplicationContext(), beaconParser);
+        beaconTransmitter.setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_BALANCED);
+        beaconTransmitter.setAdvertiseTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH);
+
         beaconTransmitter.startAdvertising(beacon);
         mHandler.postDelayed(resetTransmission, 15 * 1000); // 15 sec
 
@@ -162,8 +166,8 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
         }
         beaconManager.enableForegroundServiceScanning(builder.build(), 456);
         beaconManager.setEnableScheduledScanJobs(false);
-        beaconManager.setBackgroundBetweenScanPeriod(1000);
-        beaconManager.setBackgroundScanPeriod(1100);
+        beaconManager.setBackgroundBetweenScanPeriod(500);
+        beaconManager.setBackgroundScanPeriod(600);
         /**/
 
         // wake up the app when a beacon is seen
@@ -263,7 +267,6 @@ public class CovidApplication extends Application implements BootstrapNotifier, 
             logToDisplay("I see a beacon again" );
         } else {
             // If the monitoring activity is not in the foreground, we send a notification to the user.
-            // TODO REMOVE NOTIFICATION
             Log.d(TAG, "FXXSending notification.");
             if (BuildConfig.DEBUG) {
                 sendNotification();
