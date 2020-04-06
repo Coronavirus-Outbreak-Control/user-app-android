@@ -11,6 +11,9 @@ import androidx.security.crypto.MasterKeys;
 import com.example.coronavirusherdimmunity.enums.ApplicationStatus;
 import com.example.coronavirusherdimmunity.enums.PatientStatus;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.UUID;
@@ -45,6 +48,11 @@ public class PreferenceManager {
     private static final String CHALLENGE = "challenge"; //google challenge (token received by reCaptcha)
     private static final String PASSWORD_DB = "password_db"; //password to open SQLcipher DB
     private static final String DISTANCE_FILTER = "distance_filter";
+    private static final String WARNING_LEVEL = "warning_level";
+    private static final String ALERT_LINK = "alert_link";
+    private static final String ALERT_LANGUAGE = "alert_language";
+    private static final String ALERT_FILTER_ID = "alert_filter_id";
+    private static final String ALERT_CONTENT = "alert_content";
 
 
     /***** Key shared preferences "WelcomeActivity" *******/
@@ -59,7 +67,7 @@ public class PreferenceManager {
 
             backupFile(); //copy file from SharedPreferences to EncryptedSharedPreferences
 
-        }else if (android.os.Build.VERSION.SDK_INT >= 23) { //if android api versions >= 23 and old version is not <23
+        }else if (Build.VERSION.SDK_INT >= 23) { //if android api versions >= 23 and old version is not <23
 
             try {
 
@@ -130,6 +138,11 @@ public class PreferenceManager {
         String challenge                     = getChallenge();
         String password_db                   = getPasswordDB();
         double distanceFilter                = getDistanceFilter();
+        String link                          = getAlertLink();
+        String language                      = getAlertLanguage();
+        int filterId                         = getAlertFilterId();
+        int warningLevel                     = getWarningLevel();
+        JSONObject alertContent              = getAlertContent();
 
         try {
 
@@ -162,6 +175,11 @@ public class PreferenceManager {
             setChallenge(challenge);
             setDistanceFilter(distanceFilter);
             setPasswordDB(password_db);
+            setAlertFilterId(filterId);
+            setAlertLink(link);
+            setAlertLanguage(language);
+            setWarningLevel(warningLevel);
+            setAlertContent(alertContent);
 
         } catch (Exception e){
 
@@ -174,12 +192,12 @@ public class PreferenceManager {
 
     /******** functions on Shared Preference "WelcomeActivity" *************/
 
-    public void setFirstTimeLaunch(boolean isFirstTime) {
+    void setFirstTimeLaunch(boolean isFirstTime) {
         editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
         editor.commit();
     }
 
-    public boolean isFirstTimeLaunch() {
+    boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
@@ -316,6 +334,61 @@ public class PreferenceManager {
         return password;
     }
 
+    public void setWarningLevel(int warningLevel) {
+        editor.putInt(WARNING_LEVEL, warningLevel);
+        editor.commit();
+    }
+
+    public int getWarningLevel() {
+        return pref.getInt(WARNING_LEVEL, 0);
+    }
+
+    public void setAlertFilterId(int filterId) {
+        editor.putInt(ALERT_FILTER_ID, filterId);
+        editor.commit();
+    }
+
+    public int getAlertFilterId() {
+        return pref.getInt(ALERT_FILTER_ID, 0);
+    }
+
+    public void setAlertLink(String link) {
+        editor.putString(ALERT_LINK, link);
+        editor.commit();
+        setAlertContent(null);
+    }
+
+    public String getAlertLink() {
+        return pref.getString(ALERT_LINK, null);
+    }
+
+    public void setAlertLanguage(String language) {
+        editor.putString(ALERT_LANGUAGE, language);
+        editor.commit();
+    }
+
+    public String getAlertLanguage() {
+        return pref.getString(ALERT_LANGUAGE, null);
+    }
+
+    public void setAlertContent(JSONObject content) {
+        editor.putString(ALERT_CONTENT, content == null ? null : content.toString());
+        editor.commit();
+    }
+
+    public JSONObject getAlertContent() {
+        String content = pref.getString(ALERT_CONTENT, null);
+        if (content != null){
+            try {
+                return new JSONObject(content);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     /******** functions on Shared Preference "SdkVersion" *************/
 

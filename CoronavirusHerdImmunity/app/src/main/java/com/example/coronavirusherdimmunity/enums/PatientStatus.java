@@ -7,12 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum PatientStatus {
-    //{0: normal, 1: infected, 2: quarantine, 3: healed, 4: suspect}
+    //{0: normal, 1: infected, 2:suspect, 3: healed, 4: quarantine_light, 5: quarantine_warning, 6:quarantine_alert}
     NORMAL(R.string.status_no_risk, R.color.colorTextDark, 0),
     INFECTED(R.string.status_infected, R.color.green, 1),
-    QUARANTINE(R.string.status_quarantine, R.color.red, 2),
+    SUSPECT(R.string.status_suspect, R.color.yellow, 2),
     HEALED(R.string.status_healed, R.color.orange, 3),
-    SUSPECT(R.string.status_suspect, R.color.yellow, 4);
+    QUARANTINE(R.string.status_quarantine, R.color.red, 4),
+    QUARANTINE_WARNING(R.string.status_quarantine, R.color.red, 5),// TODO: 06/04/2020 Update status string
+    QUARANTINE_ALERT(R.string.status_quarantine, R.color.red, 6)
+    ;
+
     private int intValue;
     private int colorValue;
     private int stringValue;
